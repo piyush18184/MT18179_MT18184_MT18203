@@ -4,6 +4,8 @@ Created on Tue Oct 30 15:19:23 2018
 
 @author: Jeet
 """
+import random
+from pateint import patient as p
 import pymysql
 db = pymysql.connect( 
                     host='127.0.0.1',
@@ -39,9 +41,14 @@ def main():
                        print("5. Exit")
                        ch = int(input("Enter your choice:"))
                        if ch == 1:
-                           pass
+                           cursor.execute("select * from mydb.doctor_details")
+                           for x in cursor:
+                               print(x)
+                           
                        elif ch == 2:
-                           pass
+                           cursor.execute("select * from mydb.patient_details")
+                           for x in cursor:
+                              print(x)
                        elif ch == 3:
                            pass
                        elif ch == 4:
@@ -68,6 +75,7 @@ def main():
                         print("5. VIEW PROFILE")
                         print("6. REFERRAL")
                         print("7. EXIT")
+                        x = int(input("Enter your choice:....."))
                         if x==1:
                             ###  view list of pateints allocated to him
                             pass
@@ -95,15 +103,21 @@ def main():
             elif x == 3:
                name = input("Enter Your name:.. ")
                email = input("Enter Your email:.. ")
-               phoneno = input("Enter your phoneno:.....")
-               age =  input("Enter the age:.....")
-               adress = input("Enter your phone no:" )
-               gender = input("enter the gender:.....")
-               pateint_type = input("OPD or Location:..............")
+               phoneno = int(input("Enter your phoneno:....."))
+               age =  int(input("Enter the age:....."))
+               adress = input("Enter your address no:" )
+#               gender = input("enter the gender:.....")
+#               pateint_type = input("OPD or Location:..............")
                password1 = input("enter the password:..... ")
-               password2 = input("enter your password agian:......")   ##### also rechecks the password 
+               password2 = input("enter your password again:......")   ##### also rechecks the password 
                if password1 == password2:
                ####  ID generated automatically
+                   ######### need to be changed according to table
+                   ID = 'P_113'
+                   sql = "INSERT INTO `mydb`.`patient_details` (P_ID,P_Name,P_Age,P_PNo,P_Add,P_Email) VALUES('%s','%s',%s,%s,'%s','%s')"
+                   val = (ID,name,age,phoneno,adress,email)
+                   cursor.execute(sql%val)
+                   db.commit()
                    print("your user id is ..... ")
                    print("than you yoU r regidteres please move forwrd with login.....") 
                 
@@ -114,55 +128,63 @@ def main():
                password = input("Enter Your password :.. ")
                 ##### check for user if id and password matches and them move forward
                if u_id == "abc" and password == "1234":
-                   print("## welcome to PATEINT mode")
-                   print("1. SEARCH DOCTOR")        #### ON THE BASIS OF DEPARTMENT OR DOCTOR NAME ## INSIDE OOF DEPARTMENT 10 DOCTOR AYE 
-                   print("2. SEE DOCTOR OPD TIMING")    
-                   print("3. VIEW Doctor PROFILE")
-                   print("4. VIEW HISTORY ")
-                   print("5. VIEW PROFILE")
-                   print("6. Automatic doctor assignment")
-                   print("7. edit profile")
-                   print("8. EXIT")      
-                   
-                   if x == 1:
-                      ############
-                      print("1. SEARCH BY NAME")
-                      print("2. SEARCH BY ID")       #### WRITE LOGIC FOR EACH AND EVERY ONE
-                      #### show available departments
-                      print("3. SEARCH BY DEPARTMENT")
-                      print("4. exit")
-                      x = int(input())
-                      if x==1:
-                          ch = input("enetr doctor name")
-                          pass
-                      elif x==2:
-                           ch = input("enetr department name")
-                      elif x==3:
-                            ch = input("enter doctor id name")
-                      else:
-                         return False
-                   elif x == 2:
-                       ##### search doctor id and show to pateint  
-                       ### pateint can able to selct the coctor also
-                       d_id = input("enter doctor id")
-                   elif x==3:
-                       #### show doctor profile to pateint
-                       d_id = input("enter doctor id")
-                       
-                   elif x==4:
-                       #### show pateint his history
-                       pass
-                   elif x==5:
-                       #### pateints profile
-                       pass
-                   elif x==6:
-                       ### assignment automatic 
-                       pass
-                   elif x==7:
-                       ### edit pateints id
-                       pass
-                   else:
-                       return False
+                   while True:
+                       print("## welcome to PATEINT mode")
+                       print("1. SEARCH DOCTOR")        #### ON THE BASIS OF DEPARTMENT OR DOCTOR NAME ## INSIDE OOF DEPARTMENT 10 DOCTOR AYE 
+                       print("2. SEE DOCTOR OPD TIMING")    
+                       print("3. VIEW Doctor PROFILE")
+                       print("4. VIEW HISTORY ")
+                       print("5. VIEW PROFILE")
+                       print("6. Automatic doctor assignment")
+                       print("7. edit profile")
+                       print("8. EXIT")      
+                       x = int(input("Enter your choice:"))
+                       if x == 1:
+                          ############
+                          print("1. SEARCH BY NAME")
+                          print("2. SEARCH BY ID")       #### WRITE LOGIC FOR EACH AND EVERY ONE
+                          #### show available departments
+                          print("3. SEARCH BY DEPARTMENT")
+                          print("4. exit")
+                          x = int(input("enter your choice:..."))
+                          if x==1:
+                              ch = input("enetr doctor name")
+                              print("list of doctors")
+                              print("enter doctor id for appointment")
+                              pass
+                          elif x==2:
+                              ch = input("enetr department name")
+                              print("list of doctors")
+                              print("enter doctor id for appointment")
+                          elif x==3:
+                              ch = input("enter doctor id name")
+                              print("list of doctors")
+                              print("enter doctor id for appointment")
+                          else:
+                             return False
+                       elif x == 2:
+                           ##### search doctor id and show to pateint  
+                           ### pateint can able to selct the coctor also
+                           d_id = input("enter doctor id")
+                       elif x==3:
+                           #### show doctor profile to pateint
+                           d_id = input("enter doctor id")
+                           
+                       elif x==4:
+                           #### show pateint his history
+                           pass
+                       elif x==5:
+                           #### pateints profile
+                           pass
+                       elif x==6:
+                           ### assignment automatic 
+                           pass
+                       elif x==7:
+                           ### edit pateints id
+                           pass
+                       else:
+                           return False
+                
             elif x == 5:
                     #### forgot password
                     pass
