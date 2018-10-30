@@ -111,23 +111,30 @@ def main():
                password1 = input("enter the password:..... ")
                password2 = input("enter your password again:......")   ##### also rechecks the password 
                if password1 == password2:
-               ####  ID generated automatically
+              
                    ######### need to be changed according to table
-                   ID = 'P_113'
+                   cursor.execute("SELECT SUBSTRING(P_ID,3,5) FROM `mydb`.`patient_details` ORDER BY P_ID DESC LIMIT 1")
+                   p1 = cursor.fetchone()
+                   y= str(int(p1[0])+1)
+                   x = 'P_'
+                   P_ID = x + y
                    sql = "INSERT INTO `mydb`.`patient_details` (P_ID,P_Name,P_Age,P_PNo,P_Add,P_Email) VALUES('%s','%s',%s,%s,'%s','%s')"
-                   val = (ID,name,age,phoneno,adress,email)
+                   val = (P_ID,name,age,phoneno,adress,email)
                    cursor.execute(sql%val)
                    db.commit()
-                   print("your user id is ..... ")
-                   print("than you yoU r regidteres please move forwrd with login.....") 
-                
-                
+                   print("your user id is ..... ",P_ID)
+                   print("than you r regidteres please move forwrd with login.....") 
+                   sql = "INSERT INTO `mydb`.`admin` (ID,Password,Email) VALUES('%s','%s','%s')"
+                   val = (P_ID,password1,email)
+                   cursor.execute(sql%val)
+                   db.commit()
                 
             elif x == 4:
                u_id = input("Enter Your user id :.. ")
                password = input("Enter Your password :.. ")
-                ##### check for user if id and password matches and them move forward
-               if u_id == "abc" and password == "1234":
+               if(cursor.execute("SELECT ID FROM `mydb`.`admin` where ID='"+u_id+"' AND Password='"+password+"';")==None):
+                   print("xyz")
+               else:
                    while True:
                        print("## welcome to PATEINT mode")
                        print("1. SEARCH DOCTOR")        #### ON THE BASIS OF DEPARTMENT OR DOCTOR NAME ## INSIDE OOF DEPARTMENT 10 DOCTOR AYE 
@@ -135,23 +142,33 @@ def main():
                        print("3. VIEW Doctor PROFILE")
                        print("4. VIEW HISTORY ")
                        print("5. VIEW PROFILE")
-                       print("6. Automatic doctor assignment")
+                       print("6. NEW APPOINTMENT")
                        print("7. edit profile")
                        print("8. EXIT")      
                        x = int(input("Enter your choice:"))
                        if x == 1:
                           ############
-                          print("1. SEARCH BY NAME")
+                          print("1. SEARCH BY DOCTOR NAME")
                           print("2. SEARCH BY ID")       #### WRITE LOGIC FOR EACH AND EVERY ONE
                           #### show available departments
                           print("3. SEARCH BY DEPARTMENT")
                           print("4. exit")
                           x = int(input("enter your choice:..."))
                           if x==1:
-                              ch = input("enetr doctor name")
+                              ch = input("enter doctor name")
                               print("list of doctors")
-                              print("enter doctor id for appointment")
-                              pass
+                              cursor.execute("SELECT * FROM `mydb`.'doctor_details` where D_Name = '"+ch+"';")
+                              cursor.fetchall()
+                              print("1. Want an appointment:")
+                              print("2. go back")
+                              x = int(input("ENter your choice:"))
+                              if x == 1:
+                                  ##### random exception handling sholud be used
+                                  y = input("Enter doctor Id for appointment:")
+                                  ######### apointment table should be used
+                                  pass
+                              else:
+                                  
                           elif x==2:
                               ch = input("enetr department name")
                               print("list of doctors")
