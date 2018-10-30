@@ -1,3 +1,17 @@
+CREATE TABLE `doctor_professional_details` (
+  `D_Department` char(20) NOT NULL,
+  `D_DID` varchar(10) NOT NULL,
+  `D_OPD_TIME_START` time NOT NULL,
+  `D_OPD_TIME_END` time NOT NULL,
+  `D_Type` varchar(20) NOT NULL,
+  `D_Specialization` char(25) NOT NULL,
+  `D_RoomNo` varchar(10) NOT NULL,
+  `D_ExtensionNo` int(11) NOT NULL,
+  PRIMARY KEY (`D_DID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+
+
 INSERT INTO `db`.`doctor_professional_details`
 (`D_Department`,
 `D_DID`,

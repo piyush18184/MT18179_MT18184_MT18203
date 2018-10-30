@@ -1,3 +1,15 @@
+CREATE TABLE `patient_details` (
+  `P_ID` varchar(45) NOT NULL,
+  `P_Name` varchar(45) NOT NULL,
+  `P_Age` int(11) NOT NULL,
+  `P_PNo` int(11) DEFAULT NULL,
+  `P_Add` varchar(45) DEFAULT NULL,
+  `P_Email` varchar(20) DEFAULT NULL,
+  PRIMARY KEY (`P_ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+
+
 INSERT INTO `db`.`patient_details`
 (`P_Age`,
 `P_ID`,
