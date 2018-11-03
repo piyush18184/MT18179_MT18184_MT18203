@@ -7,7 +7,6 @@ CREATE TABLE `admin` (
 
 
 
-
 INSERT INTO `db`.`admin`
 (`ID`,
 `Password`,

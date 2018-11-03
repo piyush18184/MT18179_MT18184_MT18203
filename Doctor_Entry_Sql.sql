@@ -2,11 +2,12 @@ CREATE TABLE `doctor_details` (
   `D_ID` varchar(10) NOT NULL,
   `D_Name` char(25) NOT NULL,
   `D_Age` int(11) NOT NULL,
-  `D_PNo` int(11) DEFAULT NULL,
+  `D_PNo` double DEFAULT NULL,
   `D_Email` varchar(20) NOT NULL,
   `D_Add` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`D_ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
 
 
 INSERT INTO `db`.`doctor_details`

@@ -11,6 +11,7 @@ CREATE TABLE `department` (
 
 
 
+
 INSERT INTO `db`.`department`
 (`Dep_ID`,
 `Dep_HOD`,

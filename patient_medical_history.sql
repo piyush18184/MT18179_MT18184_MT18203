@@ -8,6 +8,7 @@ CREATE TABLE `patient_medical_history` (
 
 
 
+
 INSERT INTO `db`.`patient_medical_history`
 (`Ref_ID`,
 `Pat_ID`,

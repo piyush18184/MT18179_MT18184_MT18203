@@ -8,6 +8,7 @@ CREATE TABLE `appointments` (
 
 
 
+
 INSERT INTO `db`.`appointments`
 (`P_Appointment_ID`,
 `Appointed_D_ID`,
