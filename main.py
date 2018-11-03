@@ -1221,10 +1221,39 @@ def main():
             pass
         elif x == 6:
             print(" __________________________________________________________________________ ")
-            print("|------------------------------EMERGENCY PAGE------------------------------|")
-            print("|                                                                          |")
-            #### critical pateint
-            pass
+            print("|--------------------PATIENT'S EMERGENCY REGISTRATION----------------------|")
+            name = input("| NAME:.. ")
+            types = input("| TYPE:.. ")
+            age = input("| AGE:..")
+            em = input("| EMAIL ID:..")
+            cursor.execute("SELECT SUBSTRING(P_ID,3,5) FROM `db`.`patient_details` ORDER BY P_ID DESC LIMIT 1")
+            p1 = cursor.fetchone()
+            y = str(int(p1[0]) + 1)
+            x = 'P_'
+            E_ID = x + y
+            sql = "INSERT INTO `db`.`patient_details` (P_ID,P_Name,P_AGE,P_EMAIL) VALUES('%s','%s',%s,'%s')"
+            val = (E_ID, name, age, em)
+            cursor.execute(sql % val)
+            db.commit()
+            psw='xyz'
+            sql = "INSERT INTO `db`.`admin` (ID,Password,Email) VALUES('%s','%s','%s')"
+            val = (E_ID, psw, em)
+            cursor.execute(sql % val)
+            db.commit()
+            print("| PATIENT ID:...",E_ID)
+            print("| PATIENT PASSWORD:...", psw)
+            print("| PLEASE KEEP A NOTE FOR FURTHER REFERENCE")
+            sql = "INSERT INTO `db`.`patient_assignment` (E_NAME,E_ID,E_TYPE,E_AGE) VALUEs('%s','%s','%s',%s)"
+            val = (name, E_ID, types, age)
+            cursor.execute(sql % val)
+            db.commit()
+            print("| PATIENT'S DETAILS SAVED SUCCESSFULLY")
+            cursor.execute("SELECT * FROM `db`.`patient_assignment` WHERE E_ID='" + E_ID + "';")
+            print(cursor.fetchall())
+            inpu=input("| PRESS ANY KEY TO CONTINUE")
+            print("PLEASE WAIT....EXITING")
+            for i in range(1, 30000000):
+                pass
         elif x == 7:
             sys.exit()
     else:
