@@ -6,11 +6,11 @@ from doctorpersonaldetails import *
 from doctorproffessionaldetails import *
 import pymysql
 
-db = pymysql.connect(
+db= pymysql.connect(
     host='127.0.0.1',
     user="root",
-    passwd="",
-    db="db"
+    passwd="up32ee9964",
+    db="oopd"
 )
 print(db)
 cursor = db.cursor()
@@ -50,11 +50,11 @@ def main():
                         print("|__________________________________________________________________________|")
                         ch = int(input("Enter your choice:"))
                         if ch == 1:
-                            cursor.execute("select * from db.doctor_details")
+                            cursor.execute("select * from oopd.doctor_details")
                             for x in cursor:
                                 print(x)
                         elif ch == 2:
-                            cursor.execute("select * from db.patient_details")
+                            cursor.execute("select * from oopd.patient_details")
                             for x in cursor:
                                 print(x)
                         elif ch == 3:
@@ -72,19 +72,19 @@ def main():
                             if password1 == password2:
                                 ######### need to be changed according to table
                                 cursor.execute(
-                                    "SELECT SUBSTRING(D_ID,3,5) FROM `db`.`doctor_details` ORDER BY D_ID DESC LIMIT 1")
+                                    "SELECT SUBSTRING(D_ID,3,5) FROM `oopd`.`doctor_details` ORDER BY D_ID DESC LIMIT 1")
                                 p1 = cursor.fetchone()
                                 y = str(int(p1[0]) + 1)
                                 x = 'D_'
                                 D_ID = x + y
-                                sql = "INSERT INTO `db`.`doctor_details` (D_ID,D_Name,D_Age,D_PNo,D_Add,D_Email) VALUES('%s','%s',%s,%s,'%s','%s')"
+                                sql = "INSERT INTO `oopd`.`doctor_details` (D_ID,D_Name,D_Age,D_PNo,D_Add,D_Email) VALUES('%s','%s',%s,%s,'%s','%s')"
                                 val = (D_ID, name, age, phoneno, adress, email)
                                 cursor.execute(sql % val)
                                 db.commit()
                                 print(" ___________________________________ ")
                                 print("| DOCTOR DETAILS ADDED SUCCESSFULLY:...|")
                                 print("| USER ID:... ", D_ID)
-                                sql = "INSERT INTO `db`.`admin` (ID,Password,Email) VALUES('%s','%s','%s')"
+                                sql = "INSERT INTO `oopd`.`admin` (ID,Password,Email) VALUES('%s','%s','%s')"
                                 val = (D_ID, password1, email)
                                 cursor.execute(sql % val)
                                 db.commit()
@@ -117,7 +117,7 @@ def main():
                                 xx = int(input("Enter your choice:....."))
                                 if xx == 1:
                                     pid = input("| PATIENT ID:.. ")
-                                    cursor.execute("SELECT * FROM `db`.`patient_details` WHERE P_ID='" +pid+ "';")
+                                    cursor.execute("SELECT * FROM `oopd`.`patient_details` WHERE P_ID='" +pid+ "';")
                                     print(cursor.fetchall())
                                     print(" __________________________________________________________________________ ")
                                     print("|------------------------IS THE INFORMATION CORRECT------------------------|")
@@ -136,11 +136,11 @@ def main():
                                         print("|__________________________________________________________________________|")
                                         xxx=int(input("PLEASE CONFIRM..?"))
                                         if xxx==1:
-                                            cursor.execute("UPDATE `db`.`patient_details` SET P_Name = '" +nm+ "' WHERE P_ID = '" +pid+ "';")
+                                            cursor.execute("UPDATE `oopd`.`patient_details` SET P_Name = '" +nm+ "' WHERE P_ID = '" +pid+ "';")
                                             db.commit()
                                             print(" ___________________________________ ")
                                             print("| PATIENT NAME UPDATED SUCCESSFULLY:...|")
-                                            cursor.execute("SELECT * FROM `db`.`patient_details` WHERE `P_ID` = '" +pid+ "';")
+                                            cursor.execute("SELECT * FROM `oopd`.`patient_details` WHERE `P_ID` = '" +pid+ "';")
                                             print(cursor.fetchall())
                                         elif xxx==2:
                                             print("RETURNING TO PREVIOUS PAGE...PLEASE WAIT..")
@@ -157,7 +157,7 @@ def main():
                                         continue
                                 elif xx == 2:
                                     pid = input("| PATIENT ID:.. ")
-                                    cursor.execute("SELECT * FROM `db`.`patient_details` WHERE P_ID='" +pid+ "';")
+                                    cursor.execute("SELECT * FROM `oopd`.`patient_details` WHERE P_ID='" +pid+ "';")
                                     print(cursor.fetchall())
                                     print(" __________________________________________________________________________ ")
                                     print("|------------------------IS THE INFORMATION CORRECT------------------------|")
@@ -176,11 +176,11 @@ def main():
                                         print("|__________________________________________________________________________|")
                                         xxx=int(input("PLEASE CONFIRM..?"))
                                         if xxx==1:
-                                            cursor.execute("UPDATE `db`.`patient_details` SET P_Age = '" +agee+ "' WHERE P_ID = '" +pid+ "';")
+                                            cursor.execute("UPDATE `oopd`.`patient_details` SET P_Age = '" +agee+ "' WHERE P_ID = '" +pid+ "';")
                                             db.commit()
                                             print(" ___________________________________ ")
                                             print("| PATIENT AGE UPDATED SUCCESSFULLY:...|")
-                                            cursor.execute("SELECT * FROM `db`.`patient_details` WHERE `P_ID` = '" +pid+ "';")
+                                            cursor.execute("SELECT * FROM `oopd`.`patient_details` WHERE `P_ID` = '" +pid+ "';")
                                             print(cursor.fetchall())
                                         elif xxx==2:
                                             print("RETURNING TO PREVIOUS PAGE...PLEASE WAIT..")
@@ -197,7 +197,7 @@ def main():
                                         continue
                                 elif xx == 3:
                                     pid = input("| PATIENT ID:.. ")
-                                    cursor.execute("SELECT * FROM `db`.`patient_details` WHERE P_ID='" +pid+ "';")
+                                    cursor.execute("SELECT * FROM `oopd`.`patient_details` WHERE P_ID='" +pid+ "';")
                                     print(cursor.fetchall())
                                     print(" __________________________________________________________________________ ")
                                     print("|------------------------IS THE INFORMATION CORRECT------------------------|")
@@ -216,11 +216,11 @@ def main():
                                         print("|__________________________________________________________________________|")
                                         xxx=int(input("PLEASE CONFIRM..?"))
                                         if xxx==1:
-                                            cursor.execute("UPDATE `db`.`patient_details` SET P_PNo = '" +phno+ "' WHERE P_ID = '" +pid+ "';")
+                                            cursor.execute("UPDATE `oopd`.`patient_details` SET P_PNo = '" +phno+ "' WHERE P_ID = '" +pid+ "';")
                                             db.commit()
                                             print(" ___________________________________ ")
                                             print("| PATIENT PHONE NUMBER UPDATED SUCCESSFULLY:...|")
-                                            cursor.execute("SELECT * FROM `db`.`patient_details` WHERE `P_ID` = '" +pid+ "';")
+                                            cursor.execute("SELECT * FROM `oopd`.`patient_details` WHERE `P_ID` = '" +pid+ "';")
                                             print(cursor.fetchall())
                                         elif xxx==2:
                                             print("RETURNING TO PREVIOUS PAGE...PLEASE WAIT..")
@@ -237,7 +237,7 @@ def main():
                                         continue
                                 elif xx == 4:
                                     pid = input("| PATIENT ID:.. ")
-                                    cursor.execute("SELECT * FROM `db`.`patient_details` WHERE P_ID='" +pid+ "';")
+                                    cursor.execute("SELECT * FROM `oopd`.`patient_details` WHERE P_ID='" +pid+ "';")
                                     print(cursor.fetchall())
                                     print(" __________________________________________________________________________ ")
                                     print("|------------------------IS THE INFORMATION CORRECT------------------------|")
@@ -256,11 +256,11 @@ def main():
                                         print("|__________________________________________________________________________|")
                                         xxx=int(input("PLEASE CONFIRM..?"))
                                         if xxx==1:
-                                            cursor.execute("UPDATE `db`.`patient_details` SET P_Email = '" +emai+ "' WHERE P_ID = '" +pid+ "';")
+                                            cursor.execute("UPDATE `oopd`.`patient_details` SET P_Email = '" +emai+ "' WHERE P_ID = '" +pid+ "';")
                                             db.commit()
                                             print(" ___________________________________ ")
                                             print("| PATIENT EMAIL UPDATED SUCCESSFULLY:...|")
-                                            cursor.execute("SELECT * FROM `db`.`patient_details` WHERE `P_ID` = '" +pid+ "';")
+                                            cursor.execute("SELECT * FROM `oopd`.`patient_details` WHERE `P_ID` = '" +pid+ "';")
                                             print(cursor.fetchall())
                                         elif xxx==2:
                                             print("RETURNING TO PREVIOUS PAGE...PLEASE WAIT..")
@@ -277,7 +277,7 @@ def main():
                                         continue
                                 elif xx == 5:
                                     pid = input("| PATIENT ID:.. ")
-                                    cursor.execute("SELECT * FROM `db`.`patient_details` WHERE P_ID='" +pid+ "';")
+                                    cursor.execute("SELECT * FROM `oopd`.`patient_details` WHERE P_ID='" +pid+ "';")
                                     print(cursor.fetchall())
                                     print(" __________________________________________________________________________ ")
                                     print("|------------------------IS THE INFORMATION CORRECT------------------------|")
@@ -296,11 +296,11 @@ def main():
                                         print("|__________________________________________________________________________|")
                                         xxx=int(input("PLEASE CONFIRM..?"))
                                         if xxx==1:
-                                            cursor.execute("UPDATE `db`.`patient_details` SET P_PNo = '" +addr+ "' WHERE P_ID = '" +pid+ "';")
+                                            cursor.execute("UPDATE `oopd`.`patient_details` SET P_PNo = '" +addr+ "' WHERE P_ID = '" +pid+ "';")
                                             db.commit()
                                             print(" ___________________________________ ")
                                             print("| PATIENT ADDRESS UPDATED SUCCESSFULLY:...|")
-                                            cursor.execute("SELECT * FROM `db`.`patient_details` WHERE `P_ID` = '" +pid+ "';")
+                                            cursor.execute("SELECT * FROM `oopd`.`patient_details` WHERE `P_ID` = '" +pid+ "';")
                                             print(cursor.fetchall())
                                         elif xxx==2:
                                             print("RETURNING TO PREVIOUS PAGE...PLEASE WAIT..")
@@ -358,7 +358,7 @@ def main():
                                 xx = int(input("Enter your choice:....."))
                                 if xx == 1:
                                     did = input("| DOCTOR ID:.. ")
-                                    cursor.execute("SELECT * FROM `db`.`doctor_details` WHERE D_ID='" +did+ "';")
+                                    cursor.execute("SELECT * FROM `oopd`.`doctor_details` WHERE D_ID='" +did+ "';")
                                     print(cursor.fetchall())
                                     print(" __________________________________________________________________________ ")
                                     print("|------------------------IS THE INFORMATION CORRECT------------------------|")
@@ -377,11 +377,11 @@ def main():
                                         print("|__________________________________________________________________________|")
                                         xxx=int(input("PLEASE CONFIRM..?"))
                                         if xxx==1:
-                                            cursor.execute("UPDATE `db`.`doctor_details` SET D_Name = '" +nme+ "' WHERE D_ID = '" +did+ "';")
+                                            cursor.execute("UPDATE `oopd`.`doctor_details` SET D_Name = '" +nme+ "' WHERE D_ID = '" +did+ "';")
                                             db.commit()
                                             print(" ___________________________________ ")
                                             print("| DOCTOR NAME UPDATED SUCCESSFULLY:...|")
-                                            cursor.execute("SELECT * FROM `db`.`doctor_details` WHERE `D_ID` = '" +did+ "';")
+                                            cursor.execute("SELECT * FROM `oopd`.`doctor_details` WHERE `D_ID` = '" +did+ "';")
                                             print(cursor.fetchall())
                                         elif xxx==2:
                                             print("RETURNING TO PREVIOUS PAGE...PLEASE WAIT..")
@@ -398,7 +398,7 @@ def main():
                                         continue
                                 elif xx == 2:
                                     did = input("| DOCTOR ID:.. ")
-                                    cursor.execute("SELECT * FROM `db`.`doctor_details` WHERE D_ID='" +did+ "';")
+                                    cursor.execute("SELECT * FROM `oopd`.`doctor_details` WHERE D_ID='" +did+ "';")
                                     print(cursor.fetchall())
                                     print(" __________________________________________________________________________ ")
                                     print("|------------------------IS THE INFORMATION CORRECT------------------------|")
@@ -417,11 +417,11 @@ def main():
                                         print("|__________________________________________________________________________|")
                                         xxx=int(input("PLEASE CONFIRM..?"))
                                         if xxx==1:
-                                            cursor.execute("UPDATE `db`.`doctor_details` SET D_Age = '" +ageee+ "' WHERE D_ID = '" +did+ "';")
+                                            cursor.execute("UPDATE `oopd`.`doctor_details` SET D_Age = '" +ageee+ "' WHERE D_ID = '" +did+ "';")
                                             db.commit()
                                             print(" ___________________________________ ")
                                             print("| DOCTOR AGE UPDATED SUCCESSFULLY:...|")
-                                            cursor.execute("SELECT * FROM `db`.`doctor_details` WHERE `D_ID` = '" +did+ "';")
+                                            cursor.execute("SELECT * FROM `oopd`.`doctor_details` WHERE `D_ID` = '" +did+ "';")
                                             print(cursor.fetchall())
                                         elif xxx==2:
                                             print("RETURNING TO PREVIOUS PAGE...PLEASE WAIT..")
@@ -438,7 +438,7 @@ def main():
                                         continue
                                 elif xx == 3:
                                     did = input("| DOCTOR ID:.. ")
-                                    cursor.execute("SELECT * FROM `db`.`doctor_details` WHERE D_ID='" +did+ "';")
+                                    cursor.execute("SELECT * FROM `oopd`.`doctor_details` WHERE D_ID='" +did+ "';")
                                     print(cursor.fetchall())
                                     print(" __________________________________________________________________________ ")
                                     print("|------------------------IS THE INFORMATION CORRECT------------------------|")
@@ -457,11 +457,11 @@ def main():
                                         print("|__________________________________________________________________________|")
                                         xxx=int(input("PLEASE CONFIRM..?"))
                                         if xxx==1:
-                                            cursor.execute("UPDATE `db`.`patient_details` SET D_PNo = '" +phnu+ "' WHERE D_ID = '" +did+ "';")
+                                            cursor.execute("UPDATE `oopd`.`patient_details` SET D_PNo = '" +phnu+ "' WHERE D_ID = '" +did+ "';")
                                             db.commit()
                                             print(" ___________________________________ ")
                                             print("| DOCTOR PHONE NUMBER UPDATED SUCCESSFULLY:...|")
-                                            cursor.execute("SELECT * FROM `db`.`doctor_details` WHERE `D_ID` = '" +did+ "';")
+                                            cursor.execute("SELECT * FROM `oopd`.`doctor_details` WHERE `D_ID` = '" +did+ "';")
                                             print(cursor.fetchall())
                                         elif xxx==2:
                                             print("RETURNING TO PREVIOUS PAGE...PLEASE WAIT..")
@@ -478,7 +478,7 @@ def main():
                                         continue
                                 elif xx == 4:
                                     did = input("| DOCTOR ID:.. ")
-                                    cursor.execute("SELECT * FROM `db`.`doctor_details` WHERE D_ID='" +did+ "';")
+                                    cursor.execute("SELECT * FROM `oopd`.`doctor_details` WHERE D_ID='" +did+ "';")
                                     print(cursor.fetchall())
                                     print(" __________________________________________________________________________ ")
                                     print("|------------------------IS THE INFORMATION CORRECT------------------------|")
@@ -497,11 +497,11 @@ def main():
                                         print("|__________________________________________________________________________|")
                                         xxx=int(input("PLEASE CONFIRM..?"))
                                         if xxx==1:
-                                            cursor.execute("UPDATE `db`.`doctor_details` SET D_Email = '" +emaii+ "' WHERE D_ID = '" +did+ "';")
+                                            cursor.execute("UPDATE `oopd`.`doctor_details` SET D_Email = '" +emaii+ "' WHERE D_ID = '" +did+ "';")
                                             db.commit()
                                             print(" ___________________________________ ")
                                             print("| DOCTOR EMAIL UPDATED SUCCESSFULLY:...|")
-                                            cursor.execute("SELECT * FROM `db`.`doctor_details` WHERE `D_ID` = '" +did+ "';")
+                                            cursor.execute("SELECT * FROM `oopd`.`doctor_details` WHERE `D_ID` = '" +did+ "';")
                                             print(cursor.fetchall())
                                         elif xxx==2:
                                             print("RETURNING TO PREVIOUS PAGE...PLEASE WAIT..")
@@ -518,7 +518,7 @@ def main():
                                         continue
                                 elif xx == 5:
                                     did = input("| DOCTOR ID:.. ")
-                                    cursor.execute("SELECT * FROM `db`.`doctor_details` WHERE D_ID='" +did+ "';")
+                                    cursor.execute("SELECT * FROM `oopd`.`doctor_details` WHERE D_ID='" +did+ "';")
                                     print(cursor.fetchall())
                                     print(" __________________________________________________________________________ ")
                                     print("|------------------------IS THE INFORMATION CORRECT------------------------|")
@@ -537,11 +537,11 @@ def main():
                                         print("|__________________________________________________________________________|")
                                         xxx=int(input("PLEASE CONFIRM..?"))
                                         if xxx==1:
-                                            cursor.execute("UPDATE `db`.`doctor_details` SET D_PNo = '" +addre+ "' WHERE D_ID = '" +did+ "';")
+                                            cursor.execute("UPDATE `oopd`.`doctor_details` SET D_PNo = '" +addre+ "' WHERE D_ID = '" +did+ "';")
                                             db.commit()
                                             print(" ___________________________________ ")
                                             print("| DOCTOR ADDRESS UPDATED SUCCESSFULLY:...|")
-                                            cursor.execute("SELECT * FROM `db`.`doctor_details` WHERE `D_ID` = '" +did+ "';")
+                                            cursor.execute("SELECT * FROM `oopd`.`doctor_details` WHERE `D_ID` = '" +did+ "';")
                                             print(cursor.fetchall())
                                         elif xxx==2:
                                             print("RETURNING TO PREVIOUS PAGE...PLEASE WAIT..")
@@ -580,7 +580,7 @@ def main():
                                 xx = int(input("Enter your choice:....."))
                                 if xx == 1:
                                     did = input("| DOCTOR ID:.. ")
-                                    cursor.execute("SELECT * FROM `db`.`doctor_professional_details` WHERE D_ID='" +did+ "';")
+                                    cursor.execute("SELECT * FROM `oopd`.`doctor_professional_details` WHERE D_ID='" +did+ "';")
                                     print(cursor.fetchall())
                                     print(" __________________________________________________________________________ ")
                                     print("|------------------------IS THE INFORMATION CORRECT------------------------|")
@@ -599,11 +599,11 @@ def main():
                                         print("|__________________________________________________________________________|")
                                         xxx=int(input("PLEASE CONFIRM..?"))
                                         if xxx==1:
-                                            cursor.execute("UPDATE `db`.`doctor_professional_details` SET D_Department = '" +dep+ "' WHERE D_ID = '" +did+ "';")
+                                            cursor.execute("UPDATE `oopd`.`doctor_professional_details` SET D_Department = '" +dep+ "' WHERE D_ID = '" +did+ "';")
                                             db.commit()
                                             print(" ___________________________________ ")
                                             print("| DOCTOR DEPARTMENT UPDATED SUCCESSFULLY:...|")
-                                            cursor.execute("SELECT * FROM `db`.`doctor_professional_details` WHERE `D_ID` = '" +did+ "';")
+                                            cursor.execute("SELECT * FROM `oopd`.`doctor_professional_details` WHERE `D_ID` = '" +did+ "';")
                                             print(cursor.fetchall())
                                         elif xxx==2:
                                             print("RETURNING TO PREVIOUS PAGE...PLEASE WAIT..")
@@ -620,7 +620,7 @@ def main():
                                         continue
                                 elif xx == 2:
                                     did = input("| DOCTOR ID:.. ")
-                                    cursor.execute("SELECT * FROM `db`.`doctor_professional_details` WHERE D_ID='" +did+ "';")
+                                    cursor.execute("SELECT * FROM `oopd`.`doctor_professional_details` WHERE D_ID='" +did+ "';")
                                     print(cursor.fetchall())
                                     print(" __________________________________________________________________________ ")
                                     print("|------------------------IS THE INFORMATION CORRECT------------------------|")
@@ -639,11 +639,11 @@ def main():
                                         print("|__________________________________________________________________________|")
                                         xxx=int(input("PLEASE CONFIRM..?"))
                                         if xxx==1:
-                                            cursor.execute("UPDATE `db`.`doctor_professional_details` SET D_OPD_TIME_START = '" +opdst+ "' WHERE D_ID = '" +did+ "';")
+                                            cursor.execute("UPDATE `oopd`.`doctor_professional_details` SET D_OPD_TIME_START = '" +opdst+ "' WHERE D_ID = '" +did+ "';")
                                             db.commit()
                                             print(" ___________________________________ ")
                                             print("| DOCTOR OPD START TIME UPDATED SUCCESSFULLY:...|")
-                                            cursor.execute("SELECT * FROM `db`.`doctor_professional_details` WHERE `D_ID` = '" +did+ "';")
+                                            cursor.execute("SELECT * FROM `oopd`.`doctor_professional_details` WHERE `D_ID` = '" +did+ "';")
                                             print(cursor.fetchall())
                                         elif xxx==2:
                                             print("RETURNING TO PREVIOUS PAGE...PLEASE WAIT..")
@@ -660,7 +660,7 @@ def main():
                                         continue
                                 elif xx == 3:
                                     did = input("| DOCTOR ID:.. ")
-                                    cursor.execute("SELECT * FROM `db`.`doctor_professional_details` WHERE D_ID='" +did+ "';")
+                                    cursor.execute("SELECT * FROM `oopd`.`doctor_professional_details` WHERE D_ID='" +did+ "';")
                                     print(cursor.fetchall())
                                     print(" __________________________________________________________________________ ")
                                     print("|------------------------IS THE INFORMATION CORRECT------------------------|")
@@ -679,11 +679,11 @@ def main():
                                         print("|__________________________________________________________________________|")
                                         xxx=int(input("PLEASE CONFIRM..?"))
                                         if xxx==1:
-                                            cursor.execute("UPDATE `db`.`patient_details` SET D_OPD_TIME_END = '" +opden+ "' WHERE D_ID = '" +did+ "';")
+                                            cursor.execute("UPDATE `oopd`.`patient_details` SET D_OPD_TIME_END = '" +opden+ "' WHERE D_ID = '" +did+ "';")
                                             db.commit()
                                             print(" ___________________________________ ")
                                             print("| DOCTOR OPD END TIME UPDATED SUCCESSFULLY:...|")
-                                            cursor.execute("SELECT * FROM `db`.`doctor_professional_details` WHERE `D_ID` = '" +did+ "';")
+                                            cursor.execute("SELECT * FROM `oopd`.`doctor_professional_details` WHERE `D_ID` = '" +did+ "';")
                                             print(cursor.fetchall())
                                         elif xxx==2:
                                             print("RETURNING TO PREVIOUS PAGE...PLEASE WAIT..")
@@ -700,7 +700,7 @@ def main():
                                         continue
                                 elif xx == 4:
                                     did = input("| DOCTOR ID:.. ")
-                                    cursor.execute("SELECT * FROM `db`.`doctor_professional_details` WHERE D_ID='" +did+ "';")
+                                    cursor.execute("SELECT * FROM `oopd`.`doctor_professional_details` WHERE D_ID='" +did+ "';")
                                     print(cursor.fetchall())
                                     print(" __________________________________________________________________________ ")
                                     print("|------------------------IS THE INFORMATION CORRECT------------------------|")
@@ -719,11 +719,11 @@ def main():
                                         print("|__________________________________________________________________________|")
                                         xxx=int(input("PLEASE CONFIRM..?"))
                                         if xxx==1:
-                                            cursor.execute("UPDATE `db`.`doctor_professional_details` SET D_Type = '" +dtyp+ "' WHERE D_ID = '" +did+ "';")
+                                            cursor.execute("UPDATE `oopd`.`doctor_professional_details` SET D_Type = '" +dtyp+ "' WHERE D_ID = '" +did+ "';")
                                             db.commit()
                                             print(" ___________________________________ ")
                                             print("| DOCTOR TYPE UPDATED SUCCESSFULLY:...|")
-                                            cursor.execute("SELECT * FROM `db`.`doctor_professional_details` WHERE `D_ID` = '" +did+ "';")
+                                            cursor.execute("SELECT * FROM `oopd`.`doctor_professional_details` WHERE `D_ID` = '" +did+ "';")
                                             print(cursor.fetchall())
                                         elif xxx==2:
                                             print("RETURNING TO PREVIOUS PAGE...PLEASE WAIT..")
@@ -740,7 +740,7 @@ def main():
                                         continue
                                 elif xx == 5:
                                     did = input("| DOCTOR ID:.. ")
-                                    cursor.execute("SELECT * FROM `db`.`doctor_professional_details` WHERE D_ID='" +did+ "';")
+                                    cursor.execute("SELECT * FROM `oopd`.`doctor_professional_details` WHERE D_ID='" +did+ "';")
                                     print(cursor.fetchall())
                                     print(" __________________________________________________________________________ ")
                                     print("|------------------------IS THE INFORMATION CORRECT------------------------|")
@@ -759,11 +759,11 @@ def main():
                                         print("|__________________________________________________________________________|")
                                         xxx=int(input("PLEASE CONFIRM..?"))
                                         if xxx==1:
-                                            cursor.execute("UPDATE `db`.`doctor_professional_details` SET D_Specialization = '" +spec+ "' WHERE D_ID = '" +did+ "';")
-                                            db.commit()
+                                            cursor.execute("UPDATE `oopd`.`doctor_professional_details` SET D_Specialization = '" +spec+ "' WHERE D_ID = '" +did+ "';")
+                                            oopd.commit()
                                             print(" ___________________________________ ")
                                             print("| DOCTOR SPECIALIZATION UPDATED SUCCESSFULLY:...|")
-                                            cursor.execute("SELECT * FROM `db`.`doctor_professional_details` WHERE `D_ID` = '" +did+ "';")
+                                            cursor.execute("SELECT * FROM `oopd`.`doctor_professional_details` WHERE `D_ID` = '" +did+ "';")
                                             print(cursor.fetchall())
                                         elif xxx==2:
                                             print("RETURNING TO PREVIOUS PAGE...PLEASE WAIT..")
@@ -780,7 +780,7 @@ def main():
                                         continue
                                 elif xx == 6:
                                     did = input("| DOCTOR ID:.. ")
-                                    cursor.execute("SELECT * FROM `db`.`doctor_professional_details` WHERE D_ID='" +did+ "';")
+                                    cursor.execute("SELECT * FROM `oopd`.`doctor_professional_details` WHERE D_ID='" +did+ "';")
                                     print(cursor.fetchall())
                                     print(" __________________________________________________________________________ ")
                                     print("|------------------------IS THE INFORMATION CORRECT------------------------|")
@@ -799,11 +799,11 @@ def main():
                                         print("|__________________________________________________________________________|")
                                         xxx=int(input("PLEASE CONFIRM..?"))
                                         if xxx==1:
-                                            cursor.execute("UPDATE `db`.`doctor_professional_details` SET D_ExtensionNo = '" +extno+ "' WHERE D_ID = '" +did+ "';")
-                                            db.commit()
+                                            cursor.execute("UPDATE `oopd`.`doctor_professional_details` SET D_ExtensionNo = '" +extno+ "' WHERE D_ID = '" +did+ "';")
+                                            oopd.commit()
                                             print(" ___________________________________ ")
                                             print("| DOCTOR EXTENSION NUMBER UPDATED SUCCESSFULLY:...|")
-                                            cursor.execute("SELECT * FROM `db`.`doctor_professional_details` WHERE `D_ID` = '" +did+ "';")
+                                            cursor.execute("SELECT * FROM `oopd`.`doctor_professional_details` WHERE `D_ID` = '" +did+ "';")
                                             print(cursor.fetchall())
                                         elif xxx==2:
                                             print("RETURNING TO PREVIOUS PAGE...PLEASE WAIT..")
@@ -820,7 +820,7 @@ def main():
                                         continue
                                 elif xx == 7:
                                     did = input("| DOCTOR ID:.. ")
-                                    cursor.execute("SELECT * FROM `db`.`doctor_professional_details` WHERE D_ID='" +did+ "';")
+                                    cursor.execute("SELECT * FROM `oopd`.`doctor_professional_details` WHERE D_ID='" +did+ "';")
                                     print(cursor.fetchall())
                                     print(" __________________________________________________________________________ ")
                                     print("|------------------------IS THE INFORMATION CORRECT------------------------|")
@@ -839,11 +839,11 @@ def main():
                                         print("|__________________________________________________________________________|")
                                         xxx=int(input("PLEASE CONFIRM..?"))
                                         if xxx==1:
-                                            cursor.execute("UPDATE `db`.`doctor_professional_details` SET D_RoomNo = '" +rmno+ "' WHERE D_ID = '" +did+ "';")
+                                            cursor.execute("UPDATE `oopd`.`doctor_professional_details` SET D_RoomNo = '" +rmno+ "' WHERE D_ID = '" +did+ "';")
                                             db.commit()
                                             print(" ___________________________________ ")
                                             print("| DOCTOR ROOM NUMBER UPDATED SUCCESSFULLY:...|")
-                                            cursor.execute("SELECT * FROM `db`.`doctor_professional_details` WHERE `D_ID` = '" +did+ "';")
+                                            cursor.execute("SELECT * FROM `oopd`.`doctor_professional_details` WHERE `D_ID` = '" +did+ "';")
                                             print(cursor.fetchall())
                                         elif xxx==2:
                                             print("RETURNING TO PREVIOUS PAGE...PLEASE WAIT..")
@@ -877,7 +877,7 @@ def main():
                                 xx = int(input("Enter your choice:....."))
                                 if xx == 1:
                                     hid = input("| HOD ID:.. ")
-                                    cursor.execute("SELECT * FROM `db`.`hod` WHERE H_ID='" +hid+ "';")
+                                    cursor.execute("SELECT * FROM `oopd`.`hod` WHERE H_ID='" +hid+ "';")
                                     print(cursor.fetchall())
                                     print(" __________________________________________________________________________ ")
                                     print("|------------------------IS THE INFORMATION CORRECT------------------------|")
@@ -896,11 +896,11 @@ def main():
                                         print("|__________________________________________________________________________|")
                                         xxx=int(input("PLEASE CONFIRM..?"))
                                         if xxx==1:
-                                            cursor.execute("UPDATE `db`.`hod` SET H_ASSIGNMENT_DEP = '" +hdep+ "' WHERE H_ID = '" +hid+ "';")
-                                            db.commit()
+                                            cursor.execute("UPDATE `oopd`.`hod` SET H_ASSIGNMENT_DEP = '" +hdep+ "' WHERE H_ID = '" +hid+ "';")
+                                            oopd.commit()
                                             print(" ___________________________________ ")
                                             print("| HOD ASSIGNED SUCCESSFULLY TO A DEPARTMENT:...|")
-                                            cursor.execute("SELECT * FROM `db`.`hod` WHERE H_ID = '" +hid+ "';")
+                                            cursor.execute("SELECT * FROM `oopd`.`hod` WHERE H_ID = '" +hid+ "';")
                                             print(cursor.fetchall())
                                         elif xxx==2:
                                             print("RETURNING TO PREVIOUS PAGE...PLEASE WAIT..")
@@ -918,7 +918,7 @@ def main():
                                 elif xx == 2:
                                     print(" __________________________________________________________________________ ")
                                     print("|--------------------------------HOD LIST----------------------------------|")
-                                    cursor.execute("SELECT * FROM `db`.`hod`")
+                                    cursor.execute("SELECT * FROM `oopd`.`hod`")
                                     print(cursor.fetchall())
                                 elif xx == 3:
                                     print("RETURNING TO PREVIOUS PAGE...PLEASE WAIT..")
@@ -967,11 +967,11 @@ def main():
                 print("|------------------------------DOCTOR's LOGIN WINDOW-----------------------|")
                 name = input("| USER ID:..")
                 pswrd = input("| PASSWORD:..")
-                cursor.execute("SELECT count(*) FROM `db`.`admin` where ID='" + name + "' AND Password='" + pswrd + "';")
+                cursor.execute("SELECT count(*) FROM `oopd`.`admin` where ID='" + name + "' AND Password='" + pswrd + "';")
                 p1 = cursor.fetchone()
                 y = int(p1[0])
                 if y==0:
-                # if(cursor.execute("SELECT ID FROM `db`.`admin` where ID='" + d_id + "' AND Password='" + pswrd + "';") != None):
+                # if(cursor.execute("SELECT ID FROM `oopd`.`admin` where ID='" + d_id + "' AND Password='" + pswrd + "';") != None):
                     if aa!=3:
                         print("| ERROR:...TRY AGAIN...!")
                         print(3 - aa, "CHANCES LEFT")
@@ -1000,6 +1000,15 @@ def main():
                             pass
                             print()
                         elif x == 2:
+                            diid = input("| D_ID:.. ")
+                            #cursor.execute("SELECT * FROM `oopd`.`doctor_details` WHERE D_ID = '" +diid+ "';")
+                            name=input("|NAME:..")
+                            age=input("|AGE:..")
+                            phone=input("|PHONE:..")
+                            email=input("|EMAIL:..")
+                            address=input("|ADDR:..")
+                            cursor.execute("UPDATE `oopd`.`doctor_details` SET D_Name = '" +name+ "',D_PNo='"+phone+"',D_Add='"+address+"',D_Age='"+age+"',D_Email='"+email+"'   WHERE D_ID = '" +diid+ "';") 
+                            db.commit()
                             #### edit doctor profile
                             pass
                         elif x == 3:
@@ -1010,8 +1019,12 @@ def main():
                             #### leave of doctors
                             pass
                         elif x == 5:
+                             diid = input("| D_ID:.. ")
+                             cursor.execute("SELECT * FROM `oopd`.`doctor_details` WHERE D_ID = '" +diid+ "';")
+                             print(cursor.fetchall())
+                            
                             ######  view profile
-                            pass
+                            
                         elif x == 6:
                             #### refereral if required
                             pass
@@ -1036,12 +1049,12 @@ def main():
             password2 = input("| RE-TYPE PASSWORD:......")  ##### also rechecks the password
             if password1 == password2:
                 ######### need to be changed according to table
-                cursor.execute("SELECT SUBSTRING(P_ID,3,5) FROM `db`.`patient_details` ORDER BY P_ID DESC LIMIT 1")
+                cursor.execute("SELECT SUBSTRING(P_ID,3,5) FROM `oopd`.`patient_details` ORDER BY P_ID DESC LIMIT 1")
                 p1 = cursor.fetchone()
                 y = str(int(p1[0]) + 1)
                 x = 'P_'
                 P_ID = x + y
-                sql = "INSERT INTO `db`.`patient_details` (P_ID,P_Name,P_Age,P_PNo,P_Add,P_Email) VALUES('%s','%s',%s,%s,'%s','%s')"
+                sql = "INSERT INTO `oopd`.`patient_details` (P_ID,P_Name,P_Age,P_PNo,P_Add,P_Email) VALUES('%s','%s',%s,%s,'%s','%s')"
                 val = (P_ID, name, age, phoneno, adress, email)
                 cursor.execute(sql % val)
                 db.commit()
@@ -1049,7 +1062,7 @@ def main():
                 print("| PATIENT REGISTRATION COMPLETED:...|")
                 print("| USER ID:... ", P_ID)
                 print("| PLEASE PROCEED WITH LOGIN WINDOW..")
-                sql = "INSERT INTO `db`.`admin` (ID,Password,Email) VALUES('%s','%s','%s')"
+                sql = "INSERT INTO `oopd`.`admin` (ID,Password,Email) VALUES('%s','%s','%s')"
                 val = (P_ID, password1, email)
                 cursor.execute(sql % val)
                 db.commit()
@@ -1061,11 +1074,11 @@ def main():
                 u_id = input("| USERID:.. ")
                 password = input("| PASSWORD:.. ")
                 cursor.execute(
-                    "SELECT count(*) FROM `db`.`admin` where ID='" + u_id + "' AND Password='" + password + "';")
+                    "SELECT count(*) FROM `oopd`.`admin` where ID='" + u_id + "' AND Password='" + password + "';")
                 p1 = cursor.fetchone()
                 y = int(p1[0])
                 if y == 0:
-                    # if(cursor.execute("SELECT ID FROM `db`.`admin` where ID='" + d_id + "' AND Password='" + pswrd + "';") != None):
+                    # if(cursor.execute("SELECT ID FROM `oopd`.`admin` where ID='" + d_id + "' AND Password='" + pswrd + "';") != None):
                     if aa != 3:
                         print("| ERROR:...TRY AGAIN...!")
                         print(3 - aa, "CHANCES LEFT")
@@ -1107,7 +1120,7 @@ def main():
                                 print("|                                                                          |")
                                 ch = input("| ENTER THE DOCTOR'S NAME TO BE SEARCHED:... ")
                                 print("| DOCTOR'S LIST")
-                                cursor.execute("SELECT * FROM `db`.`doctor_details` where D_Name = '" + ch + "';")
+                                cursor.execute("SELECT * FROM `oopd`.`doctor_details` where D_Name = '" + ch + "';")
                                 print(cursor.fetchall())
                                 print("| 1. WANT TO MAKE AN APPOINTMENT:...")
                                 print("| 2. RETURN TO PREVIOUS WINDOW:... ")
@@ -1122,7 +1135,7 @@ def main():
                             elif x == 2:
                                 ch = input("| ENTER THE DEPARTMENT TO BE SEARCHED:... ")
                                 print("| DOCTOR'S LIST:... ")
-                                cursor.execute("SELECT * FROM `db`.`doctor_details` where D_ID = '" + ch + "';")
+                                cursor.execute("SELECT * FROM `oopd`.`doctor_details` where D_ID = '" + ch + "';")
                                 print(cursor.fetchall())
                                 print("| 1. WANT TO MAKE AN APPOINTMENT:...")
                                 print("| 2. RETURN TO PREVIOUS WINDOW:... ")
@@ -1138,7 +1151,7 @@ def main():
                             elif x == 3:
                                 ch = input("| ENTER THE DEPARTMENT TO BE SEARCHED:... ")
                                 print("| DOCTOR'S LIST:... ")
-                                # cursor.execute("SELECT * FROM `db`.`doctor_details` where D_Name = '" + ch + "';")
+                                # cursor.execute("SELECT * FROM `oopd`.`doctor_details` where D_Name = '" + ch + "';")
                                 # print(cursor.fetchall())
                                 # print("| 1. WANT TO MAKE AN APPOINTMENT:...")
                                 # print("| 2. RETURN TO PREVIOUS WINDOW:... ")
@@ -1226,29 +1239,29 @@ def main():
             types = input("| TYPE:.. ")
             age = input("| AGE:..")
             em = input("| EMAIL ID:..")
-            cursor.execute("SELECT SUBSTRING(P_ID,3,5) FROM `db`.`patient_details` ORDER BY P_ID DESC LIMIT 1")
+            cursor.execute("SELECT SUBSTRING(P_ID,3,5) FROM `oopd`.`patient_details` ORDER BY P_ID DESC LIMIT 1")
             p1 = cursor.fetchone()
             y = str(int(p1[0]) + 1)
             x = 'P_'
             E_ID = x + y
-            sql = "INSERT INTO `db`.`patient_details` (P_ID,P_Name,P_AGE,P_EMAIL) VALUES('%s','%s',%s,'%s')"
+            sql = "INSERT INTO `oopd`.`patient_details` (P_ID,P_Name,P_AGE,P_EMAIL) VALUES('%s','%s',%s,'%s')"
             val = (E_ID, name, age, em)
             cursor.execute(sql % val)
             db.commit()
             psw='xyz'
-            sql = "INSERT INTO `db`.`admin` (ID,Password,Email) VALUES('%s','%s','%s')"
+            sql = "INSERT INTO `oopd`.`admin` (ID,Password,Email) VALUES('%s','%s','%s')"
             val = (E_ID, psw, em)
             cursor.execute(sql % val)
             db.commit()
             print("| PATIENT ID:...",E_ID)
             print("| PATIENT PASSWORD:...", psw)
             print("| PLEASE KEEP A NOTE FOR FURTHER REFERENCE")
-            sql = "INSERT INTO `db`.`patient_assignment` (E_NAME,E_ID,E_TYPE,E_AGE) VALUEs('%s','%s','%s',%s)"
+            sql = "INSERT INTO `oopd`.`patient_assignment` (E_NAME,E_ID,E_TYPE,E_AGE) VALUEs('%s','%s','%s',%s)"
             val = (name, E_ID, types, age)
             cursor.execute(sql % val)
             db.commit()
             print("| PATIENT'S DETAILS SAVED SUCCESSFULLY")
-            cursor.execute("SELECT * FROM `db`.`patient_assignment` WHERE E_ID='" + E_ID + "';")
+            cursor.execute("SELECT * FROM `oopd`.`patient_assignment` WHERE E_ID='" + E_ID + "';")
             print(cursor.fetchall())
             inpu=input("| PRESS ANY KEY TO CONTINUE")
             print("PLEASE WAIT....EXITING")
@@ -1263,4 +1276,4 @@ def main():
 if __name__ == "__main__":
     main()
 
-db.close()
+oopd.close()
