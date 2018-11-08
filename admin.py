@@ -1,3 +1,71 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Wed Nov  7 05:58:47 2018
+
+@author: Jeet
+"""
+
+import pymysql
+db = pymysql.connect( 
+                    host='127.0.0.1',
+                    user="root",
+                    passwd="6%w<RPl4",
+                    db="mydb"
+                    )
+#print(db)
+cursor = db.cursor()
+#print(cursor)
+
 class admin:
     def __init__(self):
         pass
+    
+    def getdoctors(self):
+          cursor.execute("select * from mydb.doctor_details")
+          for x in cursor:
+              print(x)
+    def getpateints(self):
+          cursor.execute("select * from mydb.patient_details")
+          for x in cursor:
+              print(x)
+    def adddoctor(self):
+          name = input("| NAME:.. ")
+          email = input("| EMAIL ID:.. ")
+          phoneno = int(input("| PHONE NUMBER:....."))
+          age = int(input("| AGE:....."))
+          adress = input("| ADDRESS:")
+        #               gender = input("enter the gender:.....")
+        #               pateint_type = input("OPD or Location:..............")
+          password1 = input("| PASSWORD:..... ")
+          password2 = input("| RE-TYPE PASSWORD:......")  ##### also rechecks the password
+          if password1 == password2:
+            ######### need to be changed according to table
+            cursor.execute(
+                "SELECT SUBSTRING(D_ID,3,5) FROM `mydb`.`doctor_details` ORDER BY D_ID DESC LIMIT 1")
+            p1 = cursor.fetchone()
+            y = str(int(p1[0]) + 1)
+            x = 'D_'
+            D_ID = x + y
+            sql = "INSERT INTO `mydb`.`doctor_details` (D_ID,D_Name,D_Age,D_PNo,D_Add,D_Email) VALUES('%s','%s',%s,%s,'%s','%s')"
+            val = (D_ID, name, age, phoneno, adress, email)
+            cursor.execute(sql % val)
+            db.commit()
+            for i in range(1, 30000000):
+               pass
+               continue
+            print(" ___________________________________ ")
+            print("| DOCTOR DETAILS ADDED SUCCESSFULLY:...|")
+            print("| USER ID:... ", D_ID)
+            sql = "INSERT INTO `mydb`.`admin` (ID,Password,Email) VALUES('%s','%s','%s')"
+            val = (D_ID, password1, email)
+            cursor.execute(sql % val)
+            db.commit()
+            
+            
+    def doctorlogin(self,u_id,pswd):
+           cursor.execute("SELECT count(*) FROM `mydb`.`admin` where ID='" + name + "' AND Password='" + pswrd + "';")
+           p1 = cursor.fetchone()
+           return p1[0]
+           
+           
+    def pateintlogin(self,u_id,pswd):     

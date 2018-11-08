@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 """
-Created on Tue Oct 30 17:10:06 2018
+Created on Wed Nov  7 05:42:32 2018
 
-@author: lenovo
+@author: Jeet
 """
 
 class department:
@@ -52,4 +52,3 @@ class department:
     
     def getdepid(self):
         return self.Dep_ID
-    
