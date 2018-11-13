@@ -1131,10 +1131,9 @@ def main():
                         print("|                                                                          |")
                         print("|                        1. SEE PATIENT ALLOCATED                          |")
                         print("|                        2. EDIT PROFILE                                   |")
-                        print("|                        3. SORT PATIENT LIST                              |")
-                        print("|                        4. VIEW PROFILE                                   |")
-                        print("|                        5. REFERRAL                                       |")
-                        print("|                        6. LOGOUT                                         |")
+                        print("|                        3. VIEW PROFILE                                   |")
+                        print("|                        4. REFERRAL                                       |")
+                        print("|                        5. LOGOUT                                         |")
                         print("|__________________________________________________________________________|")
                         x = int(input("Enter your choice:....."))
                         h1 = h()
@@ -1408,15 +1407,12 @@ def main():
                                 print("| WRONG CHOICE ENTERED..PLEASE TRY AGAIN")
                                 continue
                         elif x == 3:
-                            ### sort of pateint depending upon department, id
-                            pass
-                        elif x == 4:
                             h1.getdoctordetail(name)
-                        elif x == 5:### we have to assign all doctors a level a junior level dr can only reffere someone
+                        elif x == 4:### we have to assign all doctors a level a junior level dr can only reffere someone
                             #### and also other departmental refferal only oh the consent of hod
                             #### refereral if required
                             pass
-                        elif x == 6:
+                        elif x == 5:
                             print("| LOGGING OUT...PRESS ANY KEY TO CONTINUE..!")
                             a = input("")
                             sys.exit()
@@ -1607,11 +1603,115 @@ def main():
                             p1.getpatientall(u_id)
                         elif x == 6:
                             print(" __________________________________________________________________________ ")
-                            print("|---------------------------NEW APPOINTMENT--------------------------------|")
-                            print("|                                                                          |")
+                            print("|-------------------PATIENT'S APPOINTMENT BOOKING WINDOW-------------------|")
+                            print("|                            1. AUTOMATIC APPOINTMENT                      |")
+                            print("|                            2. MANUAL APPOINTMENT                         |")
+                            print("|                            3. EXIT                                       |")
+                            print("|__________________________________________________________________________|")
+                            inn=int(input("| PLEASE MAKE A SELECTION:..."))
+                            if inn==1:
+                                cursor.execute("SELECT DISTINCT Dep_sym FROM `db`.`department`")
+                                print(cursor.fetchall())
+                                ch = input("| ENTER THE DEPARTMENT FOR WHICH APPOINTMENT IS NEEDED:... ")
+                                if(int(cursor.execute("SELECT Dep_sym FROM `db`.`department` where D_Name LIKE ('%'" + ch + "'%');"))==1):
+                                    sql = "INSERT INTO `db`.`unassigned_patient` (`UP_ID`, `UP_PROB_DEP`, `UP_E_TYPE`)VALUES('%s','%s','%s')"
+                                    val = (u_id,ch,"")
+                                    cursor.execute(sql % val)
+                                    db.commit()
+                                else:
+                                    print("WRONG SELECTION..PLEASE ENTER THE CORRECT DEPARTMENT")
+                                    continue
+                            elif inn==2:
+                                print(" __________________________________________________________________________ ")
+                                print("|---------------------------DOCTOR SEARCH WINDOW---------------------------|")
+                                print("|                                                                          |")
+                                print("|                           1. SEARCH BY DOCTOR'S NAME                     |")
+                                print("|                           2. SEARCH BY DOCTOR'S ID                       |")  #### WRITE LOGIC FOR EACH AND EVERY ONE
+                                print("|                           3. SEARCH BY DEPARTMENT                        |")  #### show available departments
+                                print("|                           4. EXIT                                        |")
+                                print("|__________________________________________________________________________|")
+                                x = int(input("| ENTER YOUR CHOICE:..."))
+                                if x == 1:
+                                    print(" __________________________________________________________________________ ")
+                                    print("|-----------------------------SEARCH WINDOW--------------------------------|")
+                                    print("|                                                                          |")
+                                    ch = input("| ENTER THE DOCTOR'S NAME TO BE SEARCHED:... ")
+                                    print("| DOCTOR'S LIST")
+                                    h1.getdoctorsname(ch)
+                                    print("| 1. WANT TO MAKE AN APPOINTMENT:...")
+                                    print("| 2. RETURN TO PREVIOUS WINDOW:... ")
+                                    x = int(input("| PLEASE MAKE A SELECTION:... "))
+                                    if x == 1:
+                                        ##### random exception handling sholud be used
+                                        y = input("| ENTER THE DOCTOR'S ID FOR APPOINTMENT:... ")
+                                        ######### apointment table should be used
+                                        ##### also check for availability of doctors
+                                        ## count for no of patients assigned to any doctor if no is greator thasn 20 than
+                                        ##an appoint is not possible
+                                        print("Are you want a specific department or general appointment")
+                                        print("1. Enter Department")
+                                        print("2. general pateint")
+                                        ch = input("enter your choice:..........")
+                                        if ch == 1:
+                                            h1.getdepartments()
+                                            dep = input("enter the department from the given department:")
+                                            h1.getappointment(dep, u_id)
+                                            print("please wait when  appointmnet  finalised")
+                                            i = 1000000
+                                            while (i >= 0):
+                                                i = i - 1
+                                            print("your appoinmnet has been fixed ")
+                                            print("your id and details are:")
 
-                            ### assignment automatic
-                            pass
+
+                                        elif ch == 2:
+                                            dep = 'General'
+                                            h1.getappointment(dep, u_id)
+                                            print("please wait when  appointmnet  finalised")
+                                            i = 1000000
+                                            while (i >= 0):
+                                                i = i - 1
+                                            print("your appoinmnet has been fixed ")
+                                            print("your id and details are:")
+                                        else:
+                                            print("wrong choice")
+                                            continue
+                                        pass
+                                    else:
+                                        pass
+                                elif x == 2:
+                                    ch = input("| ENTER THE DEPARTMENT TO BE SEARCHED:... ")
+                                    print("| DOCTOR'S LIST:... ")
+                                    h1.getdoctorsdept(ch)
+                                    print("| 1. WANT TO MAKE AN APPOINTMENT:...")
+                                    print("| 2. RETURN TO PREVIOUS WINDOW:... ")
+                                    x = int(input("| PLEASE MAKE A SELECTION:... "))
+                                    if x == 1:
+                                        ##### random exception handling sholud be used
+                                        y = input("| ENTER THE DOCTOR'S ID FOR APPOINTMENT:... ")
+                                        ######### apointment table should be used
+                                        h1.getappointmentid(y, u_id)
+                                    else:
+                                        pass
+                                    print("| ENTER THE DOCTOR'S ID FOR APPOINTMENT:... ")
+                                elif x == 3:
+                                    ch = input("| ENTER THE DEPARTMENT TO BE SEARCHED:... ")
+                                    print("| DOCTOR'S LIST:... ")
+                                    # cursor.execute("SELECT * FROM `db`.`doctor_details` where D_Name = '" + ch + "';")
+                                    # print(cursor.fetchall())
+                                    # print("| 1. WANT TO MAKE AN APPOINTMENT:...")
+                                    # print("| 2. RETURN TO PREVIOUS WINDOW:... ")
+                                    # x = int(input("| PLEASE MAKE A SELECTION:... "))
+                                    # if x == 1:
+                                    #     ##### random exception handling sholud be used
+                                    #     y = input("| ENTER THE DOCTOR'S ID FOR APPOINTMENT:... ")
+                                    #     ######### apointment table should be used
+                                    #     pass
+                                    # else:
+                                    #     pass
+                                    # print("| ENTER THE DOCTOR'S ID FOR APPOINTMENT:... ")
+                                else:
+                                    return False
                         elif x == 7:
                             print(" __________________________________________________________________________ ")
                             print("|----------------------------EDIT PROFILE----------------------------------|")
@@ -1763,7 +1863,6 @@ def main():
                             print("WRONG CHOICE...TRY AGAIN")
                             continue
         elif x == 5:
-            #### FORGOT PASSWORD
             print(" __________________________________________________________________________ ")
             print("|----------------------------PASSWORD RESET PAGE---------------------------|")
             print("| 1. FORGOT ID                                                             |")
