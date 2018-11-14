@@ -1552,13 +1552,13 @@ def main():
                                     ##an appoint is not possible
                                     print("Are you want a specific department or general appointment")
                                     print("1. Enter Department")
-                                    print("2. general pateint")
+                                    print("2. general patient")
                                     ch = input("enter your choice:..........")
                                     if ch == 1:
                                         h1.getdepartments()
                                         dep = input("enter the department from the given department:")
                                         h1.getappointment(dep, u_id)
-                                        print("please wait when  appointmnet  finalised")
+                                        print("please wait when  appointment  finalised")
                                         i = 1000000
                                         while (i >= 0):
                                             i = i - 1
@@ -1597,21 +1597,13 @@ def main():
                                     pass
                                 print("| ENTER THE DOCTOR'S ID FOR APPOINTMENT:... ")
                             elif x == 3:
-                                ch = input("| ENTER THE DEPARTMENT TO BE SEARCHED:... ")
+                                print("| LIST OF DEPARTMENTS:...")
+                                cursor.execute("SELECT Dep_Name FROM db.department")
+                                print(cursor.fetchall())
+                                cha = input("| ENTER THE DEPARTMENT TO BE SEARCHED:... ")
                                 print("| DOCTOR'S LIST:... ")
-                                # cursor.execute("SELECT * FROM `db`.`doctor_details` where D_Name = '" + ch + "';")
-                                # print(cursor.fetchall())
-                                # print("| 1. WANT TO MAKE AN APPOINTMENT:...")
-                                # print("| 2. RETURN TO PREVIOUS WINDOW:... ")
-                                # x = int(input("| PLEASE MAKE A SELECTION:... "))
-                                # if x == 1:
-                                #     ##### random exception handling sholud be used
-                                #     y = input("| ENTER THE DOCTOR'S ID FOR APPOINTMENT:... ")
-                                #     ######### apointment table should be used
-                                #     pass
-                                # else:
-                                #     pass
-                                # print("| ENTER THE DOCTOR'S ID FOR APPOINTMENT:... ")
+                                cursor.execute("SELECT * FROM db.doctor_details WHERE D_ID IN (SELECT D_DID FROM db.doctor_professional_details WHERE D_Department ='" + cha + "');")
+                                print(cursor.fetchall())
                             else:
                                 return False
                         elif x == 2:
@@ -1748,6 +1740,8 @@ def main():
                                     # print("| ENTER THE DOCTOR'S ID FOR APPOINTMENT:... ")
                                 else:
                                     return False
+                            elif inn==3:
+                                break
                         elif x == 7:
                             print(" __________________________________________________________________________ ")
                             print("|----------------------------EDIT PROFILE----------------------------------|")
