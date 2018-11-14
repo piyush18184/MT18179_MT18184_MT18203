@@ -56,7 +56,25 @@ def main():
                         elif ch == 2:
                             a1.getpatients()
                         elif ch == 3:
-                            pass
+                            cursor.execute("SELECT COUNT(UP_ID) FROM `db`.`unassigned_patient`")
+                            p1 = cursor.fetchone()
+                            y = p1[0]
+                            for i in range (1,y):
+                                cursor.execute("SELECT UP_ID FROM `db`.`unassigned_patient` ORDER BY UP_ID ASC LIMIT 1")
+                                p2=cursor.fetchone()
+                                y2=p2[0]
+                                # print(y2)
+                                cursor.execute("SELECT D_DID FROM `db`.`doctor_professional_details` WHERE D_Department=(SELECT UP_PROB_DEP FROM `db`.`unassigned_patient` WHERE UP_ID=(SELECT UP_ID FROM `db`.`unassigned_patient` ORDER BY UP_ID ASC LIMIT 1));")
+                                p3=cursor.fetchone()
+                                y3=p3[0]
+                                # print(y3)
+                                sql = "INSERT INTO `db`.`doctor_assignment` (`DOC_ID`, `PAT_ID`, `DOC_MAX_LMT`, `REF_DOC_ID`) VALUES('%s','%s',%s,'%s')"
+                                val = (y3,y2,20,'')
+                                cursor.execute(sql % val)
+                                db.commit()
+                                cursor.execute("DELETE FROM `db`.`unassigned_patient` WHERE UP_ID='"+ y2 +"';")
+                                db.commit()
+                            print("AUTOMATIC ASSIGNMENT SUCCESSFUL")
                         elif ch == 4:
                             a1.adddoctor()
                         elif ch == 5:
@@ -68,10 +86,8 @@ def main():
                             print("|                        3. DOCTOR'S PERSONAL DETAILS                      |")
                             print("|                        4. DOCTOR'S PROFESSIONAL DETAILS                  |")
                             print("|                        5. HOD MANAGEMENT                                 |")
-                            print("|                        6. AUTOMATIC PATIENT ASSIGNMENT                   |")
-                            print("|                        7. DOCTOR'S REFERRAL MANAGEMENT                   |")
-                            print("|                        8. RETURN TO PREVIOUS PAGE                        |")
-                            print("|                        9. LOGOUT                                         |")
+                            print("|                        6. RETURN TO PREVIOUS PAGE                        |")
+                            print("|                        7. LOGOUT                                         |")
                             print("|__________________________________________________________________________|")
                             x = int(input("Enter your choice:....."))
                             if x == 1:
@@ -1071,16 +1087,12 @@ def main():
                                 else:
                                     print("| WRONG CHOICE ENTERED..PLEASE TRY AGAIN")
                                     continue
-                            elif x == 6:
-                                pass
                             elif x == 7:
-                                pass
-                            elif x == 8:
                                 print("RETURNING TO PREVIOUS PAGE...PLEASE WAIT..")
                                 for i in range(1, 30000000):
                                     pass
                                 continue
-                            elif x == 9:
+                            elif x == 8:
                                 print("| LOGGING OUT...PRESS ANY KEY TO CONTINUE..!")
                                 a = input("")
                                 sys.exit()
