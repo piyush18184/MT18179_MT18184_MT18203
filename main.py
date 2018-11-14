@@ -1148,7 +1148,6 @@ def main():
                         print("|                        5. LOGOUT                                         |")
                         print("|__________________________________________________________________________|")
                         x = int(input("Enter your choice:....."))
-                        h1 = h()
                         if x == 1:
                             h1.getpatientsallocated(name)
                         elif x == 2:
@@ -1423,7 +1422,31 @@ def main():
                         elif x == 4:### we have to assign all doctors a level a junior level dr can only reffere someone
                             #### and also other departmental refferal only oh the consent of hod
                             #### refereral if required
-                            pass
+                            print(" __________________________________________________________________________ ")
+                            print("|------------------------DOCTOR'S REFERRAL WINDOW--------------------------|")
+                            cursor.execute("SELECT PAT_ID FROM `db`.`doctor_assignment` WHERE DOC_ID='"+name+"';")
+                            print(cursor.fetchall())
+                            y1=input("ENTER THE PATIENT'S ID TO BE REFFERED:")
+                            cursor.execute("SELECT COUNT(PAT_ID) FROM `db`.`doctor_assignment` WHERE PAT_ID='" + y1 + "' AND DOC_ID='" + name + "';")
+                            y2=cursor.fetchone()
+                            p2=y2[0]
+                            if(p2>0):
+                                print(" __________________________________________________________________________ ")
+                                print("|------------------------IS THE INFORMATION CORRECT------------------------|")
+                                print("|                                                                          |")
+                                print("|                                1. YES                                    |")
+                                print("|                                2. NO                                     |")
+                                print("|__________________________________________________________________________|")
+                                xxx = int(input("PLEASE SELECT THE OPTION:..."))
+                                if xxx == 1:
+                                    d2=input("ENTER THE DOCTOR's ID TO BE REFERRED TO:")
+                                    cursor.execute("DELETE FROM `db`.`doctor_assignment` WHERE PAT_ID='"+y1+"';")
+                                    db.commit()
+                                    sql = "INSERT INTO `db`.`doctor_assignment` (`DOC_ID`, `PAT_ID`, `DOC_MAX_LMT`, `REF_DOC_ID`) VALUES('%s','%s',%s,'%s')"
+                                    val = (d2, y1, 20,name)
+                                    cursor.execute(sql % val)
+                                    db.commit()
+
                         elif x == 5:
                             print("| LOGGING OUT...PRESS ANY KEY TO CONTINUE..!")
                             a = input("")
@@ -1431,6 +1454,7 @@ def main():
                         else:
                             print("| WRONG CHOICE ENTERED..PLEASE TRY AGAIN")
                             continue
+                        h1 = h()
         elif x == 3:
             print(" __________________________________________________________________________ ")
             print("|-----------------------PATIENT'S REGISTRATION WINDOW----------------------|")
