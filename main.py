@@ -64,7 +64,7 @@ def main():
                                 p2=cursor.fetchone()
                                 y2=p2[0]
                                 # print(y2)
-                                cursor.execute("SELECT D_DID FROM `db`.`doctor_professional_details` WHERE D_Department=(SELECT UP_PROB_DEP FROM `db`.`unassigned_patient` WHERE UP_ID=(SELECT UP_ID FROM `db`.`unassigned_patient` ORDER BY UP_ID ASC LIMIT 1));")
+                                cursor.execute("SELECT D_DID FROM `db`.`doctor_professional_details` WHERE BINARY D_Department=(SELECT UP_PROB_DEP FROM `db`.`unassigned_patient` WHERE BINARY UP_ID=(SELECT UP_ID FROM `db`.`unassigned_patient` ORDER BY UP_ID ASC LIMIT 1));")
                                 p3=cursor.fetchone()
                                 y3=p3[0]
                                 # print(y3)
@@ -1021,7 +1021,7 @@ def main():
                                 xx = int(input("Enter your choice:....."))
                                 if xx == 1:
                                     hid = input("| HOD ID:.. ")
-                                    cursor.execute("SELECT * FROM `db`.`hod` WHERE H_ID='" + hid + "';")
+                                    cursor.execute("SELECT * FROM `db`.`hod` WHERE BINARY H_ID='" + hid + "';")
                                     print(cursor.fetchall())
                                     print(
                                         " __________________________________________________________________________ ")
@@ -1057,7 +1057,7 @@ def main():
                                             db.commit()
                                             print(" ___________________________________ ")
                                             print("| HOD ASSIGNED SUCCESSFULLY TO A DEPARTMENT:...|")
-                                            cursor.execute("SELECT * FROM `db`.`hod` WHERE H_ID = '" + hid + "';")
+                                            cursor.execute("SELECT * FROM `db`.`hod` WHERE BINARY H_ID = '" + hid + "';")
                                             print(cursor.fetchall())
                                         elif xxx == 2:
                                             print("RETURNING TO PREVIOUS PAGE...PLEASE WAIT..")
@@ -1136,7 +1136,7 @@ def main():
                         aaa = input("PRESS ANY KEY TO EXIT")
                         sys.exit()
                 else:
-                    cursor.execute("SELECT count(D_DID) FROM `db`.`doctor_professional_details` where D_DID='" + name + "' and D_Type='HOD';");
+                    cursor.execute("SELECT count(D_DID) FROM `db`.`doctor_professional_details` where BINARY D_DID='" + name + "' and BINARY D_Type='HOD';");
                     yyy=cursor.fetchone()
                     ppp=int(yyy[0])
                     print(ppp)
@@ -1427,10 +1427,10 @@ def main():
                             elif x == 4:
                                 print(" __________________________________________________________________________ ")
                                 print("|------------------------DOCTOR'S REFERRAL WINDOW--------------------------|")
-                                cursor.execute("SELECT PAT_ID FROM `db`.`doctor_assignment` WHERE DOC_ID='"+name+"';")
+                                cursor.execute("SELECT PAT_ID FROM `db`.`doctor_assignment` WHERE BINARY DOC_ID='"+name+"';")
                                 print(cursor.fetchall())
                                 y1=input("ENTER THE PATIENT'S ID TO BE REFFERED:")
-                                cursor.execute("SELECT COUNT(PAT_ID) FROM `db`.`doctor_assignment` WHERE PAT_ID='" + y1 + "' AND DOC_ID='" + name + "';")
+                                cursor.execute("SELECT COUNT(PAT_ID) FROM `db`.`doctor_assignment` WHERE BINARY PAT_ID='" + y1 + "' AND BINARY DOC_ID='" + name + "';")
                                 y2=cursor.fetchone()
                                 p2=y2[0]
                                 if(p2>0):
@@ -1818,11 +1818,11 @@ def main():
                                 print(" __________________________________________________________________________ ")
                                 print("|------------------------DOCTOR'S REFERRAL WINDOW--------------------------|")
                                 cursor.execute(
-                                    "SELECT PAT_ID FROM `db`.`doctor_assignment` WHERE DOC_ID='" + name + "';")
+                                    "SELECT PAT_ID FROM `db`.`doctor_assignment` WHERE BINARY DOC_ID='" + name + "';")
                                 print(cursor.fetchall())
                                 y1 = input("ENTER THE PATIENT'S ID TO BE REFFERED:")
                                 cursor.execute(
-                                    "SELECT COUNT(PAT_ID) FROM `db`.`doctor_assignment` WHERE PAT_ID='" + y1 + "' AND DOC_ID='" + name + "';")
+                                    "SELECT COUNT(PAT_ID) FROM `db`.`doctor_assignment` WHERE BINARY PAT_ID='" + y1 + "' AND BIANRY DOC_ID='" + name + "';")
                                 y2 = cursor.fetchone()
                                 p2 = y2[0]
                                 if (p2 > 0):
@@ -1896,7 +1896,7 @@ def main():
                 u_id = input("| USERID:.. ")
                 password = input("| PASSWORD:.. ")
                 cursor.execute(
-                    "SELECT count(*) FROM `db`.`admin` where ID='" + u_id + "' AND Password='" + password + "';")
+                    "SELECT count(*) FROM `db`.`admin` where BIANRY ID='" + u_id + "' AND BINARY Password='" + password + "';")
                 p1 = cursor.fetchone()
                 y = int(p1[0])
                 if y == 0:
@@ -2004,7 +2004,7 @@ def main():
                                 print(cursor.fetchall())
                                 cha = input("| ENTER THE DEPARTMENT TO BE SEARCHED:... ")
                                 print("| DOCTOR'S LIST:... ")
-                                cursor.execute("SELECT * FROM db.doctor_details WHERE D_ID IN (SELECT D_DID FROM db.doctor_professional_details WHERE D_Department ='" + cha + "');")
+                                cursor.execute("SELECT * FROM db.doctor_details WHERE BINARY D_ID IN (SELECT D_DID FROM db.doctor_professional_details WHERE BINARY D_Department ='" + cha + "');")
                                 print(cursor.fetchall())
                             else:
                                 return False
@@ -2043,7 +2043,7 @@ def main():
                                 cursor.execute("SELECT DISTINCT Dep_sym FROM `db`.`department`")
                                 print(cursor.fetchall())
                                 ch = input("| ENTER THE DEPARTMENT FOR WHICH APPOINTMENT IS NEEDED:... ")
-                                if(int(cursor.execute("SELECT Dep_sym FROM `db`.`department` where D_Name LIKE ('%'" + ch + "'%');"))==1):
+                                if(int(cursor.execute("SELECT Dep_sym FROM `db`.`department` where BINARY D_Name LIKE ('%'" + ch + "'%');"))==1):
                                     sql = "INSERT INTO `db`.`unassigned_patient` (`UP_ID`, `UP_PROB_DEP`, `UP_E_TYPE`)VALUES('%s','%s','%s')"
                                     val = (u_id,ch,"")
                                     cursor.execute(sql % val)
@@ -2361,7 +2361,7 @@ def main():
             cursor.execute(sql % val)
             db.commit()
             print("| PATIENT'S DETAILS SAVED SUCCESSFULLY")
-            cursor.execute("SELECT * FROM `db`.`patient_assignment` WHERE E_ID='" + E_ID + "';")
+            cursor.execute("SELECT * FROM `db`.`patient_assignment` WHERE BINARY E_ID='" + E_ID + "';")
             print(cursor.fetchall())
             inpu = input("| PRESS ANY KEY TO CONTINUE")
             print("PLEASE WAIT....EXITING")
