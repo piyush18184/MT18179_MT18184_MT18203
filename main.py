@@ -1,7 +1,7 @@
 import sys
 from patient import patient as p
 from patientmedicalreport import patientmedicalreport as pmr
-
+import datetime
 from admin import admin
 from doctorpersonaldetails import doctorpersonaldetails as dpd
 from doctorproffessionaldetails import doctorprofessionaldetails as ddd
@@ -1896,7 +1896,7 @@ def main():
                 u_id = input("| USERID:.. ")
                 password = input("| PASSWORD:.. ")
                 cursor.execute(
-                    "SELECT count(*) FROM `db`.`admin` where BIANRY ID='" + u_id + "' AND BINARY Password='" + password + "';")
+                    "SELECT count(*) FROM `db`.`admin` where BINARY ID='" + u_id + "' AND BINARY Password='" + password + "';")
                 p1 = cursor.fetchone()
                 y = int(p1[0])
                 if y == 0:
@@ -2040,12 +2040,23 @@ def main():
                             print("|__________________________________________________________________________|")
                             inn=int(input("| PLEASE MAKE A SELECTION:..."))
                             if inn==1:
-                                cursor.execute("SELECT DISTINCT Dep_sym FROM `db`.`department`")
+                                cursor.execute("SELECT DISTINCT Dep_Name FROM `db`.`department`")
                                 print(cursor.fetchall())
                                 ch = input("| ENTER THE DEPARTMENT FOR WHICH APPOINTMENT IS NEEDED:... ")
-                                if(int(cursor.execute("SELECT Dep_sym FROM `db`.`department` where BINARY D_Name LIKE ('%'" + ch + "'%');"))==1):
+                                if(int(cursor.execute("SELECT count(Dep_Name) FROM `db`.`department` where Dep_Name='" + ch + "';"))==1):
                                     sql = "INSERT INTO `db`.`unassigned_patient` (`UP_ID`, `UP_PROB_DEP`, `UP_E_TYPE`)VALUES('%s','%s','%s')"
                                     val = (u_id,ch,"")
+                                    cursor.execute(sql % val)
+                                    db.commit()
+
+                                    cursor.execute("SELECT Dep_sym FROM `db`.`department` where Dep_Name='" + ch + "';")
+                                    aaa=cursor.fetchone()
+                                    bbb=aaa[0]
+                                    now = datetime.datetime.now()
+                                    ccc=u_id+'_'+bbb+'_'+str(now)
+                                    print("TOKEN NUMBER OF THE PATIENT IS:",ccc)
+                                    sql = "INSERT INTO `db`.`patient_medical_history` (`Ref_ID`,`Pat_ID`,`Prescription`,`Past_Reports`) VALUES ('%s','%s','%s','%s')"
+                                    val = (ccc,u_id,'','')
                                     cursor.execute(sql % val)
                                     db.commit()
                                 else:
@@ -2068,45 +2079,28 @@ def main():
                                     ch = input("| ENTER THE DOCTOR'S NAME TO BE SEARCHED:... ")
                                     print("| DOCTOR'S LIST")
                                     h1.getdoctorsname(ch)
+                                    print(
+                                        " __________________________________________________________________________ ")
+                                    print(
+                                        "|-------------------------CONFIRMATION WINDOW------------------------------|")
+                                    print(
+                                        "|                                                                          |")
                                     print("| 1. WANT TO MAKE AN APPOINTMENT:...")
                                     print("| 2. RETURN TO PREVIOUS WINDOW:... ")
                                     x = int(input("| PLEASE MAKE A SELECTION:... "))
                                     if x == 1:
                                         ##### random exception handling sholud be used
                                         y = input("| ENTER THE DOCTOR'S ID FOR APPOINTMENT:... ")
+                                        r = h1.getappointmentid(y, u_id)
                                         ######### apointment table should be used
                                         ##### also check for availability of doctors
                                         ## count for no of patients assigned to any doctor if no is greator thasn 20 than
                                         ##an appoint is not possible
-                                        print("Are you want a specific department or general appointment")
-                                        print("1. Enter Department")
-                                        print("2. general pateint")
-                                        ch = input("enter your choice:..........")
-                                        if ch == 1:
-                                            h1.getdepartments()
-                                            dep = input("enter the department from the given department:")
-                                            h1.getappointment(dep, u_id)
-                                            print("please wait when  appointmnet  finalised")
-                                            i = 1000000
-                                            while (i >= 0):
-                                                i = i - 1
-                                            print("your appoinmnet has been fixed ")
-                                            print("your id and details are:")
-
-
-                                        elif ch == 2:
-                                            dep = 'General'
-                                            h1.getappointment(dep, u_id)
-                                            print("please wait when  appointmnet  finalised")
-                                            i = 1000000
-                                            while (i >= 0):
-                                                i = i - 1
-                                            print("your appoinmnet has been fixed ")
-                                            print("your id and details are:")
-                                        else:
-                                            print("wrong choice")
-                                            continue
-                                        pass
+                                        print("| PLEASE WAIT:....")
+                                        i = 1000000
+                                        while (i >= 0):
+                                            i = i - 1
+                                        print("APPOINTMENT ID:",r)
                                     else:
                                         pass
                                 elif x == 2:
