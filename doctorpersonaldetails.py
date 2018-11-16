@@ -42,22 +42,19 @@ class doctorpersonaldetails:
     def getdocdetail(self,did):
          cursor.execute("SELECT * FROM `mydb`.`doctor_details` WHERE D_ID='" +did+ "';")
          print(cursor.fetchall())
-    def getdocid(self):
-        for ids in self.D_ID:
-            print(ids)
+ 
+    def getdocname(self,did):
+        cursor.execute("SELECT D_Name FROM `mydb`.`doctor_details` WHERE D_ID='" +did+ "';")
+        print(cursor.fetchone())
             
-    def getdocname(self):
-        for name in self.D_Name:
-            print(name)
-            
-    def getdocemail(self):
-        for email in self.D_Email :          
-            print(email)       
+    def getdocemail(self,did):
+        cursor.execute("SELECT D_Email FROM `mydb`.`doctor_details` WHERE D_ID='" +did+ "';")
+        print(cursor.fetchall())       
             
     def getdocphone(self):
-        for phone in self.D_PNo:
-            print(phone)
+        cursor.execute("SELECT D_PNo FROM `mydb`.`doctor_details` WHERE D_ID='" +did+ "';")
+        print(cursor.fetchall()) 
          
     def getdocaddress(self):
-        for address in self.D_Add:
-            print(address)  
+        cursor.execute("SELECT D_Add FROM `mydb`.`doctor_details` WHERE D_ID='" +did+ "';")
+        print(cursor.fetchall()) 

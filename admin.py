@@ -24,7 +24,7 @@ class admin:
           cursor.execute("select * from mydb.doctor_details")
           for x in cursor:
               print(x)
-    def getpateints(self):
+    def getpatients(self):
           cursor.execute("select * from mydb.patient_details")
           for x in cursor:
               print(x)
@@ -62,10 +62,34 @@ class admin:
             db.commit()
             
             
-    def doctorlogin(self,u_id,pswd):
-           cursor.execute("SELECT count(*) FROM `mydb`.`admin` where ID='" + name + "' AND Password='" + pswrd + "';")
+    def doctorlogin(self,name,pswrd):
+           cursor.execute("SELECT count(*) FROM `mydb`.`admin` where BINARY ID='" + name + "' AND BINARY Password='" + pswrd + "';")
            p1 = cursor.fetchone()
            return p1[0]
            
-           
-    def pateintlogin(self,u_id,pswd):     
+    def assigndoctor(self):
+        cursor.execute("SELECT COUNT(UP_ID) FROM `mydb`.`unassigned_patient`")
+        p1 = cursor.fetchone()
+        y = p1[0]
+        for i in range (1,y):
+            cursor.execute("SELECT UP_ID FROM `mydb`.`unassigned_patient` ORDER BY UP_ID ASC LIMIT 1")
+            p2=cursor.fetchone()
+            y2=p2[0]
+            # print(y2)
+            cursor.execute("SELECT D_DID FROM `mydb`.`doctor_professional_details` WHERE D_Department=(SELECT UP_PROB_DEP FROM `mydb`.`unassigned_patient` WHERE UP_ID=(SELECT UP_ID FROM `mydb`.`unassigned_patient` ORDER BY UP_ID ASC LIMIT 1));")
+            p3=cursor.fetchone()
+            y3=p3[0]
+            # print(y3)
+            sql = "INSERT INTO `mydb`.`doctor_assignment` (`DOC_ID`, `PAT_ID`, `DOC_MAX_LMT`, `REF_DOC_ID`) VALUES('%s','%s',%s,'%s')"
+            val = (y3,y2,20,'')
+            cursor.execute(sql % val)
+            db.commit()
+            cursor.execute("DELETE FROM `mydb`.`unassigned_patient` WHERE UP_ID='"+ y2 +"';")
+            db.commit()
+        
+  
+        
+    
+    def mangementwindow(self):
+        pass
+    

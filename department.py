@@ -4,51 +4,66 @@ Created on Wed Nov  7 05:42:32 2018
 
 @author: Jeet
 """
-
+import pymysql
+db = pymysql.connect( 
+                    host='127.0.0.1',
+                    user="root",
+                    passwd="6%w<RPl4",
+                    db="mydb"
+                    )
+#print(db)
+cursor = db.cursor()
 class department:
     def __init__(self):
         pass
-
     
-            
-    def setdepid(self):
-        self.Dep_ID=Dep_ID
+    def setdephod(self,dep_id,hod):
+        cursor.execute("UPDATE `mydb`.`department` SET Dep_HOD = '" +hod+ "' WHERE Dep_ID = '" +dep_id+ "';")
+        db.commit()
     
-    def setdephod(self):
-        self.Dep._HOD=Dep_HOD
+    def setdep_building(self,dep_id,building):
+        cursor.execute("UPDATE `mydb`.`department` SET Dep_Building = '" +building+ "' WHERE Dep_ID = '" +dep_id+ "';")
+        db.commit()
     
-    def setdep_building(self):
-        self.Dep_building=Dep_building
+    def setdepcontact(self,dep_id,contact):
+        cursor.execute("UPDATE `mydb`.`department` SET Dep_Contact = '" + contact + "' WHERE Dep_ID = '" +dep_id+ "';")
+        db.commit()
     
-    def setdepcontact(self):
-        self.Dep_contact=Dep_contact
+    def setdeprooms(self,dep_id,room):
+        cursor.execute("UPDATE `mydb`.`department` SET Dep_Room = '" +room+ "' WHERE Dep_ID = '" +dep_id+ "';")
+        db.commit()
     
-    def setdeprooms(self):
-        self.Dep_rooms=Dep_rooms
+    def setdepopd(self,dep_id,opd):
+        cursor.execute("UPDATE `mydb`.`department` SET Dep_OPD = '" +opd+ "' WHERE Dep_ID = '" +dep_id+ "';")
+        db.commit()
     
-    def setdepopd(self):
-        self.Dep_opd=Dep_opd
+    def setdepname(self,dep_id,name):
+        cursor.execute("UPDATE `mydb`.`department` SET Dep_Name = '" +name+ "' WHERE Dep_ID = '" +dep_id+ "';")
+        db.commit()
     
-    def setdepname(self):
-        self.Dep_name=Dep_name
+    def getalldep(self,dep_id):
+        cursor.execute("SELECT Dep_Name FROM mydb.department")
+        print(cursor.fetchall())
     
-    def getdepname(self):
-        return self.Dep_name
+    def getdepinfo(self,dep_id):
+        cursor.execute("SELECT * FROM `mydb.department` WHERE Dep_ID='" +dep_id+ "';")
+        print(cursor.fetchall()) 
     
-    def getdepopd(self):
-        return self.Dep_opd
+    def getdepbuilding(self,dep_id):
+        cursor.execute("SELECT Dep_Building Dep_Room FROM `mydb.department` WHERE Dep_ID='" +dep_id+ "';")
+        print(cursor.fetchall())
+    def getdepcontact(self,dep_id):
+        cursor.execute("SELECT Dep_Contact FROM `mydb.department` WHERE Dep_ID='" +dep_id+ "';")
+        print(cursor.fetchall())
     
-    def getdepbuilding(self):
-        return self.Dep_building
+    def getdeprooms(self,dep_id):
+        cursor.execute("SELECT Dep_Room Dep_Building FROM `mydb.department` WHERE Dep_ID='" +dep_id+ "';")
+        print(cursor.fetchall())
     
-    def getdepcontact(self):
-        return self.Dep_contact
+    def getdephod(self,dep_id):
+        cursor.execute("SELECT Dep_HOD FROM `mydb.department` WHERE Dep_ID='" +dep_id+ "';")
+        print(cursor.fetchall())
     
-    def getdeprooms(self):
-        return self.Dep_rooms
-    
-    def getdephod(self):
-        return self.Dep_HOD
-    
-    def getdepid(self):
-        return self.Dep_ID
+    def getdepid(self,dep_id):
+        cursor.execute("SELECT Dep_ID FROM `mydb.department` WHERE Dep_ID='" +dep_id+ "';")
+        print(cursor.fetchall())

@@ -4,15 +4,25 @@ Created on Wed Nov  7 05:40:14 2018
 
 @author: Jeet
 """
-
+import pymysql
+db = pymysql.connect( 
+                    host='127.0.0.1',
+                    user="root",
+                    passwd="6%w<RPl4",
+                    db="mydb"
+                    )
+#print(db)
+cursor = db.cursor()
 class HOD:
-    def __init__(self,department,room_no,contact,qualification):
-        self.department=department
-        self.room_no=room_no
-        self.contact=contact
-        self.qualification=qualification
-        
-    def gethoddep(self):
+    def __init__(self):
+        print("______HOD WINDOW_______")
+        print("1. Change department name ")
+        print("2. Change department contact ")
+        print("3. Change department room ")
+        print("4. Change department OPD ")
+        print("5. Change department Building ")
+    
+    def setopdtiming(self):
         pass
     
     def gethodroom(self):
@@ -37,4 +47,3 @@ class HOD:
     def sethodqualification(self):
         pass
         
-    
