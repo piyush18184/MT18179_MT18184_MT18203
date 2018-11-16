@@ -1136,325 +1136,727 @@ def main():
                         aaa = input("PRESS ANY KEY TO EXIT")
                         sys.exit()
                 else:
-                    while True:
-                        ##############  Doctor functionality
-                        print(" __________________________________________________________________________ ")
-                        print("|----------------------------WELCOME TO HOMEPAGE---------------------------|")
-                        print("|                                                                          |")
-                        print("|                        1. SEE PATIENT ALLOCATED                          |")
-                        print("|                        2. EDIT PROFILE                                   |")
-                        print("|                        3. VIEW PROFILE                                   |")
-                        print("|                        4. REFERRAL                                       |")
-                        print("|                        5. LOGOUT                                         |")
-                        print("|__________________________________________________________________________|")
-                        x = int(input("Enter your choice:....."))
-                        if x == 1:
-                            h1.getpatientsallocated(name)
-                        elif x == 2:
+                    cursor.execute("SELECT count(D_DID) FROM `db`.`doctor_professional_details` where D_DID='" + name + "' and D_Type='HOD';");
+                    yyy=cursor.fetchone()
+                    ppp=int(yyy[0])
+                    print(ppp)
+                    if (ppp>0):
+                        while True:
                             print(" __________________________________________________________________________ ")
-                            print("|-------------------DOCTOR'S PERSONAL DETAILS EDIT WINDOW------------------|")
+                            print("|----------------------------WELCOME TO HOMEPAGE---------------------------|")
                             print("|                                                                          |")
-                            print("|                        1. EDIT DOCTOR'S NAME                             |")
-                            print("|                        2. EDIT DOCTOR'S AGE                              |")
-                            print("|                        3. EDIT DOCTOR'S PHONE NUMBER                     |")
-                            print("|                        4. EDIT DOCTOR'S EMAIL                            |")
-                            print("|                        5. EDIT DOCTOR'S ADDRESS                          |")
-                            print("|                        6. RETURN TO PREVIOUS PAGE                        |")
+                            print("|                        1. SEE PATIENT ALLOCATED                          |")
+                            print("|                        2. EDIT PROFILE                                   |")
+                            print("|                        3. VIEW PROFILE                                   |")
+                            print("|                        4. REFERRAL                                       |")
+                            print("|                        5. HOD TASKS                                      |")
+                            print("|                        6. LOGOUT                                         |")
                             print("|__________________________________________________________________________|")
-                            xx = int(input("Enter your choice:....."))
-                            if xx == 1:
-                                did = input("| DOCTOR ID:.. ")
-                                d1 = dpd()
-                                d1.getdocdetail(did)
-                                print(
-                                    " __________________________________________________________________________ ")
-                                print(
-                                    "|------------------------IS THE INFORMATION CORRECT------------------------|")
-                                print(
-                                    "|                                                                          |")
-                                print(
-                                    "|                                1. YES                                    |")
-                                print(
-                                    "|                                2. NO                                     |")
-                                print(
-                                    "|__________________________________________________________________________|")
-                                xxx = int(input("PLEASE SELECT THE OPTION:..."))
-                                if xxx == 1:
-                                    nme = input("| DOCTOR NAME:.. ")
+                            x = int(input("Enter your choice:....."))
+                            if x == 1:
+                                h1.getpatientsallocated(name)
+                            elif x == 2:
+                                print(" __________________________________________________________________________ ")
+                                print("|-------------------DOCTOR'S PERSONAL DETAILS EDIT WINDOW------------------|")
+                                print("|                                                                          |")
+                                print("|                        1. EDIT DOCTOR'S NAME                             |")
+                                print("|                        2. EDIT DOCTOR'S AGE                              |")
+                                print("|                        3. EDIT DOCTOR'S PHONE NUMBER                     |")
+                                print("|                        4. EDIT DOCTOR'S EMAIL                            |")
+                                print("|                        5. EDIT DOCTOR'S ADDRESS                          |")
+                                print("|                        6. RETURN TO PREVIOUS PAGE                        |")
+                                print("|__________________________________________________________________________|")
+                                xx = int(input("Enter your choice:....."))
+                                if xx == 1:
+                                    did = input("| DOCTOR ID:.. ")
+                                    d1 = dpd()
+                                    d1.getdocdetail(did)
                                     print(
                                         " __________________________________________________________________________ ")
                                     print(
-                                        "|------------------------------CONFIRM-------------------------------------|")
+                                        "|------------------------IS THE INFORMATION CORRECT------------------------|")
                                     print(
                                         "|                                                                          |")
                                     print(
-                                        "|                               1. YES                                     |")
+                                        "|                                1. YES                                    |")
                                     print(
-                                        "|                               2. NO                                      |")
+                                        "|                                2. NO                                     |")
                                     print(
                                         "|__________________________________________________________________________|")
-                                    xxx = int(input("PLEASE CONFIRM..?"))
+                                    xxx = int(input("PLEASE SELECT THE OPTION:..."))
                                     if xxx == 1:
-                                        d1.setdoctorname(nme, did)
+                                        nme = input("| DOCTOR NAME:.. ")
+                                        print(
+                                            " __________________________________________________________________________ ")
+                                        print(
+                                            "|------------------------------CONFIRM-------------------------------------|")
+                                        print(
+                                            "|                                                                          |")
+                                        print(
+                                            "|                               1. YES                                     |")
+                                        print(
+                                            "|                               2. NO                                      |")
+                                        print(
+                                            "|__________________________________________________________________________|")
+                                        xxx = int(input("PLEASE CONFIRM..?"))
+                                        if xxx == 1:
+                                            d1.setdoctorname(nme, did)
 
-                                        print(" ___________________________________ ")
-                                        print("| DOCTOR NAME UPDATED SUCCESSFULLY:...|")
-                                        d1.getdocdetail(did)
-                                    elif xxx == 2:
+                                            print(" ___________________________________ ")
+                                            print("| DOCTOR NAME UPDATED SUCCESSFULLY:...|")
+                                            d1.getdocdetail(did)
+                                        elif xxx == 2:
+                                            print("RETURNING TO PREVIOUS PAGE...PLEASE WAIT..")
+                                            for i in range(1, 30000000):
+                                                pass
+                                            continue
+                                        else:
+                                            print("WRONG OPTION SELECTED...PLEASE TRY AGAIN")
+                                            continue
+                                    elif xx == 2:
                                         print("RETURNING TO PREVIOUS PAGE...PLEASE WAIT..")
                                         for i in range(1, 30000000):
                                             pass
                                         continue
-                                    else:
-                                        print("WRONG OPTION SELECTED...PLEASE TRY AGAIN")
-                                        continue
                                 elif xx == 2:
-                                    print("RETURNING TO PREVIOUS PAGE...PLEASE WAIT..")
-                                    for i in range(1, 30000000):
-                                        pass
-                                    continue
-                            elif xx == 2:
-                                did = input("| DOCTOR ID:.. ")
-                                d1.getdocdetail(did)
-                                print(
-                                    " __________________________________________________________________________ ")
-                                print(
-                                    "|------------------------IS THE INFORMATION CORRECT------------------------|")
-                                print(
-                                    "|                                                                          |")
-                                print(
-                                    "|                                1. YES                                    |")
-                                print(
-                                    "|                                2. NO                                     |")
-                                print(
-                                    "|__________________________________________________________________________|")
-                                xxx = int(input("PLEASE SELECT THE OPTION:..."))
-                                if xxx == 1:
-                                    ageee = input("| DOCTOR AGE:.. ")
+                                    did = input("| DOCTOR ID:.. ")
+                                    d1.getdocdetail(did)
                                     print(
                                         " __________________________________________________________________________ ")
                                     print(
-                                        "|------------------------------CONFIRM-------------------------------------|")
+                                        "|------------------------IS THE INFORMATION CORRECT------------------------|")
                                     print(
                                         "|                                                                          |")
                                     print(
-                                        "|                              1. YES                                      |")
+                                        "|                                1. YES                                    |")
                                     print(
-                                        "|                              2. NO                                       |")
+                                        "|                                2. NO                                     |")
                                     print(
                                         "|__________________________________________________________________________|")
-                                    xxx = int(input("PLEASE CONFIRM..?"))
+                                    xxx = int(input("PLEASE SELECT THE OPTION:..."))
                                     if xxx == 1:
-                                        d1.setdoctorage(ageee, did)
-                                        print(" ___________________________________ ")
-                                        print("| DOCTOR AGE UPDATED SUCCESSFULLY:...|")
-                                        d1.getdocdetail(did)
-                                    elif xxx == 2:
+                                        ageee = input("| DOCTOR AGE:.. ")
+                                        print(
+                                            " __________________________________________________________________________ ")
+                                        print(
+                                            "|------------------------------CONFIRM-------------------------------------|")
+                                        print(
+                                            "|                                                                          |")
+                                        print(
+                                            "|                              1. YES                                      |")
+                                        print(
+                                            "|                              2. NO                                       |")
+                                        print(
+                                            "|__________________________________________________________________________|")
+                                        xxx = int(input("PLEASE CONFIRM..?"))
+                                        if xxx == 1:
+                                            d1.setdoctorage(ageee, did)
+                                            print(" ___________________________________ ")
+                                            print("| DOCTOR AGE UPDATED SUCCESSFULLY:...|")
+                                            d1.getdocdetail(did)
+                                        elif xxx == 2:
+                                            print("RETURNING TO PREVIOUS PAGE...PLEASE WAIT..")
+                                            for i in range(1, 30000000):
+                                                pass
+                                            continue
+                                        else:
+                                            print("WRONG OPTION SELECTED...PLEASE TRY AGAIN")
+                                            continue
+                                    elif xx == 2:
                                         print("RETURNING TO PREVIOUS PAGE...PLEASE WAIT..")
                                         for i in range(1, 30000000):
                                             pass
                                         continue
-                                    else:
-                                        print("WRONG OPTION SELECTED...PLEASE TRY AGAIN")
-                                        continue
-                                elif xx == 2:
-                                    print("RETURNING TO PREVIOUS PAGE...PLEASE WAIT..")
-                                    for i in range(1, 30000000):
-                                        pass
-                                    continue
-                            elif xx == 3:
-                                did = input("| DOCTOR ID:.. ")
-                                d1.getdocdetail(did)
-                                print(
-                                    " __________________________________________________________________________ ")
-                                print(
-                                    "|------------------------IS THE INFORMATION CORRECT------------------------|")
-                                print(
-                                    "|                                                                          |")
-                                print(
-                                    "|                                 1. YES                                   |")
-                                print(
-                                    "|                                 2. NO                                    |")
-                                print(
-                                    "|__________________________________________________________________________|")
-                                xxx = int(input("PLEASE SELECT THE OPTION:..."))
-                                if xxx == 1:
-                                    phnu = input("| DOCTOR PHONE NUMBER:.. ")
+                                elif xx == 3:
+                                    did = input("| DOCTOR ID:.. ")
+                                    d1.getdocdetail(did)
                                     print(
                                         " __________________________________________________________________________ ")
                                     print(
-                                        "|------------------------------CONFIRM-------------------------------------|")
+                                        "|------------------------IS THE INFORMATION CORRECT------------------------|")
                                     print(
                                         "|                                                                          |")
                                     print(
-                                        "|                              1. YES                                      |")
+                                        "|                                 1. YES                                   |")
                                     print(
-                                        "|                              2. NO                                       |")
+                                        "|                                 2. NO                                    |")
                                     print(
                                         "|__________________________________________________________________________|")
-                                    xxx = int(input("PLEASE CONFIRM..?"))
+                                    xxx = int(input("PLEASE SELECT THE OPTION:..."))
                                     if xxx == 1:
-                                        d1.setdoctorpno(phnu, did)
-                                        print(" ___________________________________ ")
-                                        print("| DOCTOR PHONE NUMBER UPDATED SUCCESSFULLY:...|")
-                                        d1.getdocdetail(did)
-                                    elif xxx == 2:
+                                        phnu = input("| DOCTOR PHONE NUMBER:.. ")
+                                        print(
+                                            " __________________________________________________________________________ ")
+                                        print(
+                                            "|------------------------------CONFIRM-------------------------------------|")
+                                        print(
+                                            "|                                                                          |")
+                                        print(
+                                            "|                              1. YES                                      |")
+                                        print(
+                                            "|                              2. NO                                       |")
+                                        print(
+                                            "|__________________________________________________________________________|")
+                                        xxx = int(input("PLEASE CONFIRM..?"))
+                                        if xxx == 1:
+                                            d1.setdoctorpno(phnu, did)
+                                            print(" ___________________________________ ")
+                                            print("| DOCTOR PHONE NUMBER UPDATED SUCCESSFULLY:...|")
+                                            d1.getdocdetail(did)
+                                        elif xxx == 2:
+                                            print("RETURNING TO PREVIOUS PAGE...PLEASE WAIT..")
+                                            for i in range(1, 30000000):
+                                                pass
+                                            continue
+                                        else:
+                                            print("WRONG OPTION SELECTED...PLEASE TRY AGAIN")
+                                            continue
+                                    elif xx == 2:
                                         print("RETURNING TO PREVIOUS PAGE...PLEASE WAIT..")
                                         for i in range(1, 30000000):
                                             pass
                                         continue
-                                    else:
-                                        print("WRONG OPTION SELECTED...PLEASE TRY AGAIN")
-                                        continue
-                                elif xx == 2:
-                                    print("RETURNING TO PREVIOUS PAGE...PLEASE WAIT..")
-                                    for i in range(1, 30000000):
-                                        pass
-                                    continue
-                            elif xx == 4:
-                                did = input("| DOCTOR ID:.. ")
-                                d1.getdocdetail(did)
-                                print(
-                                    " __________________________________________________________________________ ")
-                                print(
-                                    "|------------------------IS THE INFORMATION CORRECT------------------------|")
-                                print(
-                                    "|                                                                          |")
-                                print(
-                                    "|                                 1. YES                                   |")
-                                print(
-                                    "|                                 2. NO                                     |")
-                                print(
-                                    "|__________________________________________________________________________|")
-                                xxx = int(input("PLEASE SELECT THE OPTION:..."))
-                                if xxx == 1:
-                                    emaii = input("| DOCTOR EMAIL:.. ")
+                                elif xx == 4:
+                                    did = input("| DOCTOR ID:.. ")
+                                    d1.getdocdetail(did)
                                     print(
                                         " __________________________________________________________________________ ")
                                     print(
-                                        "|------------------------------CONFIRM-------------------------------------|")
+                                        "|------------------------IS THE INFORMATION CORRECT------------------------|")
                                     print(
                                         "|                                                                          |")
                                     print(
-                                        "|                              1. YES                                      |")
+                                        "|                                 1. YES                                   |")
                                     print(
-                                        "|                              2. NO                                       |")
+                                        "|                                 2. NO                                     |")
                                     print(
                                         "|__________________________________________________________________________|")
-                                    xxx = int(input("PLEASE CONFIRM..?"))
+                                    xxx = int(input("PLEASE SELECT THE OPTION:..."))
                                     if xxx == 1:
-                                        d1.setdoctoremail(emaii, did)
-                                        print(" ___________________________________ ")
-                                        print("| DOCTOR EMAIL UPDATED SUCCESSFULLY:...|")
-                                        d1.getdocdetail(did)
-                                    elif xxx == 2:
+                                        emaii = input("| DOCTOR EMAIL:.. ")
+                                        print(
+                                            " __________________________________________________________________________ ")
+                                        print(
+                                            "|------------------------------CONFIRM-------------------------------------|")
+                                        print(
+                                            "|                                                                          |")
+                                        print(
+                                            "|                              1. YES                                      |")
+                                        print(
+                                            "|                              2. NO                                       |")
+                                        print(
+                                            "|__________________________________________________________________________|")
+                                        xxx = int(input("PLEASE CONFIRM..?"))
+                                        if xxx == 1:
+                                            d1.setdoctoremail(emaii, did)
+                                            print(" ___________________________________ ")
+                                            print("| DOCTOR EMAIL UPDATED SUCCESSFULLY:...|")
+                                            d1.getdocdetail(did)
+                                        elif xxx == 2:
+                                            print("RETURNING TO PREVIOUS PAGE...PLEASE WAIT..")
+                                            for i in range(1, 30000000):
+                                                pass
+                                            continue
+                                        else:
+                                            print("WRONG OPTION SELECTED...PLEASE TRY AGAIN")
+                                            continue
+                                    elif xx == 2:
                                         print("RETURNING TO PREVIOUS PAGE...PLEASE WAIT..")
                                         for i in range(1, 30000000):
                                             pass
                                         continue
-                                    else:
-                                        print("WRONG OPTION SELECTED...PLEASE TRY AGAIN")
-                                        continue
-                                elif xx == 2:
-                                    print("RETURNING TO PREVIOUS PAGE...PLEASE WAIT..")
-                                    for i in range(1, 30000000):
-                                        pass
-                                    continue
-                            elif xx == 5:
-                                did = input("| DOCTOR ID:.. ")
-                                d1.getdocdetail(did)
-                                print(
-                                    " __________________________________________________________________________ ")
-                                print(
-                                    "|------------------------IS THE INFORMATION CORRECT------------------------|")
-                                print(
-                                    "|                                                                          |")
-                                print(
-                                    "|                                 1. YES                                   |")
-                                print(
-                                    "|                                 2. NO                                     |")
-                                print(
-                                    "|__________________________________________________________________________|")
-                                xxx = int(input("PLEASE SELECT THE OPTION:..."))
-                                if xxx == 1:
-                                    addre = input("| DOCTOR ADDRESS:.. ")
+                                elif xx == 5:
+                                    did = input("| DOCTOR ID:.. ")
+                                    d1.getdocdetail(did)
                                     print(
                                         " __________________________________________________________________________ ")
                                     print(
-                                        "|------------------------------CONFIRM-------------------------------------|")
+                                        "|------------------------IS THE INFORMATION CORRECT------------------------|")
                                     print(
                                         "|                                                                          |")
                                     print(
-                                        "|                              1. YES                                      |")
+                                        "|                                 1. YES                                   |")
                                     print(
-                                        "|                              2. NO                                       |")
+                                        "|                                 2. NO                                     |")
                                     print(
                                         "|__________________________________________________________________________|")
-                                    xxx = int(input("PLEASE CONFIRM..?"))
+                                    xxx = int(input("PLEASE SELECT THE OPTION:..."))
                                     if xxx == 1:
-                                        d1.setdoctoraddr(addre, did)
-                                        print(" ___________________________________ ")
-                                        print("| DOCTOR ADDRESS UPDATED SUCCESSFULLY:...|")
-                                        d1.getdocdetail(did)
-                                    elif xxx == 2:
+                                        addre = input("| DOCTOR ADDRESS:.. ")
+                                        print(
+                                            " __________________________________________________________________________ ")
+                                        print(
+                                            "|------------------------------CONFIRM-------------------------------------|")
+                                        print(
+                                            "|                                                                          |")
+                                        print(
+                                            "|                              1. YES                                      |")
+                                        print(
+                                            "|                              2. NO                                       |")
+                                        print(
+                                            "|__________________________________________________________________________|")
+                                        xxx = int(input("PLEASE CONFIRM..?"))
+                                        if xxx == 1:
+                                            d1.setdoctoraddr(addre, did)
+                                            print(" ___________________________________ ")
+                                            print("| DOCTOR ADDRESS UPDATED SUCCESSFULLY:...|")
+                                            d1.getdocdetail(did)
+                                        elif xxx == 2:
+                                            print("RETURNING TO PREVIOUS PAGE...PLEASE WAIT..")
+                                            for i in range(1, 30000000):
+                                                pass
+                                            continue
+                                        else:
+                                            print("WRONG OPTION SELECTED...PLEASE TRY AGAIN")
+                                            continue
+                                    elif xx == 2:
                                         print("RETURNING TO PREVIOUS PAGE...PLEASE WAIT..")
                                         for i in range(1, 30000000):
                                             pass
                                         continue
-                                    else:
-                                        print("WRONG OPTION SELECTED...PLEASE TRY AGAIN")
-                                        continue
-                                elif xx == 2:
+                                elif xx == 6:
                                     print("RETURNING TO PREVIOUS PAGE...PLEASE WAIT..")
                                     for i in range(1, 30000000):
                                         pass
                                     continue
-                            elif xx == 6:
-                                print("RETURNING TO PREVIOUS PAGE...PLEASE WAIT..")
-                                for i in range(1, 30000000):
-                                    pass
-                                continue
+                                else:
+                                    print("| WRONG CHOICE ENTERED..PLEASE TRY AGAIN")
+                                    continue
+                            elif x == 3:
+                                h1.getdoctordetail(name)
+                            elif x == 4:
+                                print(" __________________________________________________________________________ ")
+                                print("|------------------------DOCTOR'S REFERRAL WINDOW--------------------------|")
+                                cursor.execute("SELECT PAT_ID FROM `db`.`doctor_assignment` WHERE DOC_ID='"+name+"';")
+                                print(cursor.fetchall())
+                                y1=input("ENTER THE PATIENT'S ID TO BE REFFERED:")
+                                cursor.execute("SELECT COUNT(PAT_ID) FROM `db`.`doctor_assignment` WHERE PAT_ID='" + y1 + "' AND DOC_ID='" + name + "';")
+                                y2=cursor.fetchone()
+                                p2=y2[0]
+                                if(p2>0):
+                                    print(" __________________________________________________________________________ ")
+                                    print("|------------------------IS THE INFORMATION CORRECT------------------------|")
+                                    print("|                                                                          |")
+                                    print("|                                1. YES                                    |")
+                                    print("|                                2. NO                                     |")
+                                    print("|__________________________________________________________________________|")
+                                    xxx = int(input("PLEASE SELECT THE OPTION:..."))
+                                    if xxx == 1:
+                                        d2=input("ENTER THE DOCTOR's ID TO BE REFERRED TO:")
+                                        cursor.execute("DELETE FROM `db`.`doctor_assignment` WHERE PAT_ID='"+y1+"';")
+                                        db.commit()
+                                        sql = "INSERT INTO `db`.`doctor_assignment` (`DOC_ID`, `PAT_ID`, `DOC_MAX_LMT`, `REF_DOC_ID`) VALUES('%s','%s',%s,'%s')"
+                                        val = (d2, y1, 20,name)
+                                        cursor.execute(sql % val)
+                                        db.commit()
+                            elif x == 5:
+                                print(" __________________________________________________________________________ ")
+                                print("|---------------------------HOD'S TASK WINDOW------------------------------|")
+                                print("|                                                                          |")
+                                print("|                        1. SET DOCTOR'S OPD TIMINGS                       |")
+                                print("|                        2. ROOM ALLOTMENT                                 |")
+                                print("|                        3. DEPARTMENT CONTACT                             |")
+                                print("|                        4. RETURN                                         |")
+                                print("|__________________________________________________________________________|")
+                                xxxx = int(input("Enter your choice:....."))
+                                if xxxx == 1:
+                                    print(" __________________________________________________________________________ ")
+                                    print("|-----------------------HOD's OPD TIMING UPDATE----------------------------|")
+                                    print("|                                                                          |")
+                                    print("|                        1. OPD START TIMINGS                              |")
+                                    print("|                        2. OPD END TIMINGS                                |")
+                                    print("|                        3. RETURN                                         |")
+                                    print("|__________________________________________________________________________|")
+                                    xxxxx = int(input("Enter your choice:....."))
+                                    if xxxxx == 1:
+                                        print(" __________________________________________________________________________ ")
+                                        print("|------------------------IS THE INFORMATION CORRECT------------------------|")
+                                        print("|                                                                          |")
+                                        print("|                                1. YES                                    |")
+                                        print("|                                2. NO                                     |")
+                                        print("|__________________________________________________________________________|")
+                                        xxxxxx = int(input("Enter your choice:....."))
+                                        if xxxxxx==1:
+                                            docid=input("| PLEASE ENTER THE DOCTOR's ID WHOSE INFROMATION NEEDS TO BE MODIFIED:...")
+                                            opdst=input("| PLEASE ENTER THE START TIME FOR OPD(24 HOUR FORMAT(hh:mm:ss)):...")
+                                            cursor.execute("UPDATE `db`.`doctor_professional_details` SET D_OPD_TIME_START = '" + opdst + "' WHERE D_DID = '" + docid + "';")
+                                            db.commit()
+                                            print("DOCTOR DETAILS UPDATED SUCCESSFULLY")
+                                        else:
+                                            print("RETURNING BACK...")
+                                            break
+                                    elif xxxxx == 2:
+                                        print(" __________________________________________________________________________ ")
+                                        print("|------------------------IS THE INFORMATION CORRECT------------------------|")
+                                        print("|                                                                          |")
+                                        print("|                                1. YES                                    |")
+                                        print("|                                2. NO                                     |")
+                                        print("|__________________________________________________________________________|")
+                                        xxxxxx = int(input("Enter your choice:....."))
+                                        if xxxxxx==1:
+                                            docid=input("| PLEASE ENTER THE DOCTOR's ID WHOSE INFROMATION NEEDS TO BE MODIFIED:...")
+                                            opdent=input("| PLEASE ENTER THE END TIME FOR OPD(24 HOUR FORMAT(hh:mm:ss)):...")
+                                            cursor.execute("UPDATE `db`.`doctor_professional_details` SET D_OPD_TIME_END = '" + opdent + "' WHERE D_DID = '" + docid + "';")
+                                            db.commit()
+                                            print("DOCTOR DETAILS UPDATED SUCCESSFULLY")
+                                        else:
+                                            print("RETURNING BACK...")
+                                            break
+                                    elif xxxxx == 3:
+                                        print(" __________________________________________________________________________ ")
+                                        print("|------------------------IS THE INFORMATION CORRECT------------------------|")
+                                        print("|                                                                          |")
+                                        print("|                                1. YES                                    |")
+                                        print("|                                2. NO                                     |")
+                                        print("|__________________________________________________________________________|")
+                                        xxxxxx = int(input("Enter your choice:....."))
+                                        if xxxxxx==1:
+                                            docid=input("| PLEASE ENTER THE DOCTOR's ID WHOSE INFROMATION NEEDS TO BE MODIFIED:...")
+                                            rno=input("| PLEASE ENTER THE ROOM NUMBER(24 HOUR FORMAT(hh:mm:ss)):...")
+                                            cursor.execute("UPDATE `db`.`doctor_professional_details` SET D_RoomNo = '" + rno + "' WHERE D_DID = '" + docid + "';")
+                                            db.commit()
+                                            print("DOCTOR DETAILS UPDATED SUCCESSFULLY")
+                                        else:
+                                            print("RETURNING BACK...")
+                                            break
+                                    else:
+                                        break
+                            elif x == 6:
+                                print("| LOGGING OUT...PRESS ANY KEY TO CONTINUE..!")
+                                a = input("")
+                                sys.exit()
                             else:
                                 print("| WRONG CHOICE ENTERED..PLEASE TRY AGAIN")
                                 continue
-                        elif x == 3:
-                            h1.getdoctordetail(name)
-                        elif x == 4:### we have to assign all doctors a level a junior level dr can only reffere someone
-                            #### and also other departmental refferal only oh the consent of hod
-                            #### refereral if required
+                            h1 = h()
+                    else:
+                        while True:
                             print(" __________________________________________________________________________ ")
-                            print("|------------------------DOCTOR'S REFERRAL WINDOW--------------------------|")
-                            cursor.execute("SELECT PAT_ID FROM `db`.`doctor_assignment` WHERE DOC_ID='"+name+"';")
-                            print(cursor.fetchall())
-                            y1=input("ENTER THE PATIENT'S ID TO BE REFFERED:")
-                            cursor.execute("SELECT COUNT(PAT_ID) FROM `db`.`doctor_assignment` WHERE PAT_ID='" + y1 + "' AND DOC_ID='" + name + "';")
-                            y2=cursor.fetchone()
-                            p2=y2[0]
-                            if(p2>0):
+                            print("|----------------------------WELCOME TO HOMEPAGE---------------------------|")
+                            print("|                                                                          |")
+                            print("|                        1. SEE PATIENT ALLOCATED                          |")
+                            print("|                        2. EDIT PROFILE                                   |")
+                            print("|                        3. VIEW PROFILE                                   |")
+                            print("|                        4. REFERRAL                                       |")
+                            print("|                        6. LOGOUT                                         |")
+                            print("|__________________________________________________________________________|")
+                            x = int(input("Enter your choice:....."))
+                            if x == 1:
+                                h1.getpatientsallocated(name)
+                            elif x == 2:
                                 print(" __________________________________________________________________________ ")
-                                print("|------------------------IS THE INFORMATION CORRECT------------------------|")
+                                print("|-------------------DOCTOR'S PERSONAL DETAILS EDIT WINDOW------------------|")
                                 print("|                                                                          |")
-                                print("|                                1. YES                                    |")
-                                print("|                                2. NO                                     |")
+                                print("|                        1. EDIT DOCTOR'S NAME                             |")
+                                print("|                        2. EDIT DOCTOR'S AGE                              |")
+                                print("|                        3. EDIT DOCTOR'S PHONE NUMBER                     |")
+                                print("|                        4. EDIT DOCTOR'S EMAIL                            |")
+                                print("|                        5. EDIT DOCTOR'S ADDRESS                          |")
+                                print("|                        6. RETURN TO PREVIOUS PAGE                        |")
                                 print("|__________________________________________________________________________|")
-                                xxx = int(input("PLEASE SELECT THE OPTION:..."))
-                                if xxx == 1:
-                                    d2=input("ENTER THE DOCTOR's ID TO BE REFERRED TO:")
-                                    cursor.execute("DELETE FROM `db`.`doctor_assignment` WHERE PAT_ID='"+y1+"';")
-                                    db.commit()
-                                    sql = "INSERT INTO `db`.`doctor_assignment` (`DOC_ID`, `PAT_ID`, `DOC_MAX_LMT`, `REF_DOC_ID`) VALUES('%s','%s',%s,'%s')"
-                                    val = (d2, y1, 20,name)
-                                    cursor.execute(sql % val)
-                                    db.commit()
+                                xx = int(input("Enter your choice:....."))
+                                if xx == 1:
+                                    did = input("| DOCTOR ID:.. ")
+                                    d1 = dpd()
+                                    d1.getdocdetail(did)
+                                    print(
+                                        " __________________________________________________________________________ ")
+                                    print(
+                                        "|------------------------IS THE INFORMATION CORRECT------------------------|")
+                                    print(
+                                        "|                                                                          |")
+                                    print(
+                                        "|                                1. YES                                    |")
+                                    print(
+                                        "|                                2. NO                                     |")
+                                    print(
+                                        "|__________________________________________________________________________|")
+                                    xxx = int(input("PLEASE SELECT THE OPTION:..."))
+                                    if xxx == 1:
+                                        nme = input("| DOCTOR NAME:.. ")
+                                        print(
+                                            " __________________________________________________________________________ ")
+                                        print(
+                                            "|------------------------------CONFIRM-------------------------------------|")
+                                        print(
+                                            "|                                                                          |")
+                                        print(
+                                            "|                               1. YES                                     |")
+                                        print(
+                                            "|                               2. NO                                      |")
+                                        print(
+                                            "|__________________________________________________________________________|")
+                                        xxx = int(input("PLEASE CONFIRM..?"))
+                                        if xxx == 1:
+                                            d1.setdoctorname(nme, did)
 
-                        elif x == 5:
-                            print("| LOGGING OUT...PRESS ANY KEY TO CONTINUE..!")
-                            a = input("")
-                            sys.exit()
-                        else:
-                            print("| WRONG CHOICE ENTERED..PLEASE TRY AGAIN")
-                            continue
-                        h1 = h()
+                                            print(" ___________________________________ ")
+                                            print("| DOCTOR NAME UPDATED SUCCESSFULLY:...|")
+                                            d1.getdocdetail(did)
+                                        elif xxx == 2:
+                                            print("RETURNING TO PREVIOUS PAGE...PLEASE WAIT..")
+                                            for i in range(1, 30000000):
+                                                pass
+                                            continue
+                                        else:
+                                            print("WRONG OPTION SELECTED...PLEASE TRY AGAIN")
+                                            continue
+                                    elif xx == 2:
+                                        print("RETURNING TO PREVIOUS PAGE...PLEASE WAIT..")
+                                        for i in range(1, 30000000):
+                                            pass
+                                        continue
+                                elif xx == 2:
+                                    did = input("| DOCTOR ID:.. ")
+                                    d1.getdocdetail(did)
+                                    print(
+                                        " __________________________________________________________________________ ")
+                                    print(
+                                        "|------------------------IS THE INFORMATION CORRECT------------------------|")
+                                    print(
+                                        "|                                                                          |")
+                                    print(
+                                        "|                                1. YES                                    |")
+                                    print(
+                                        "|                                2. NO                                     |")
+                                    print(
+                                        "|__________________________________________________________________________|")
+                                    xxx = int(input("PLEASE SELECT THE OPTION:..."))
+                                    if xxx == 1:
+                                        ageee = input("| DOCTOR AGE:.. ")
+                                        print(
+                                            " __________________________________________________________________________ ")
+                                        print(
+                                            "|------------------------------CONFIRM-------------------------------------|")
+                                        print(
+                                            "|                                                                          |")
+                                        print(
+                                            "|                              1. YES                                      |")
+                                        print(
+                                            "|                              2. NO                                       |")
+                                        print(
+                                            "|__________________________________________________________________________|")
+                                        xxx = int(input("PLEASE CONFIRM..?"))
+                                        if xxx == 1:
+                                            d1.setdoctorage(ageee, did)
+                                            print(" ___________________________________ ")
+                                            print("| DOCTOR AGE UPDATED SUCCESSFULLY:...|")
+                                            d1.getdocdetail(did)
+                                        elif xxx == 2:
+                                            print("RETURNING TO PREVIOUS PAGE...PLEASE WAIT..")
+                                            for i in range(1, 30000000):
+                                                pass
+                                            continue
+                                        else:
+                                            print("WRONG OPTION SELECTED...PLEASE TRY AGAIN")
+                                            continue
+                                    elif xx == 2:
+                                        print("RETURNING TO PREVIOUS PAGE...PLEASE WAIT..")
+                                        for i in range(1, 30000000):
+                                            pass
+                                        continue
+                                elif xx == 3:
+                                    did = input("| DOCTOR ID:.. ")
+                                    d1.getdocdetail(did)
+                                    print(
+                                        " __________________________________________________________________________ ")
+                                    print(
+                                        "|------------------------IS THE INFORMATION CORRECT------------------------|")
+                                    print(
+                                        "|                                                                          |")
+                                    print(
+                                        "|                                 1. YES                                   |")
+                                    print(
+                                        "|                                 2. NO                                    |")
+                                    print(
+                                        "|__________________________________________________________________________|")
+                                    xxx = int(input("PLEASE SELECT THE OPTION:..."))
+                                    if xxx == 1:
+                                        phnu = input("| DOCTOR PHONE NUMBER:.. ")
+                                        print(
+                                            " __________________________________________________________________________ ")
+                                        print(
+                                            "|------------------------------CONFIRM-------------------------------------|")
+                                        print(
+                                            "|                                                                          |")
+                                        print(
+                                            "|                              1. YES                                      |")
+                                        print(
+                                            "|                              2. NO                                       |")
+                                        print(
+                                            "|__________________________________________________________________________|")
+                                        xxx = int(input("PLEASE CONFIRM..?"))
+                                        if xxx == 1:
+                                            d1.setdoctorpno(phnu, did)
+                                            print(" ___________________________________ ")
+                                            print("| DOCTOR PHONE NUMBER UPDATED SUCCESSFULLY:...|")
+                                            d1.getdocdetail(did)
+                                        elif xxx == 2:
+                                            print("RETURNING TO PREVIOUS PAGE...PLEASE WAIT..")
+                                            for i in range(1, 30000000):
+                                                pass
+                                            continue
+                                        else:
+                                            print("WRONG OPTION SELECTED...PLEASE TRY AGAIN")
+                                            continue
+                                    elif xx == 2:
+                                        print("RETURNING TO PREVIOUS PAGE...PLEASE WAIT..")
+                                        for i in range(1, 30000000):
+                                            pass
+                                        continue
+                                elif xx == 4:
+                                    did = input("| DOCTOR ID:.. ")
+                                    d1.getdocdetail(did)
+                                    print(
+                                        " __________________________________________________________________________ ")
+                                    print(
+                                        "|------------------------IS THE INFORMATION CORRECT------------------------|")
+                                    print(
+                                        "|                                                                          |")
+                                    print(
+                                        "|                                 1. YES                                   |")
+                                    print(
+                                        "|                                 2. NO                                     |")
+                                    print(
+                                        "|__________________________________________________________________________|")
+                                    xxx = int(input("PLEASE SELECT THE OPTION:..."))
+                                    if xxx == 1:
+                                        emaii = input("| DOCTOR EMAIL:.. ")
+                                        print(
+                                            " __________________________________________________________________________ ")
+                                        print(
+                                            "|------------------------------CONFIRM-------------------------------------|")
+                                        print(
+                                            "|                                                                          |")
+                                        print(
+                                            "|                              1. YES                                      |")
+                                        print(
+                                            "|                              2. NO                                       |")
+                                        print(
+                                            "|__________________________________________________________________________|")
+                                        xxx = int(input("PLEASE CONFIRM..?"))
+                                        if xxx == 1:
+                                            d1.setdoctoremail(emaii, did)
+                                            print(" ___________________________________ ")
+                                            print("| DOCTOR EMAIL UPDATED SUCCESSFULLY:...|")
+                                            d1.getdocdetail(did)
+                                        elif xxx == 2:
+                                            print("RETURNING TO PREVIOUS PAGE...PLEASE WAIT..")
+                                            for i in range(1, 30000000):
+                                                pass
+                                            continue
+                                        else:
+                                            print("WRONG OPTION SELECTED...PLEASE TRY AGAIN")
+                                            continue
+                                    elif xx == 2:
+                                        print("RETURNING TO PREVIOUS PAGE...PLEASE WAIT..")
+                                        for i in range(1, 30000000):
+                                            pass
+                                        continue
+                                elif xx == 5:
+                                    did = input("| DOCTOR ID:.. ")
+                                    d1.getdocdetail(did)
+                                    print(
+                                        " __________________________________________________________________________ ")
+                                    print(
+                                        "|------------------------IS THE INFORMATION CORRECT------------------------|")
+                                    print(
+                                        "|                                                                          |")
+                                    print(
+                                        "|                                 1. YES                                   |")
+                                    print(
+                                        "|                                 2. NO                                     |")
+                                    print(
+                                        "|__________________________________________________________________________|")
+                                    xxx = int(input("PLEASE SELECT THE OPTION:..."))
+                                    if xxx == 1:
+                                        addre = input("| DOCTOR ADDRESS:.. ")
+                                        print(
+                                            " __________________________________________________________________________ ")
+                                        print(
+                                            "|------------------------------CONFIRM-------------------------------------|")
+                                        print(
+                                            "|                                                                          |")
+                                        print(
+                                            "|                              1. YES                                      |")
+                                        print(
+                                            "|                              2. NO                                       |")
+                                        print(
+                                            "|__________________________________________________________________________|")
+                                        xxx = int(input("PLEASE CONFIRM..?"))
+                                        if xxx == 1:
+                                            d1.setdoctoraddr(addre, did)
+                                            print(" ___________________________________ ")
+                                            print("| DOCTOR ADDRESS UPDATED SUCCESSFULLY:...|")
+                                            d1.getdocdetail(did)
+                                        elif xxx == 2:
+                                            print("RETURNING TO PREVIOUS PAGE...PLEASE WAIT..")
+                                            for i in range(1, 30000000):
+                                                pass
+                                            continue
+                                        else:
+                                            print("WRONG OPTION SELECTED...PLEASE TRY AGAIN")
+                                            continue
+                                    elif xx == 2:
+                                        print("RETURNING TO PREVIOUS PAGE...PLEASE WAIT..")
+                                        for i in range(1, 30000000):
+                                            pass
+                                        continue
+                                elif xx == 6:
+                                    print("RETURNING TO PREVIOUS PAGE...PLEASE WAIT..")
+                                    for i in range(1, 30000000):
+                                        pass
+                                    continue
+                                else:
+                                    print("| WRONG CHOICE ENTERED..PLEASE TRY AGAIN")
+                                    continue
+                            elif x == 3:
+                                h1.getdoctordetail(name)
+                            elif x == 4:  ### we have to assign all doctors a level a junior level dr can only reffere someone
+                                #### and also other departmental refferal only oh the consent of hod
+                                #### refereral if required
+                                print(" __________________________________________________________________________ ")
+                                print("|------------------------DOCTOR'S REFERRAL WINDOW--------------------------|")
+                                cursor.execute(
+                                    "SELECT PAT_ID FROM `db`.`doctor_assignment` WHERE DOC_ID='" + name + "';")
+                                print(cursor.fetchall())
+                                y1 = input("ENTER THE PATIENT'S ID TO BE REFFERED:")
+                                cursor.execute(
+                                    "SELECT COUNT(PAT_ID) FROM `db`.`doctor_assignment` WHERE PAT_ID='" + y1 + "' AND DOC_ID='" + name + "';")
+                                y2 = cursor.fetchone()
+                                p2 = y2[0]
+                                if (p2 > 0):
+                                    print(
+                                        " __________________________________________________________________________ ")
+                                    print(
+                                        "|------------------------IS THE INFORMATION CORRECT------------------------|")
+                                    print(
+                                        "|                                                                          |")
+                                    print(
+                                        "|                                1. YES                                    |")
+                                    print(
+                                        "|                                2. NO                                     |")
+                                    print(
+                                        "|__________________________________________________________________________|")
+                                    xxx = int(input("PLEASE SELECT THE OPTION:..."))
+                                    if xxx == 1:
+                                        d2 = input("ENTER THE DOCTOR's ID TO BE REFERRED TO:")
+                                        cursor.execute(
+                                            "DELETE FROM `db`.`doctor_assignment` WHERE PAT_ID='" + y1 + "';")
+                                        db.commit()
+                                        sql = "INSERT INTO `db`.`doctor_assignment` (`DOC_ID`, `PAT_ID`, `DOC_MAX_LMT`, `REF_DOC_ID`) VALUES('%s','%s',%s,'%s')"
+                                        val = (d2, y1, 20, name)
+                                        cursor.execute(sql % val)
+                                        db.commit()
+
+                            elif x == 5:
+                                print("| LOGGING OUT...PRESS ANY KEY TO CONTINUE..!")
+                                a = input("")
+                                sys.exit()
+                            else:
+                                print("| WRONG CHOICE ENTERED..PLEASE TRY AGAIN")
+                                continue
+                            h1 = h()
         elif x == 3:
             print(" __________________________________________________________________________ ")
             print("|-----------------------PATIENT'S REGISTRATION WINDOW----------------------|")
