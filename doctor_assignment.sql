@@ -3,7 +3,7 @@ CREATE TABLE `doctor_assignment` (
   `PAT_ID` varchar(10) NOT NULL,
   `DOC_MAX_LMT` int(11) DEFAULT NULL,
   `REF_DOC_ID` varchar(10) DEFAULT NULL,
-  PRIMARY KEY (`PAT_ID`)
+  PRIMARY KEY (`DOC_ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 
