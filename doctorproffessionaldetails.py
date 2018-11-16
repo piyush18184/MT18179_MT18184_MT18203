@@ -47,17 +47,17 @@ class doctorprofessionaldetails:
 
     def setopdstarttime(self, opdst, did):
         cursor.execute(
-            "UPDATE `db`.`doctor_professional_details` SET D_OPD_TIME_START = '" + opdst + "' WHERE D_ID = '" + did + "';")
+            "UPDATE `db`.`doctor_professional_details` SET D_OPD_TIME_START = '" + opdst + "' WHERE D_DID = '" + did + "';")
         db.commit()
 
     def setopdendttime(self, opdet, did):
         cursor.execute(
-            "UPDATE `db`.`doctor_professional_details` SET D_OPD_TIME_END = '" + opdet + "' WHERE D_ID = '" + did + "';")
+            "UPDATE `db`.`doctor_professional_details` SET D_OPD_TIME_END = '" + opdet + "' WHERE D_DID = '" + did + "';")
         db.commit()
 
     def setdoctype(self, dtyp, did):
         cursor.execute(
-            "UPDATE `db`.`doctor_professional_details` SET D_Type = '" + dtyp + "' WHERE D_ID = '" + did + "';")
+            "UPDATE `db`.`doctor_professional_details` SET D_Type = '" + dtyp + "' WHERE D_DID = '" + did + "';")
         db.commit()
 
     def setdocspecialisation(self, spec, did):

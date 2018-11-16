@@ -185,6 +185,7 @@ def main():
                     print(ppp)
                     if (ppp>0):
                         while True:
+                            h1 = h()
                             print(" __________________________________________________________________________ ")
                             print("|----------------------------WELCOME TO HOMEPAGE---------------------------|")
                             print("|                                                                          |")
@@ -219,7 +220,8 @@ def main():
                                 print("|                        3. DEPARTMENT CONTACT                             |")
                                 print("|                        4. ASSIGN DOCTOR TO OPD                           |")
                                 print("|                        5. VIEW DOCTORS ASSIGNED TO OPD                   |")
-                                print("|                        6. RETURN                                         |")
+                                print("|                        6. VIEW DOCTOR DETAILS ASSIGNED TO OPD            |")
+                                print("|                        7. RETURN                                         |")
                                 print("|__________________________________________________________________________|")
                                 xxxx = int(input("Enter your choice:....."))
                                 hod2 = hod()
@@ -245,6 +247,9 @@ def main():
                                     hod2.assigndocopd(dprd)
                                 elif xxxx == 5:
                                     hod2.getopdall()
+                                elif xxxx == 6:
+                                    docid = input("| PLEASE ENTER THE DOCTOR's ID WHOSE INFROMATION NEEDS TO BE VIEWED:...")
+                                    hod2.getdocdetails(docid)
                                 else:
                                     break
                             elif x == 6:
@@ -257,6 +262,7 @@ def main():
                             h1 = h()
                     else:
                         while True:
+                            h1 = h()
                             print(" __________________________________________________________________________ ")
                             print("|----------------------------WELCOME TO HOMEPAGE---------------------------|")
                             print("|                                                                          |")

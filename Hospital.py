@@ -78,9 +78,8 @@ class Hospital:
 
     ###############################################################################################
     def gettiming(self, did):
-        cursor.execute(
-            "SELECT D_OPD_TIME_START, D_OPD_TIME_END FROM `db`.`doctor_professional_details` where D_DID = '" + did + "';")
-        print(cursor.fetchall())
+        cursor.execute("SELECT D_OPD_TIME_START, D_OPD_TIME_END FROM `db`.`doctor_professional_details` where D_DID = '" + did + "';")
+        print(cursor.fetchone())
 
     ###############################################################################################
     def getdepartments(self):
@@ -100,7 +99,7 @@ class Hospital:
     ###############################################################################################
 
     def getpatientsallocated(self, did):
-        cursor.execute("SELECT * FROM `db`.`appointments` where Appointed_D_ID = '" + did + "';")
+        cursor.execute("SELECT * FROM `db`.`doctor_assignment` where DOC_ID = '" + did + "';")
         print(cursor.fetchall())
 
     #######################################################################################################

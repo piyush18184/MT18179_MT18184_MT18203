@@ -85,6 +85,12 @@ class HOD:
         cursor.execute("SELECT * FROM `db`.`opd`")
         print(cursor.fetchall())
 
+    def getdocdetails(self,did):
+        print(" __________________________________________________________________________ ")
+        print("|---------------------------OPD DOCTOR LIST--------------------------------|")
+        cursor.execute("SELECT * FROM `db`.`doctor_details`,`db`.`doctor_professional_details` WHERE `db`.`doctor_details`.`D_ID`='"+did+"' AND `db`.`doctor_details`.`D_ID`=`db`.`doctor_professional_details`.`D_DID`;")
+        print(cursor.fetchall())
+
     def assigndocopd(self,dpd):
         docid = input("| PLEASE ENTER THE DOCTOR's ID WHOSE INFROMATION NEEDS TO BE MODIFIED:...")
         dpd.assigndoctoropd(docid)
