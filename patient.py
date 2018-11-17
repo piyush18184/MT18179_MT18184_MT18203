@@ -719,7 +719,7 @@ class patient:
             if inn == 1:
                 cursor.execute("SELECT DISTINCT Dep_Name FROM `db`.`department`")
                 print(cursor.fetchall())
-                ch = input("| ENTER THE DEPARTMENT FOR WHICH PATIENT NEEDS TO BE ADMITTED IS NEEDED:... ")
+                ch = input("| ENTER THE DEPARTMENT FOR WHICH PATIENT NEEDS TO BE ADMITTED:... ")
                 if (int(cursor.execute("SELECT count(Dep_Name) FROM `db`.`department` where Dep_Name='" + ch + "';")) == 1):
                     sql = "INSERT INTO `db`.`unassigned_patient` (`UP_ID`, `UP_PROB_DEP`, `UP_E_TYPE`)VALUES('%s','%s','%s')"
                     val = (u_id, ch, "")
@@ -727,7 +727,11 @@ class patient:
                     db.commit()
                     cursor.execute("SELECT Dep_sym FROM `db`.`department` where Dep_Name='" + ch + "';")
                     aaa = cursor.fetchone()
-                    bbb = aaa[0]
+                    if (aaa==None):
+                        xx = 0
+                    else:
+                        xx = aaa[0]
+                    bbb=xx
                     now = datetime.datetime.now()
                     ccc = u_id + '_' + bbb + '_LOCAL_' + str(now)
                     print("TOKEN NUMBER OF THE PATIENT IS:", ccc)
@@ -744,7 +748,11 @@ class patient:
                         if(cursor.execute("SELECT count(RoomNo) FROM `db`.`local` where DEP='" + ch + "';")==0):
                             cursor.execute("SELECT RoomNo FROM `db`.`local` where DEP='" + ch + "' ORDER BY RoomNo DESC LIMIT 1;")
                             aaa = cursor.fetchone()
-                            bbb = aaa[0]
+                            if (aaa == 'None'):
+                                xx = 0
+                            else:
+                                xx = aaa[0]
+                            bbb = xx
                             sql = "INSERT INTO `db`.`local` (`RoomNo`,`Dep`,`Status`,`P_ID`) VALUES (%s,'%s','%s','%s')"
                             val = (bbb+1, ch, 'Y', u_id)
                             cursor.execute(sql % val)
@@ -752,7 +760,11 @@ class patient:
                         else:
                             cursor.execute("SELECT RoomNo FROM `db`.`local` where DEP='" + ch + "' AND Status='N' ORDER BY RoomNo ASC LIMIT 1;")
                             aaa = cursor.fetchone()
-                            bbb = aaa[0]
+                            if (aaa!=None):
+                                xx = aaa[0]
+                            else:
+                                xx = 0
+                            bbb = xx
                             sql = "INSERT INTO `db`.`local` (`RoomNo`,`Dep`,`Status`,`P_ID`) VALUES (%s,'%s','%s','%s')"
                             val = (bbb, ch, 'Y', u_id)
                             cursor.execute(sql % val)
@@ -772,7 +784,7 @@ class patient:
 #
 # p = patient()
 # val = 'P_109'
-# p.getpatientall(val)
+# p.appointment('P_129','a')
 # y = p.getpatientpswrd(val)
 # print(y[0])
 # db.close()
