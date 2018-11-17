@@ -547,15 +547,12 @@ class patient:
         cursor.execute("SELECT P_Age FROM `db`.`patient_details` WHERE P_ID='" + pid + "';")
         print(cursor.fetchall())
     def searchdoctor(self,h1,u_id):
-
         print(" __________________________________________________________________________ ")
         print("|---------------------------DOCTOR SEARCH WINDOW---------------------------|")
         print("|                                                                          |")
         print("|                           1. SEARCH BY DOCTOR'S NAME                     |")
-        print(
-            "|                           2. SEARCH BY DOCTOR'S ID                       |")  #### WRITE LOGIC FOR EACH AND EVERY ONE
-        print(
-            "|                           3. SEARCH BY DEPARTMENT                        |")  #### show available departments
+        print("|                           2. SEARCH BY DOCTOR'S ID                       |")  #### WRITE LOGIC FOR EACH AND EVERY ONE
+        print("|                           3. SEARCH BY DEPARTMENT                        |")  #### show available departments
         print("|                           4. EXIT                                        |")
         print("|__________________________________________________________________________|")
         x = int(input("| ENTER YOUR CHOICE:..."))
@@ -570,7 +567,6 @@ class patient:
             print("| 2. RETURN TO PREVIOUS WINDOW:... ")
             x = int(input("| PLEASE MAKE A SELECTION:... "))
             if x == 1:
-
                 y = input("| ENTER THE DOCTOR'S ID FOR APPOINTMENT:... ")
                 print("Are you want a specific department or general appointment")
                 print("1. Enter Department")
@@ -672,40 +668,103 @@ class patient:
             db.commit()
 
     def appointment(self,u_id,h1):
-                            print(" __________________________________________________________________________ ")
-                            print("|-------------------PATIENT'S APPOINTMENT BOOKING WINDOW-------------------|")
-                            print("|                            1. AUTOMATIC APPOINTMENT                      |")
-                            print("|                            2. MANUAL APPOINTMENT                         |")
-                            print("|                            3. EXIT                                       |")
-                            print("|__________________________________________________________________________|")
-                            inn=int(input("| PLEASE MAKE A SELECTION:..."))
-                            if inn==1:
-                                cursor.execute("SELECT DISTINCT Dep_Name FROM `db`.`department`")
-                                print(cursor.fetchall())
-                                ch = input("| ENTER THE DEPARTMENT FOR WHICH APPOINTMENT IS NEEDED:... ")
-                                if(int(cursor.execute("SELECT count(Dep_Name) FROM `db`.`department` where Dep_Name='" + ch + "';"))==1):
-                                    sql = "INSERT INTO `db`.`unassigned_patient` (`UP_ID`, `UP_PROB_DEP`, `UP_E_TYPE`)VALUES('%s','%s','%s')"
-                                    val = (u_id,ch,"")
-                                    cursor.execute(sql % val)
-                                    db.commit()
+        print(" __________________________________________________________________________ ")
+        print("|----------------------------OPD/LOCAL BOOKING WINDOW----------------------|")
+        print("|                            1. OPD                                        |")
+        print("|                            2. LOCAL                                      |")
+        print("|                            3. EXIT                                       |")
+        print("|__________________________________________________________________________|")
+        innn = int(input("| PLEASE MAKE A SELECTION:..."))
+        if innn == 1:
+            print(" __________________________________________________________________________ ")
+            print("|-------------------PATIENT'S APPOINTMENT BOOKING WINDOW-------------------|")
+            print("|                            1. AUTOMATIC APPOINTMENT                      |")
+            print("|                            2. MANUAL APPOINTMENT                         |")
+            print("|                            3. EXIT                                       |")
+            print("|__________________________________________________________________________|")
+            inn=int(input("| PLEASE MAKE A SELECTION:..."))
+            if inn==1:
+                cursor.execute("SELECT DISTINCT Dep_Name FROM `db`.`department`")
+                print(cursor.fetchall())
+                ch = input("| ENTER THE DEPARTMENT FOR WHICH APPOINTMENT IS NEEDED:... ")
+                if(int(cursor.execute("SELECT count(Dep_Name) FROM `db`.`department` where Dep_Name='" + ch + "';"))==1):
+                    sql = "INSERT INTO `db`.`unassigned_patient` (`UP_ID`, `UP_PROB_DEP`, `UP_E_TYPE`)VALUES('%s','%s','%s')"
+                    val = (u_id,ch,"")
+                    cursor.execute(sql % val)
+                    db.commit()
+                    cursor.execute("SELECT Dep_sym FROM `db`.`department` where Dep_Name='" + ch + "';")
+                    aaa=cursor.fetchone()
+                    bbb=aaa[0]
+                    now = datetime.datetime.now()
+                    ccc=u_id+'_'+bbb+'_OPD_'+str(now)
+                    print("TOKEN NUMBER OF THE PATIENT IS:",ccc)
+                    sql = "INSERT INTO `db`.`patient_medical_history` (`Ref_ID`,`Pat_ID`,`Prescription`,`Past_Reports`) VALUES ('%s','%s','%s','%s')"
+                    val = (ccc,u_id,'','')
+                    cursor.execute(sql % val)
+                    db.commit()
+                else:
+                    print("WRONG SELECTION..PLEASE ENTER THE CORRECT DEPARTMENT")
+                    #continue
+            elif inn==2:
+                self.searchdoctor(h1,u_id)
+            elif inn==3:
+                pass
+        elif innn == 2:
+            print(" __________________________________________________________________________ ")
+            print("|---------------------PATIENT'S LOCAL BOOKING WINDOW-----------------------|")
+            print("|                            1. LOCAL  APPOINTMENT                         |")
+            print("|                            2. EXIT                                       |")
+            print("|__________________________________________________________________________|")
+            inn = int(input("| PLEASE MAKE A SELECTION:..."))
+            if inn == 1:
+                cursor.execute("SELECT DISTINCT Dep_Name FROM `db`.`department`")
+                print(cursor.fetchall())
+                ch = input("| ENTER THE DEPARTMENT FOR WHICH PATIENT NEEDS TO BE ADMITTED IS NEEDED:... ")
+                if (int(cursor.execute("SELECT count(Dep_Name) FROM `db`.`department` where Dep_Name='" + ch + "';")) == 1):
+                    sql = "INSERT INTO `db`.`unassigned_patient` (`UP_ID`, `UP_PROB_DEP`, `UP_E_TYPE`)VALUES('%s','%s','%s')"
+                    val = (u_id, ch, "")
+                    cursor.execute(sql % val)
+                    db.commit()
+                    cursor.execute("SELECT Dep_sym FROM `db`.`department` where Dep_Name='" + ch + "';")
+                    aaa = cursor.fetchone()
+                    bbb = aaa[0]
+                    now = datetime.datetime.now()
+                    ccc = u_id + '_' + bbb + '_LOCAL_' + str(now)
+                    print("TOKEN NUMBER OF THE PATIENT IS:", ccc)
+                    sql = "INSERT INTO `db`.`patient_medical_history` (`Ref_ID`,`Pat_ID`,`Prescription`,`Past_Reports`) VALUES ('%s','%s','%s','%s')"
+                    val = (ccc, u_id, '', '')
+                    cursor.execute(sql % val)
+                    db.commit()
+                    if (cursor.execute("SELECT count(Status) FROM `db`.`local` where DEP='" + ch + "';")==0):
+                        sql = "INSERT INTO `db`.`local` (`RoomNo`,`Dep`,`Status`,`P_ID`) VALUES (%s,'%s','%s','%s')"
+                        val = (1, ch,'Y',u_id)
+                        cursor.execute(sql % val)
+                        db.commit()
+                    else:
+                        if(cursor.execute("SELECT count(RoomNo) FROM `db`.`local` where DEP='" + ch + "';")==0):
+                            cursor.execute("SELECT RoomNo FROM `db`.`local` where DEP='" + ch + "' ORDER BY RoomNo DESC LIMIT 1;")
+                            aaa = cursor.fetchone()
+                            bbb = aaa[0]
+                            sql = "INSERT INTO `db`.`local` (`RoomNo`,`Dep`,`Status`,`P_ID`) VALUES (%s,'%s','%s','%s')"
+                            val = (bbb+1, ch, 'Y', u_id)
+                            cursor.execute(sql % val)
+                            db.commit()
+                        else:
+                            cursor.execute("SELECT RoomNo FROM `db`.`local` where DEP='" + ch + "' AND Status='N' ORDER BY RoomNo ASC LIMIT 1;")
+                            aaa = cursor.fetchone()
+                            bbb = aaa[0]
+                            sql = "INSERT INTO `db`.`local` (`RoomNo`,`Dep`,`Status`,`P_ID`) VALUES (%s,'%s','%s','%s')"
+                            val = (bbb, ch, 'Y', u_id)
+                            cursor.execute(sql % val)
+                            db.commit()
 
-                                    cursor.execute("SELECT Dep_sym FROM `db`.`department` where Dep_Name='" + ch + "';")
-                                    aaa=cursor.fetchone()
-                                    bbb=aaa[0]
-                                    now = datetime.datetime.now()
-                                    ccc=u_id+'_'+bbb+'_'+str(now)
-                                    print("TOKEN NUMBER OF THE PATIENT IS:",ccc)
-                                    sql = "INSERT INTO `db`.`patient_medical_history` (`Ref_ID`,`Pat_ID`,`Prescription`,`Past_Reports`) VALUES ('%s','%s','%s','%s')"
-                                    val = (ccc,u_id,'','')
-                                    cursor.execute(sql % val)
-                                    db.commit()
-                                else:
-                                    print("WRONG SELECTION..PLEASE ENTER THE CORRECT DEPARTMENT")
-                                    #continue
-                            elif inn==2:
-                                self.searchdoctor(h1,u_id)
-                            elif inn==3:
-                                pass
+                else:
+                    print("WRONG SELECTION..PLEASE ENTER THE CORRECT DEPARTMENT")
+                    # continue
+            elif inn == 2:
+                pass
+        else:
+            pass
 # def getpatientgender(self,pid):
 #        cursor.execute("SELECT * FROM `db`.`patient_details` WHERE P_ID='" +pid+ "';")
 #        print(cursor.fetchall())

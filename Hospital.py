@@ -59,7 +59,7 @@ class Hospital:
         cursor.execute("SELECT Dep_sym FROM `db`.`department` where Dep_Name = '" + z + "';")
         b = cursor.fetchone()
         c = b[0]
-        y = u_id + '_' + c + '_' + str(now)
+        y = u_id + '_' + c + '_OPD_' + str(now)
         # a = b + y  ####genearted pateint id
         #############################################################################
         ###### NEED TO ENSURE THAT DOCTOR ID ALLOCATED BY SYSTEM SHOULD BE OF SAME DEPARTMENT
