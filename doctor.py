@@ -1,8 +1,22 @@
+import pymysql
+
+db = pymysql.connect(
+    host='127.0.0.1',
+    user="root",
+    passwd="",
+    db="db"
+)
+print(db)
+cursor = db.cursor()
+print(cursor)
+
+
+
 class doctor:
     def __init__(self):
         pass
 
-    def editdetail(sel, d1):
+    def editdetail(sel, d1, name):
         print(" __________________________________________________________________________ ")
         print("|-------------------DOCTOR'S PERSONAL DETAILS EDIT WINDOW------------------|")
         print("|                                                                          |")
@@ -15,43 +29,30 @@ class doctor:
         print("|__________________________________________________________________________|")
         xx = int(input("Enter your choice:....."))
         if xx == 1:
-            did = input("| DOCTOR ID:.. ")
+            # did = input("| DOCTOR ID:.. ")
 
-            d1.getdocdetail(did)
-            print(
-                " __________________________________________________________________________ ")
-            print(
-                "|------------------------IS THE INFORMATION CORRECT------------------------|")
-            print(
-                "|                                                                          |")
-            print(
-                "|                                1. YES                                    |")
-            print(
-                "|                                2. NO                                     |")
-            print(
-                "|__________________________________________________________________________|")
+            d1.getdocdetail(name)
+            print(" __________________________________________________________________________ ")
+            print("|------------------------IS THE INFORMATION CORRECT------------------------|")
+            print("|                                                                          |")
+            print("|                                1. YES                                    |")
+            print("|                                2. NO                                     |")
+            print("|__________________________________________________________________________|")
             xxx = int(input("PLEASE SELECT THE OPTION:..."))
             if xxx == 1:
                 nme = input("| DOCTOR NAME:.. ")
-                print(
-                    " __________________________________________________________________________ ")
-                print(
-                    "|------------------------------CONFIRM-------------------------------------|")
-                print(
-                    "|                                                                          |")
-                print(
-                    "|                               1. YES                                     |")
-                print(
-                    "|                               2. NO                                      |")
-                print(
-                    "|__________________________________________________________________________|")
+                print(" __________________________________________________________________________ ")
+                print("|------------------------------CONFIRM-------------------------------------|")
+                print("|                                                                          |")
+                print("|                               1. YES                                     |")
+                print("|                               2. NO                                      |")
+                print("|__________________________________________________________________________|")
                 xxx = int(input("PLEASE CONFIRM..?"))
                 if xxx == 1:
-                    d1.setdoctorname(nme, did)
-
+                    d1.setdoctorname(nme,name)
                     print(" ___________________________________ ")
                     print("| DOCTOR NAME UPDATED SUCCESSFULLY:...|")
-                    d1.getdocdetail(did)
+                    d1.getdocdetail(name)
                 elif xxx == 2:
                     print("RETURNING TO PREVIOUS PAGE...PLEASE WAIT..")
                     for i in range(1, 30000000):
@@ -66,8 +67,8 @@ class doctor:
                     pass
 
         elif xx == 2:
-            did = input("| DOCTOR ID:.. ")
-            d1.getdocdetail(did)
+            # did = input("| DOCTOR ID:.. ")
+            d1.getdocdetail(name)
             print(
                 " __________________________________________________________________________ ")
             print(
@@ -97,10 +98,10 @@ class doctor:
                     "|__________________________________________________________________________|")
                 xxx = int(input("PLEASE CONFIRM..?"))
                 if xxx == 1:
-                    d1.setdoctorage(ageee, did)
+                    d1.setdoctorage(ageee, name)
                     print(" ___________________________________ ")
                     print("| DOCTOR AGE UPDATED SUCCESSFULLY:...|")
-                    d1.getdocdetail(did)
+                    d1.getdocdetail(name)
                 elif xxx == 2:
                     print("RETURNING TO PREVIOUS PAGE...PLEASE WAIT..")
                     for i in range(1, 30000000):
@@ -115,8 +116,8 @@ class doctor:
                     pass
                 # continue
         elif xx == 3:
-            did = input("| DOCTOR ID:.. ")
-            d1.getdocdetail(did)
+            # did = input("| DOCTOR ID:.. ")
+            d1.getdocdetail(name)
             print(
                 " __________________________________________________________________________ ")
             print(
@@ -146,10 +147,10 @@ class doctor:
                     "|__________________________________________________________________________|")
                 xxx = int(input("PLEASE CONFIRM..?"))
                 if xxx == 1:
-                    d1.setdoctorpno(phnu, did)
+                    d1.setdoctorpno(phnu, name)
                     print(" ___________________________________ ")
                     print("| DOCTOR PHONE NUMBER UPDATED SUCCESSFULLY:...|")
-                    d1.getdocdetail(did)
+                    d1.getdocdetail(name)
                 elif xxx == 2:
                     print("RETURNING TO PREVIOUS PAGE...PLEASE WAIT..")
                     for i in range(1, 30000000):
@@ -164,8 +165,8 @@ class doctor:
                     pass
                 # continue
         elif xx == 4:
-            did = input("| DOCTOR ID:.. ")
-            d1.getdocdetail(did)
+            # did = input("| DOCTOR ID:.. ")
+            d1.getdocdetail(name)
             print(
                 " __________________________________________________________________________ ")
             print(
@@ -195,10 +196,10 @@ class doctor:
                     "|__________________________________________________________________________|")
                 xxx = int(input("PLEASE CONFIRM..?"))
                 if xxx == 1:
-                    d1.setdoctoremail(emaii, did)
+                    d1.setdoctoremail(emaii, name)
                     print(" ___________________________________ ")
                     print("| DOCTOR EMAIL UPDATED SUCCESSFULLY:...|")
-                    d1.getdocdetail(did)
+                    d1.getdocdetail(name)
                 elif xxx == 2:
                     print("RETURNING TO PREVIOUS PAGE...PLEASE WAIT..")
                     for i in range(1, 30000000):
@@ -213,8 +214,8 @@ class doctor:
                     pass
                 # continue
         elif xx == 5:
-            did = input("| DOCTOR ID:.. ")
-            d1.getdocdetail(did)
+            # did = input("| DOCTOR ID:.. ")
+            d1.getdocdetail(name)
             print(
                 " __________________________________________________________________________ ")
             print(
@@ -244,10 +245,10 @@ class doctor:
                     "|__________________________________________________________________________|")
                 xxx = int(input("PLEASE CONFIRM..?"))
                 if xxx == 1:
-                    d1.setdoctoraddr(addre, did)
+                    d1.setdoctoraddr(addre, name)
                     print(" ___________________________________ ")
                     print("| DOCTOR ADDRESS UPDATED SUCCESSFULLY:...|")
-                    d1.getdocdetail(did)
+                    d1.getdocdetail(name)
                 elif xxx == 2:
                     print("RETURNING TO PREVIOUS PAGE...PLEASE WAIT..")
                     for i in range(1, 30000000):
@@ -631,3 +632,26 @@ class doctor:
 
     def enterhod(self):
         pass
+
+    def patientviewed(self, did):
+        x = input(" ENTER THE PATIENT ID VIEWED")
+        cursor.execute("DELETE FROM `db`.`doctor_assignment` WHERE PAT_ID = '" + x + "';")
+        db.commit()
+        cursor.execute(
+            "SELECT Ref_ID FROM `db`.`patient_medical_history` WHERE PAT_ID = '" + x + "' ORDER BY Ref_ID DESC LIMIT 1")
+        aa = cursor.fetchone()
+        rid = aa[0]
+        cursor.execute("SELECT D_Department FROM `db`.`doctor_professional_details` WHERE D_DID = '" + did + "';")
+        aa = cursor.fetchone()
+        dep = aa[0]
+        pres = input("ENTER THE PRESCRIPTION")
+        dis = input("ENTER THE DISEASE")
+        dov = input("ENTER THE DAY OF VISIT")
+        dod = input("ENTER THE DAY OF DISCHARGE")
+        tov = input("ENTER THE TIME OF VISIT")
+        tod = input("ENTER THE TIME OF DISCHARGE")
+        test = input("ENTER  test")
+        sql = "INSERT INTO `db`.`patient_medical_history`(`Ref_ID`,`Pat_ID`,`Prescription`,`Past_Reports`,`dayofvisit`,`timeofvisit`,`dayofdischarge`,`dischargetime`,`department`,`d_id`,`disease`,`test`) VALUES ('%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s')"
+        val = (rid, x, pres, '', dov, tov, dod, tod, dep, did, dis, test)
+        cursor.execute(sql % val)
+        db.commit()

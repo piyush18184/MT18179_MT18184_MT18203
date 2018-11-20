@@ -23,7 +23,7 @@ class doctorpersonaldetails:
         db.commit()
 
     def setdoctorpno(self, pno, did):
-        cursor.execute("UPDATE `db`.`patient_details` SET D_PNo = '" + pno + "' WHERE D_ID = '" + did + "';")
+        cursor.execute("UPDATE `db`.`doctor_details` SET D_PNo = '" + pno + "' WHERE D_ID = '" + did + "';")
         db.commit()
 
     def setdoctoremail(self, emaii, did):
@@ -31,7 +31,7 @@ class doctorpersonaldetails:
         db.commit()
 
     def setdoctoraddr(self, addr, did):
-        cursor.execute("UPDATE `db`.`doctor_details` SET D_PNo = '" + addr + "' WHERE D_ID = '" + did + "';")
+        cursor.execute("UPDATE `db`.`doctor_details` SET D_Add = '" + addr + "' WHERE D_ID = '" + did + "';")
         db.commit()
 
     def getdocdetail(self, did):

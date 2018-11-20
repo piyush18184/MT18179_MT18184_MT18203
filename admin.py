@@ -86,5 +86,21 @@ class admin:
             cursor.execute("DELETE FROM `db`.`unassigned_patient` WHERE UP_ID='" + y2 + "';")
             db.commit()
 
+    def deletedoctor(self):
+        x = input("ENTER THE DOCTOR ID TO BE DELETED ")
+        cursor.execute(
+            "UPDATE `db`.`doctor_assignment` SET DOC_ID=(SELECT D_ID FROM `db`.`opd`,`db`.`doctor_professional_details` "
+            "WHERE D_dep=(SELECT D_Department FROM `db`.`doctor_professional_details` WHERE D_DID='" + x + "') "
+            "AND `db`.`doctor_professional_details`.`D_DID`=`db`.`opd`.`D_ID` AND D_Type "
+            "NOT IN (SELECT D_Type FROM `db`.`doctor_professional_details` WHERE D_DID='" + x + "')) WHERE DOC_ID='" + x + "';")
+        db.commit()
+        cursor.execute("DELETE FROM `db`.`doctor_details` WHERE D_ID = '" + x + "';")
+        db.commit()
+        cursor.execute("DELETE FROM `db`.`doctor_professional_details` WHERE D_DID = '" + x + "';")
+        db.commit()
+        cursor.execute("DELETE FROM `db`.`admin` WHERE ID = '" + x + "';")
+        db.commit()
+        print("DOCTOR DELETED SUCCESSFULLY ")
+
     def mangementwindow(self):
         pass

@@ -20,32 +20,32 @@ class Hospital:
 
     ##################################################################################################
     def getdoctorsname(self, name):
-        cursor.execute("SELECT * FROM `mydb`.`doctor_details` where D_Name = '" + name + "';")
+        cursor.execute("SELECT * FROM `db`.`doctor_details` where D_Name = '" + name + "';")
         print(cursor.fetchall())
 
     ########################################################################################
     def getdoctorsid(self, id):
-        cursor.execute("SELECT * FROM `mydb`.`doctor_details` where D_DID = '" + id + "';")
+        cursor.execute("SELECT * FROM `db`.`doctor_details` where D_DID = '" + id + "';")
         print(cursor.fetchall())
 
     ###############################################################################################
     def getdoctorsdept(self, dep):
-        cursor.execute("SELECT * FROM `mydb`.`doctor_professional_details` where D_Department = '" + dep + "';")
+        cursor.execute("SELECT * FROM `db`.`doctor_professional_details` where D_Department = '" + dep + "';")
         print(cursor.fetchall())
 
     ###############################################################################################
     def getappointmentdept(self, dep, u_id):
         now = datetime.datetime.now()
-        cursor.execute("SELECT Dep_sym FROM `mydb`.`department` where D_Name = '" + dep + "';")
+        cursor.execute("SELECT Dep_sym FROM `db`.`department` where D_Name = '" + dep + "';")
         x = cursor.fetchone()
         cursor.execute(
-            "SELECT SUBSTRING(P_Appointment_ID,5,7) FROM `mydb`.`appointments` ORDER BY D_ID DESC LIMIT 1")
+            "SELECT SUBSTRING(P_Appointment_ID,5,7) FROM `db`.`appointments` ORDER BY D_ID DESC LIMIT 1")
         p1 = cursor.fetchone()
         y = str(int(p1[0]) + 1)
         a = x + y  ####genearted pateint id
         #############################################################################
         ###### NEED TO ENSURE THAT DOCTOR ID ALLOCATED BY SYSTEM SHOULD BE OF SAME DEPARTMENT
-        sql = "INSERT INTO `mydb`.`appointments` (`P_Appointment_ID`, `Appointed_D_ID`, `P_Appointment_Date`, `P_Appointment_Time`, `P_ID`)VALUES('%s','%s','%s','%s','%s','%s')"
+        sql = "INSERT INTO `db`.`appointments` (`P_Appointment_ID`, `Appointed_D_ID`, `P_Appointment_Date`, `P_Appointment_Time`, `P_ID`)VALUES('%s','%s','%s','%s','%s','%s')"
         val = (a, 'D_112', now.date(), now.time(), u_id)
         cursor.execute(sql % val)
         db.commit()
@@ -121,14 +121,65 @@ class Hospital:
             print("|__________________________________________________________________________|")
             xxx = int(input("PLEASE SELECT THE OPTION:..."))
             if xxx == 1:
-                d2 = input("ENTER THE DOCTOR's ID TO BE REFERRED TO:")
-                cursor.execute("DELETE FROM `db`.`doctor_assignment` WHERE PAT_ID='" + y1 + "';")
-                db.commit()
-                sql = "INSERT INTO `db`.`doctor_assignment` (`DOC_ID`, `PAT_ID`, `DOC_MAX_LMT`, `REF_DOC_ID`) VALUES('%s','%s',%s,'%s')"
-                val = (d2, y1, 20, name)
-                cursor.execute(sql % val)
-                db.commit()
-                print("Pateints successfully reffered.")
+                cursor.execute("SELECT D_Type FROM `db`.`doctor_professional_details` WHERE D_DID='" + name + "';")
+                t1 = cursor.fetchone()
+                t2 = t1[0]
+                if (t2 == "HOD" or t2 == "Senior Specialist"):
+
+                    d2 = input("ENTER THE DOCTOR's ID TO BE REFERRED TO:")
+
+                    cursor.execute("DELETE FROM `db`.`doctor_assignment` WHERE PAT_ID='" + y1 + "';")
+                    db.commit()
+                    sql = "INSERT INTO `db`.`doctor_assignment` (`DOC_ID`, `PAT_ID`, `DOC_MAX_LMT`, `REF_DOC_ID`) VALUES('%s','%s',%s,'%s')"
+                    val = (d2, y1, 20, name)
+                    cursor.execute(sql % val)
+                    db.commit()
+                    print("Pateints successfully reffered.")
+                else:
+                    if t2 == 'Junior Resident':
+                        # d2 = input("ENTER THE DOCTOR's ID TO BE REFERRED TO:")
+                        cursor.execute("DELETE FROM `db`.`doctor_assignment` WHERE PAT_ID='" + y1 + "';")
+                        db.commit()
+                        cursor.execute(
+                            "SELECT D_ID FROM db.opd,db.doctor_professional_details WHERE db.opd.D_ID=db.doctor_professional_details.D_DID "
+                            "AND D_Type IN ('Senior Resident','Specialist','Senior Specialist','HOD') AND D_dep=(SELECT D_Department FROM db.doctor_professional_details WHERE D_DID='" + name + "');")
+                        xxx = cursor.fetchone()
+                        d2 = xxx[0]
+                        sql = "INSERT INTO `db`.`doctor_assignment` (`DOC_ID`, `PAT_ID`, `DOC_MAX_LMT`, `REF_DOC_ID`) VALUES('%s','%s',%s,'%s')"
+                        val = (d2, y1, 20, name)
+                        cursor.execute(sql % val)
+                        db.commit()
+                        print("Pateints successfully reffered.")
+                    elif t2 == 'Senior Resident':
+                        # d2 = input("ENTER THE DOCTOR's ID TO BE REFERRED TO:")
+                        cursor.execute("DELETE FROM `db`.`doctor_assignment` WHERE PAT_ID='" + y1 + "';")
+                        db.commit()
+                        cursor.execute(
+                            "SELECT D_ID FROM db.opd,db.doctor_professional_details WHERE db.opd.D_ID=db.doctor_professional_details.D_DID "
+                            "AND D_Type IN ('Specialist','Senior Specialist','HOD') AND D_dep=(SELECT D_Department FROM db.doctor_professional_details WHERE D_DID='" + name + "');")
+                        xxx = cursor.fetchone()
+                        d2 = xxx[0]
+                        sql = "INSERT INTO `db`.`doctor_assignment` (`DOC_ID`, `PAT_ID`, `DOC_MAX_LMT`, `REF_DOC_ID`) VALUES('%s','%s',%s,'%s')"
+                        val = (d2, y1, 20, name)
+                        cursor.execute(sql % val)
+                        db.commit()
+                        print("Pateints successfully reffered.")
+                    elif t2 == 'Specialist':
+                        # d2 = input("ENTER THE DOCTOR's ID TO BE REFERRED TO:")
+                        cursor.execute("DELETE FROM `db`.`doctor_assignment` WHERE PAT_ID='" + y1 + "';")
+                        db.commit()
+                        cursor.execute(
+                            "SELECT D_ID FROM db.opd,db.doctor_professional_details WHERE db.opd.D_ID=db.doctor_professional_details.D_DID "
+                            "AND D_Type IN ('Senior Specialist','HOD') AND D_dep=(SELECT D_Department FROM db.doctor_professional_details WHERE D_DID='" + name + "');")
+                        xxx = cursor.fetchone()
+                        d2 = xxx[0]
+                        sql = "INSERT INTO `db`.`doctor_assignment` (`DOC_ID`, `PAT_ID`, `DOC_MAX_LMT`, `REF_DOC_ID`) VALUES('%s','%s',%s,'%s')"
+                        val = (d2, y1, 20, name)
+                        cursor.execute(sql % val)
+                        db.commit()
+                        print("Pateints successfully reffered.")
+                    else:
+                        pass
 
     #######################################################################################################
     def emergency(self):

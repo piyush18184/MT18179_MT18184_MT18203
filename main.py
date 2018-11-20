@@ -49,7 +49,8 @@ def main():
                         print("|                       3. ASSIGN DOCTORS                                  |")
                         print("|                       4. ADD DOCTORS                                     |")
                         print("|                       5. DATABASE MANAGEMENT                             |")
-                        print("|                       6. LOGOUT                                          |")
+                        print("|                       6. DELETE DOCTOR                                   |")
+                        print("|                       7. LOGOUT                                          |")
                         print("|__________________________________________________________________________|")
                         ch = int(input("Enter your choice:"))
                         a1 = admin()
@@ -143,6 +144,8 @@ def main():
                                 print("| WRONG CHOICE ENTERED..PLEASE TRY AGAIN")
                                 continue
                         elif ch == 6:
+                            a1.deletedoctor()
+                        elif ch == 7:
                             print("| LOGGING OUT...PRESS ANY KEY TO CONTINUE..!")
                             a = input("")
                             sys.exit()
@@ -166,7 +169,7 @@ def main():
                 a1 = admin()
                 name = input("| USER ID:..")
                 pswrd = input("| PASSWORD:..")
-
+                doc4 = doc()
                 y = a1.doctorlogin(name, pswrd)
                 if y == 0:
                     # if(cursor.execute("SELECT ID FROM `db`.`admin` where ID='" + d_id + "' AND Password='" + pswrd + "';") != None):
@@ -192,13 +195,31 @@ def main():
                             print("|                        1. SEE PATIENT ALLOCATED                          |")
                             print("|                        2. EDIT PROFILE                                   |")
                             print("|                        3. VIEW PROFILE                                   |")
-                            print("|                        4. REFERRAL                                       |")
-                            print("|                        5. HOD TASKS                                      |")
-                            print("|                        6. LOGOUT                                         |")
+                            print("|                        4. PATIENT VIEWED                                 |")
+                            print("|                        5. REFERRAL                                       |")
+                            print("|                        6. HOD TASKS                                      |")
+                            print("|                        7. LOGOUT                                         |")
                             print("|__________________________________________________________________________|")
                             x = int(input("Enter your choice:....."))
                             if x == 1:
-                                h1.getpatientsallocated(name)
+                                print(" __________________________________________________________________________ ")
+                                print("|----------------------------PATIENT VIEW TYPE-----------------------------|")
+                                print("|                                                                          |")
+                                print("|                        1. SORT BY PATIENT ID                             |")
+                                print("|                        2. NORMAL VIEW                                    |")
+                                print("|                        3. VIEW HISTORY                                   |")
+                                print("|__________________________________________________________________________|")
+                                xx = int(input("Enter your choice:....."))
+                                if xx==1:
+                                    cursor.execute("SELECT * FROM `mydb`.`doctor_assignment` where DOC_ID = '" + name + "' ORDER BY PAT_ID;")
+                                    print(cursor.fetchall())
+                                elif xx==2:
+                                    h1.getpatientsallocated(name)
+                                elif xx == 3:
+                                    pmr1 = pmr()
+                                    pmr1.viewhistory(name)
+                                else:
+                                    pass
                             elif x == 2:
                                 doc4 = doc()
                                 d1 = dpd()
@@ -206,12 +227,14 @@ def main():
                             elif x == 3:
                                 h1.getdoctordetail(name)
                             elif x == 4:
+                                doc4.patientviewed(name)
+                            elif x == 5:
                                 print(" __________________________________________________________________________ ")
                                 print("|------------------------DOCTOR'S REFERRAL WINDOW--------------------------|")
                                 h1 = h()
                                 p1 = p()
                                 h1.referpatients(name,p1)
-                            elif x == 5:
+                            elif x == 6:
                                 print(" __________________________________________________________________________ ")
                                 print("|---------------------------HOD'S TASK WINDOW------------------------------|")
                                 print("|                                                                          |")
@@ -252,7 +275,7 @@ def main():
                                     hod2.getdocdetails(docid)
                                 else:
                                     break
-                            elif x == 6:
+                            elif x == 7:
                                 print("| LOGGING OUT...PRESS ANY KEY TO CONTINUE..!")
                                 a = input("")
                                 sys.exit()
@@ -268,20 +291,40 @@ def main():
                             print("|                                                                          |")
                             print("|                        1. SEE PATIENT ALLOCATED                          |")
                             print("|                        2. EDIT PROFILE                                   |")
-                            print("|                        3. VIEW PROFILE                                   |")
-                            print("|                        4. REFERRAL                                       |")
-                            print("|                        5. LOGOUT                                         |")
+                            print("|                        3. PATIENT VIEWED                                 |")
+                            print("|                        4. VIEW PROFILE                                   |")
+                            print("|                        5. REFERRAL                                       |")
+                            print("|                        6. LOGOUT                                         |")
                             print("|__________________________________________________________________________|")
                             x = int(input("Enter your choice:....."))
                             if x == 1:
-                                h1.getpatientsallocated(name)
+                                print(" __________________________________________________________________________ ")
+                                print("|----------------------------PATIENT VIEW TYPE-----------------------------|")
+                                print("|                                                                          |")
+                                print("|                        1. SORT BY PATIENT ID                             |")
+                                print("|                        2. NORMAL VIEW                                    |")
+                                print("|                        3. VIEW HISTORY                                   |")
+                                print("|__________________________________________________________________________|")
+                                xx = int(input("Enter your choice:....."))
+                                if xx==1:
+                                    cursor.execute("SELECT * FROM `mydb`.`doctor_assignment` where DOC_ID = '" + name + "' ORDER BY PAT_ID;")
+                                    print(cursor.fetchall())
+                                elif xx==2:
+                                    h1.getpatientsallocated(name)
+                                elif xx == 3:
+                                    pmr1 = pmr()
+                                    pmr1.viewhistory(name)
+                                else:
+                                    pass
                             elif x == 2:
                                 doc4 = doc()
                                 d1 = dpd()
-                                doc4.editdetail(d1)
+                                doc4.editdetail(d1,name)
                             elif x == 3:
+                                doc4.patientviewed(name)
+                            elif x == 4:
                                 h1.getdoctordetail(name)
-                            elif x == 4:  ### we have to assign all doctors a level a junior level dr can only reffere someone
+                            elif x == 5:  ### we have to assign all doctors a level a junior level dr can only reffere someone
                                 #### and also other departmental refferal only oh the consent of hod
                                 #### refereral if required
                                 print(" __________________________________________________________________________ ")
@@ -289,7 +332,7 @@ def main():
                                 h2 = h()
                                 p2 = p()
                                 h2.referpatients(name,p2)
-                            elif x == 5:
+                            elif x == 6:
                                 print("| LOGGING OUT...PRESS ANY KEY TO CONTINUE..!")
                                 a = input("")
                                 sys.exit()
@@ -384,12 +427,11 @@ def main():
             print("|----------------------------PASSWORD RESET PAGE---------------------------|")
             print("| 1. FORGOT ID                                                             |")
             print("| 2. FORGOT PASSWORD                                                             |")
-            choice = int(input("Please enyer your choice:......."))
+            choice = int(input("Please enter your choice:......."))
             p1 = p()
             if choice == 1:
                 pno = input("Please enter a phone no associated with your account:...")
-
-                print("YOUR ID IS GIVEN BELOW. USE THIS TO RESER YOUR PASSWORD")
+                print("YOUR ID IS GIVEN BELOW. USE THIS TO RESET YOUR PASSWORD")
                 print(p1.getidpno(pno))
             elif choice == 2:
                 print("Please enter you id:....")
@@ -412,7 +454,7 @@ def main():
                         print(" your password has changed ")
                         print(" please move forward with login ")
                     else:
-                        print("PASSWORDS DONOT MATCH")
+                        print("PASSWORDS DO NOT MATCH")
                         print("PLEASE TRY AGAIN")
             else:
                 print("wrong choice")

@@ -1,3 +1,4 @@
+from doctor import doctor as doc
 import pymysql
 
 db = pymysql.connect(
