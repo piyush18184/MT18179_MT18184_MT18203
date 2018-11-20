@@ -36,7 +36,7 @@ class Testdoctor(unittest.TestCase):
         self.assertEqual(res,0)
         
      def testgetdocname(self):
-        res1=dpd.getdocname(self,'D_123')
+        res1=dpd.getdocname(self,'D_103')
         self.assertEqual(res1,0)
         
      def testgetdocphone(self):
@@ -44,13 +44,18 @@ class Testdoctor(unittest.TestCase):
         self.assertEqual(res2,0)
     
      def testgetdocaddress(self):
-        res3=dpd.getdocaddress(self,'D_102')
+        res3=dpd.getdocaddress(self,'D_162')
         self.assertEqual(res3,0)
         
      def testgetdocemail(self):
         res4=dpd.getdocemail(self,'D_102')
         self.assertEqual(res4,0)
         
+     def testdocproffessionalall(self):
+         res5=ddd.getdocproffessionalall(self,'D_101')
+         self.assertEqual(res5,0)
+
+
 if '__name__' == '__main__':
     unittest.main(defaultTest='Testdoctor')
 

@@ -30,7 +30,7 @@ print(cursor)
 class Testpatient(unittest.TestCase):
     
     def testgetpateintall(self):
-        res=p.getpatientall(self,'P_101')
+        res=p.getpatientall(self,'P_107')
         self.assertEqual(res,0)
         
     def testgetpatientemail(self):
@@ -54,7 +54,7 @@ class Testpatient(unittest.TestCase):
         self.assertEqual(r,'xYz')
         
     def testsetpatientname(self):
-        r5=p.setpateintname(self,0,'P_109')
+        r5=p.setpateintname(self,'P_109')
         self.assertEqual(r5,0)
 
     

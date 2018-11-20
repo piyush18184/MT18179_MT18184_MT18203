@@ -4,9 +4,9 @@ db = pymysql.connect(
     host='127.0.0.1',
     user="root",
     passwd="",
-    db="db"
+    db="project"
 )
-# print(db)
+# print(project)
 cursor = db.cursor()
 
 
@@ -435,36 +435,36 @@ class patient:
     #################################################################################################################################################################
     def setpateintname(self, nm, pid):
         self.id=pid
-        cursor.execute("UPDATE `db`.`patient_details` SET P_Name = '" + nm + "' WHERE P_ID = '" + self.id + "';")
+        cursor.execute("UPDATE `project`.`patient_details` SET P_Name = '" + nm + "' WHERE P_ID = '" + self.id + "';")
         db.commit()
 
     #################################################################################################################################################################
     def setpatientemail(self, emai, pid):
         self.id=pid
-        cursor.execute("UPDATE `db`.`patient_details` SET P_Email = '" + emai + "' WHERE P_ID = '" + self.id + "';")
+        cursor.execute("UPDATE `project`.`patient_details` SET P_Email = '" + emai + "' WHERE P_ID = '" + self.id + "';")
         db.commit()
 
     #################################################################################################################################################################
     def setpatientphone(self, phno, pid):
         self.id=pid
-        cursor.execute("UPDATE `db`.`patient_details` SET P_PNo = '" + phno + "' WHERE P_ID = '" + self.id + "';")
+        cursor.execute("UPDATE `project`.`patient_details` SET P_PNo = '" + phno + "' WHERE P_ID = '" + self.id + "';")
         db.commit()
 
     #################################################################################################################################################################
     def setpateintage(self, age, pid):
         self.id=pid
-        cursor.execute("UPDATE `db`.`patient_details` SET P_Age = '" + age + "' WHERE P_ID = '" + self.id + "';")
+        cursor.execute("UPDATE `project`.`patient_details` SET P_Age = '" + age + "' WHERE P_ID = '" + self.id + "';")
         db.commit()
 
     #################################################################################################################################################################
     def setpatientaddress(self, pid, addr):
         self.id=pid
-        cursor.execute("UPDATE `db`.`patient_details` SET P_Add = '" + addr + "' WHERE P_ID = '" + self.id + "';")
+        cursor.execute("UPDATE `project`.`patient_details` SET P_Add = '" + addr + "' WHERE P_ID = '" + self.id + "';")
         db.commit()
 
     #################################################################################################################################################################
     def getidpno(self, pno):
-        cursor.execute("SELECT P_ID FROM `db`.`patient_details` WHERE P_PNo='" + pno + "';")
+        cursor.execute("SELECT P_ID FROM `project`.`patient_details` WHERE P_PNo='" + pno + "';")
         x = cursor.fetchone()
         return x[0]
 
@@ -472,7 +472,7 @@ class patient:
 
     def setpassword(self, age, pid):
         self.id=pid
-        cursor.execute("UPDATE `db`.`admin` SET Password = '" + age + "' WHERE ID = '" + self.id + "';")
+        cursor.execute("UPDATE `project`.`admin` SET Password = '" + age + "' WHERE ID = '" + self.id + "';")
         db.commit()
 
     #################################################################################################################################################################
@@ -488,23 +488,23 @@ class patient:
     #     password2 = input("| RE-TYPE PASSWORD:......")  ##### also rechecks the password
     #     if password1 == password2:
     #         ######### need to be changed according to table
-    #         cursor.execute("SELECT SUBSTRING(P_ID,3,5) FROM `db`.`patient_details` ORDER BY P_ID DESC LIMIT 1")
+    #         cursor.execute("SELECT SUBSTRING(P_ID,3,5) FROM `project`.`patient_details` ORDER BY P_ID DESC LIMIT 1")
     #         p1 = cursor.fetchone()
     #         y = str(int(p1[0]) + 1)
     #         x = 'P_'
     #         P_ID = x + y
-    #         sql = "INSERT INTO `db`.`patient_details` (P_ID,P_Name,P_Age,P_PNo,P_Add,P_Email) VALUES('%s','%s',%s,%s,'%s','%s')"
+    #         sql = "INSERT INTO `project`.`patient_details` (P_ID,P_Name,P_Age,P_PNo,P_Add,P_Email) VALUES('%s','%s',%s,%s,'%s','%s')"
     #         val = (P_ID, name, age, phoneno, adress, email)
     #         cursor.execute(sql % val)
-    #         db.commit()
+    #         project.commit()
     #         print(" ___________________________________ ")
     #         print("| PATIENT REGISTRATION COMPLETED:...|")
     #         print("| USER ID:... ", P_ID)
     #         print("| PLEASE PROCEED WITH LOGIN WINDOW..")
-    #         sql = "INSERT INTO `db`.`admin` (ID,Password,Email) VALUES('%s','%s','%s')"
+    #         sql = "INSERT INTO `project`.`admin` (ID,Password,Email) VALUES('%s','%s','%s')"
     #         val = (P_ID, password1, email)
     #         cursor.execute(sql % val)
-    #         db.commit()
+    #         project.commit()
 
     def registerpatient(self):
         do = 1
@@ -553,12 +553,12 @@ class patient:
         password2 = input("| RE-TYPE PASSWORD:......")  ##### also rechecks the password
         if password1 == password2:
             ######### need to be changed according to table
-            cursor.execute("SELECT SUBSTRING(P_ID,3,5) FROM `mydb`.`patient_details` ORDER BY P_ID DESC LIMIT 1")
+            cursor.execute("SELECT SUBSTRING(P_ID,3,5) FROM `myproject`.`patient_details` ORDER BY P_ID DESC LIMIT 1")
             p1 = cursor.fetchone()
             y = str(int(p1[0]) + 1)
             x = 'P_'
             P_ID = x + y
-            sql = "INSERT INTO `mydb`.`patient_details` (P_ID,P_Name,P_Age,P_PNo,P_Add,P_Email) VALUES('%s','%s',%s,%s,'%s','%s')"
+            sql = "INSERT INTO `myproject`.`patient_details` (P_ID,P_Name,P_Age,P_PNo,P_Add,P_Email) VALUES('%s','%s',%s,%s,'%s','%s')"
             val = (P_ID, name, age, phoneno, adress, email)
             cursor.execute(sql % val)
             db.commit()
@@ -566,7 +566,7 @@ class patient:
             print("| PATIENT REGISTRATION COMPLETED:...|")
             print("| USER ID:... ", P_ID)
             print("| PLEASE PROCEED WITH LOGIN WINDOW..")
-            sql = "INSERT INTO `mydb`.`admin` (ID,Password,Email) VALUES('%s','%s','%s')"
+            sql = "INSERT INTO `myproject`.`admin` (ID,Password,Email) VALUES('%s','%s','%s')"
             val = (P_ID, password1, email)
             cursor.execute(sql % val)
             db.commit()
@@ -603,28 +603,28 @@ class patient:
         # password2 = input("| RE-TYPE PASSWORD:......")  ##### also rechecks the password
         # if password1 == password2:
         #     ######### need to be changed according to table
-        #     cursor.execute("SELECT SUBSTRING(P_ID,3,5) FROM `db`.`patient_details` ORDER BY P_ID DESC LIMIT 1")
+        #     cursor.execute("SELECT SUBSTRING(P_ID,3,5) FROM `project`.`patient_details` ORDER BY P_ID DESC LIMIT 1")
         #     p1 = cursor.fetchone()
         #     y = str(int(p1[0]) + 1)
         #     x = 'P_'
         #     P_ID = x + y
-        #     sql = "INSERT INTO `db`.`patient_details` (P_ID,P_Name,P_Age,P_PNo,P_Add,P_Email) VALUES('%s','%s',%s,%s,'%s','%s')"
+        #     sql = "INSERT INTO `project`.`patient_details` (P_ID,P_Name,P_Age,P_PNo,P_Add,P_Email) VALUES('%s','%s',%s,%s,'%s','%s')"
         #     val = (P_ID, name, age, phoneno, adress, email)
         #     cursor.execute(sql % val)
-        #     db.commit()
+        #     project.commit()
         #     print(" ___________________________________ ")
         #     print("| PATIENT REGISTRATION COMPLETED:...|")
         #     print("| USER ID:... ", P_ID)
         #     print("| PLEASE PROCEED WITH LOGIN WINDOW..")
-        #     sql = "INSERT INTO `db`.`admin` (ID,Password,Email) VALUES('%s','%s','%s')"
+        #     sql = "INSERT INTO `project`.`admin` (ID,Password,Email) VALUES('%s','%s','%s')"
         #     val = (P_ID, password1, email)
         #     cursor.execute(sql % val)
-        #     db.commit()
+        #     project.commit()
 
     #################################################################################################################################################################
     def pateintlogin(self, u_id, password):
         cursor.execute(
-            "SELECT count(*) FROM `db`.`admin` where BINARY ID='" + u_id + "' AND BINARY Password='" + password + "';")
+            "SELECT count(*) FROM `project`.`admin` where BINARY ID='" + u_id + "' AND BINARY Password='" + password + "';")
         p1 = cursor.fetchone()
         return p1
 
@@ -632,8 +632,8 @@ class patient:
 
     def getpatientname(self, val):
         #        sql =
-        # cursor.execute("select * from db.patient_details where P_ID="+P_ID+";")
-        #        cursor.execute("select * from db.patient_details where P_ID='"+val+"';")
+        # cursor.execute("select * from project.patient_details where P_ID="+P_ID+";")
+        #        cursor.execute("select * from project.patient_details where P_ID='"+val+"';")
         #        m1=cursor.fetchone()
         #        print(m1)
         pass
@@ -642,42 +642,56 @@ class patient:
     #################################################################################################################################################################
     def getpatientall(self, pid):
         self.id=pid
-        cursor.execute("SELECT * FROM `db`.`patient_details` WHERE P_ID='" + self.id + "';")
-        print(cursor.fetchall())
+        if cursor.execute("SELECT * FROM `project`.`patient_details` WHERE P_ID='" + self.id + "';"):
+            print(cursor.fetchall())
+            return 0
+        else:
+            return 1
 
     #################################################################################################################################################################
     def getpatientemail(self, pid):
         self.id=pid
-        cursor.execute("SELECT * FROM `db`.`patient_details` WHERE P_ID='" + self.id + "';")
-        print(cursor.fetchall())
+        if cursor.execute("SELECT * FROM `project`.`patient_details` WHERE P_ID='" + self.id + "';"):
+            print(cursor.fetchall())
+            return 0
+        else:
+            return 1
 
     #################################################################################################################################################################
     def getpatientpswrd(self, pid):
         self.id=pid
-        cursor.execute("SELECT Password FROM `db`.`admin` WHERE ID='" + self.id + "';")
+        cursor.execute("SELECT Password FROM `project`.`admin` WHERE ID='" + self.id + "';")
         x = cursor.fetchone()
         return x[0]
 
     #################################################################################################################################################################
     def getpatientphone(self, pid):
         self.id=pid
-        cursor.execute("SELECT P_Pno FROM `db`.`patient_details` WHERE P_ID='" + self.id + "';")
-        print(cursor.fetchall())
-
+        if cursor.execute("SELECT P_Pno FROM `project`.`patient_details` WHERE P_ID='" + self.id + "';"):
+            print(cursor.fetchall())
+            return 0
+        else:
+            return 1
     #################################################################################################################################################################
     def getpatientaddress(self, pid):
         self.id=pid
-        cursor.execute("SELECT P_Add FROM `db`.`patient_details` WHERE P_ID='" + self.id + "';")
-        print(cursor.fetchall())
+        if cursor.execute("SELECT P_Add FROM `project`.`patient_details` WHERE P_ID='" + self.id + "';"):
+            print(cursor.fetchall())
+            return 0
+        else:
+            return 1
 
     #    def getpatientid(self,self.id):
-    #        cursor.execute("SELECT * FROM `db`.`patient_details` WHERE P_ID='" +self.id+ "';")
+    #        cursor.execute("SELECT * FROM `project`.`patient_details` WHERE P_ID='" +self.id+ "';")
     #        print(cursor.fetchall())
     #
     def getpatientage(self, pid):
         self.id=pid
-        cursor.execute("SELECT P_Age FROM `db`.`patient_details` WHERE P_ID='" + self.id + "';")
-        print(cursor.fetchall())
+        if cursor.execute("SELECT P_Age FROM `project`.`patient_details` WHERE P_ID='" + self.id + "';"):
+            print(cursor.fetchall())
+            return 0
+        else:
+            return 1
     def searchdoctor(self,h1,u_id):
         print(" __________________________________________________________________________ ")
         print("|---------------------------DOCTOR SEARCH WINDOW---------------------------|")
@@ -749,11 +763,11 @@ class patient:
             print("| ENTER THE DOCTOR'S ID FOR APPOINTMENT:... ")
         elif x == 3:
             print("| LIST OF DEPARTMENTS:...")
-            cursor.execute("SELECT Dep_Name FROM db.department")
+            cursor.execute("SELECT Dep_Name FROM project.department")
             print(cursor.fetchall())
             cha = input("| ENTER THE DEPARTMENT TO BE SEARCHED:... ")
             print("| DOCTOR'S LIST:... ")
-            cursor.execute("SELECT * FROM db.doctor_details WHERE BINARY D_ID IN (SELECT D_DID FROM db.doctor_professional_details WHERE BINARY D_Department ='" + cha + "');")
+            cursor.execute("SELECT * FROM project.doctor_details WHERE BINARY D_ID IN (SELECT D_DID FROM project.doctor_professional_details WHERE BINARY D_Department ='" + cha + "');")
             print(cursor.fetchall())
             print("| 1. WANT TO MAKE AN APPOINTMENT:...")
             print("| 2. RETURN TO PREVIOUS WINDOW:... ")
@@ -782,23 +796,23 @@ class patient:
     #     password2 = input("| RE-TYPE PASSWORD:......")  ##### also rechecks the password
     #     if password1 == password2:
     #         ######### need to be changed according to table
-    #         cursor.execute("SELECT SUBSTRING(P_ID,3,5) FROM `db`.`patient_details` ORDER BY P_ID DESC LIMIT 1")
+    #         cursor.execute("SELECT SUBSTRING(P_ID,3,5) FROM `project`.`patient_details` ORDER BY P_ID DESC LIMIT 1")
     #         p1 = cursor.fetchone()
     #         y = str(int(p1[0]) + 1)
     #         x = 'P_'
     #         P_ID = x + y
-    #         sql = "INSERT INTO `db`.`patient_details` (P_ID,P_Name,P_Age,P_PNo,P_Add,P_Email) VALUES('%s','%s',%s,%s,'%s','%s')"
+    #         sql = "INSERT INTO `project`.`patient_details` (P_ID,P_Name,P_Age,P_PNo,P_Add,P_Email) VALUES('%s','%s',%s,%s,'%s','%s')"
     #         val = (P_ID, name, age, phoneno, adress, email)
     #         cursor.execute(sql % val)
-    #         db.commit()
+    #         project.commit()
     #         print(" ___________________________________ ")
     #         print("| PATIENT REGISTRATION COMPLETED:...|")
     #         print("| USER ID:... ", P_ID)
     #         print("| PLEASE PROCEED WITH LOGIN WINDOW..")
-    #         sql = "INSERT INTO `db`.`admin` (ID,Password,Email) VALUES('%s','%s','%s')"
+    #         sql = "INSERT INTO `project`.`admin` (ID,Password,Email) VALUES('%s','%s','%s')"
     #         val = (P_ID, password1, email)
     #         cursor.execute(sql % val)
-    #         db.commit()
+    #         project.commit()
 
     def appointment(self,u_id,h1):
         print(" __________________________________________________________________________ ")
@@ -817,21 +831,21 @@ class patient:
             print("|__________________________________________________________________________|")
             inn=int(input("| PLEASE MAKE A SELECTION:..."))
             if inn==1:
-                cursor.execute("SELECT DISTINCT Dep_Name FROM `db`.`department`")
+                cursor.execute("SELECT DISTINCT Dep_Name FROM `project`.`department`")
                 print(cursor.fetchall())
                 ch = input("| ENTER THE DEPARTMENT FOR WHICH APPOINTMENT IS NEEDED:... ")
-                if(int(cursor.execute("SELECT count(Dep_Name) FROM `db`.`department` where Dep_Name='" + ch + "';"))==1):
-                    sql = "INSERT INTO `db`.`unassigned_patient` (`UP_ID`, `UP_PROB_DEP`, `UP_E_TYPE`)VALUES('%s','%s','%s')"
+                if(int(cursor.execute("SELECT count(Dep_Name) FROM `project`.`department` where Dep_Name='" + ch + "';"))==1):
+                    sql = "INSERT INTO `project`.`unassigned_patient` (`UP_ID`, `UP_PROB_DEP`, `UP_E_TYPE`)VALUES('%s','%s','%s')"
                     val = (u_id,ch,"")
                     cursor.execute(sql % val)
                     db.commit()
-                    cursor.execute("SELECT Dep_sym FROM `db`.`department` where Dep_Name='" + ch + "';")
+                    cursor.execute("SELECT Dep_sym FROM `project`.`department` where Dep_Name='" + ch + "';")
                     aaa=cursor.fetchone()
                     bbb=aaa[0]
                     now = datetime.datetime.now()
                     ccc=u_id+'_'+bbb+'_OPD_'+str(now)
                     print("TOKEN NUMBER OF THE PATIENT IS:",ccc)
-                    sql = "INSERT INTO `db`.`patient_medical_history` (`Ref_ID`,`Pat_ID`,`Prescription`,`Past_Reports`) VALUES ('%s','%s','%s','%s')"
+                    sql = "INSERT INTO `project`.`patient_medical_history` (`Ref_ID`,`Pat_ID`,`Prescription`,`Past_Reports`) VALUES ('%s','%s','%s','%s')"
                     val = (ccc,u_id,'','')
                     cursor.execute(sql % val)
                     db.commit()
@@ -850,15 +864,15 @@ class patient:
             print("|__________________________________________________________________________|")
             inn = int(input("| PLEASE MAKE A SELECTION:..."))
             if inn == 1:
-                cursor.execute("SELECT DISTINCT Dep_Name FROM `db`.`department`")
+                cursor.execute("SELECT DISTINCT Dep_Name FROM `project`.`department`")
                 print(cursor.fetchall())
                 ch = input("| ENTER THE DEPARTMENT FOR WHICH PATIENT NEEDS TO BE ADMITTED:... ")
-                if (int(cursor.execute("SELECT count(Dep_Name) FROM `db`.`department` where Dep_Name='" + ch + "';")) == 1):
-                    sql = "INSERT INTO `db`.`unassigned_patient` (`UP_ID`, `UP_PROB_DEP`, `UP_E_TYPE`)VALUES('%s','%s','%s')"
+                if (int(cursor.execute("SELECT count(Dep_Name) FROM `project`.`department` where Dep_Name='" + ch + "';")) == 1):
+                    sql = "INSERT INTO `project`.`unassigned_patient` (`UP_ID`, `UP_PROB_DEP`, `UP_E_TYPE`)VALUES('%s','%s','%s')"
                     val = (u_id, ch, "")
                     cursor.execute(sql % val)
                     db.commit()
-                    cursor.execute("SELECT Dep_sym FROM `db`.`department` where Dep_Name='" + ch + "';")
+                    cursor.execute("SELECT Dep_sym FROM `project`.`department` where Dep_Name='" + ch + "';")
                     aaa = cursor.fetchone()
                     if (aaa==None):
                         xx = 0
@@ -868,37 +882,37 @@ class patient:
                     now = datetime.datetime.now()
                     ccc = u_id + '_' + bbb + '_LOCAL_' + str(now)
                     print("TOKEN NUMBER OF THE PATIENT IS:", ccc)
-                    sql = "INSERT INTO `db`.`patient_medical_history` (`Ref_ID`,`Pat_ID`,`Prescription`,`Past_Reports`) VALUES ('%s','%s','%s','%s')"
+                    sql = "INSERT INTO `project`.`patient_medical_history` (`Ref_ID`,`Pat_ID`,`Prescription`,`Past_Reports`) VALUES ('%s','%s','%s','%s')"
                     val = (ccc, u_id, '', '')
                     cursor.execute(sql % val)
                     db.commit()
-                    if (cursor.execute("SELECT count(Status) FROM `db`.`local` where DEP='" + ch + "';")==0):
-                        sql = "INSERT INTO `db`.`local` (`RoomNo`,`Dep`,`Status`,`P_ID`) VALUES (%s,'%s','%s','%s')"
+                    if (cursor.execute("SELECT count(Status) FROM `project`.`local` where DEP='" + ch + "';")==0):
+                        sql = "INSERT INTO `project`.`local` (`RoomNo`,`Dep`,`Status`,`P_ID`) VALUES (%s,'%s','%s','%s')"
                         val = (1, ch,'Y',u_id)
                         cursor.execute(sql % val)
                         db.commit()
                     else:
-                        if(cursor.execute("SELECT count(RoomNo) FROM `db`.`local` where DEP='" + ch + "';")==0):
-                            cursor.execute("SELECT RoomNo FROM `db`.`local` where DEP='" + ch + "' ORDER BY RoomNo DESC LIMIT 1;")
+                        if(cursor.execute("SELECT count(RoomNo) FROM `project`.`local` where DEP='" + ch + "';")==0):
+                            cursor.execute("SELECT RoomNo FROM `project`.`local` where DEP='" + ch + "' ORDER BY RoomNo DESC LIMIT 1;")
                             aaa = cursor.fetchone()
                             if (aaa == 'None'):
                                 xx = 0
                             else:
                                 xx = aaa[0]
                             bbb = xx
-                            sql = "INSERT INTO `db`.`local` (`RoomNo`,`Dep`,`Status`,`P_ID`) VALUES (%s,'%s','%s','%s')"
+                            sql = "INSERT INTO `project`.`local` (`RoomNo`,`Dep`,`Status`,`P_ID`) VALUES (%s,'%s','%s','%s')"
                             val = (bbb+1, ch, 'Y', u_id)
                             cursor.execute(sql % val)
                             db.commit()
                         else:
-                            cursor.execute("SELECT RoomNo FROM `db`.`local` where DEP='" + ch + "' AND Status='N' ORDER BY RoomNo ASC LIMIT 1;")
+                            cursor.execute("SELECT RoomNo FROM `project`.`local` where DEP='" + ch + "' AND Status='N' ORDER BY RoomNo ASC LIMIT 1;")
                             aaa = cursor.fetchone()
                             if (aaa!=None):
                                 xx = aaa[0]
                             else:
                                 xx = 0
                             bbb = xx
-                            sql = "INSERT INTO `db`.`local` (`RoomNo`,`Dep`,`Status`,`P_ID`) VALUES (%s,'%s','%s','%s')"
+                            sql = "INSERT INTO `project`.`local` (`RoomNo`,`Dep`,`Status`,`P_ID`) VALUES (%s,'%s','%s','%s')"
                             val = (bbb, ch, 'Y', u_id)
                             cursor.execute(sql % val)
                             db.commit()
@@ -911,7 +925,7 @@ class patient:
         else:
             pass
 # def getpatientgender(self,self.id):
-#        cursor.execute("SELECT * FROM `db`.`patient_details` WHERE P_ID='" +self.id+ "';")
+#        cursor.execute("SELECT * FROM `project`.`patient_details` WHERE P_ID='" +self.id+ "';")
 #        print(cursor.fetchall())
 
 #
@@ -920,4 +934,4 @@ class patient:
 # p.appointment('P_129','a')
 # y = p.getpatientpswrd(val)
 # print(y[0])
-# db.close()
+# project.close()
