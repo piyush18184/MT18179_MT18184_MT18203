@@ -465,24 +465,89 @@ class patient:
         db.commit()
 
     #################################################################################################################################################################
+    # def registerpatient(self):
+    #     name = input("| NAME:.. ")
+    #     email = input("| EMAIL ID:.. ")
+    #     phoneno = int(input("| PHONE NUMBER:....."))
+    #     age = int(input("| AGE:....."))
+    #     adress = input("| ADDRESS:")
+    #     #               gender = input("enter the gender:.....")
+    #     #               pateint_type = input("OPD or Location:..............")
+    #     password1 = input("| PASSWORD:..... ")
+    #     password2 = input("| RE-TYPE PASSWORD:......")  ##### also rechecks the password
+    #     if password1 == password2:
+    #         ######### need to be changed according to table
+    #         cursor.execute("SELECT SUBSTRING(P_ID,3,5) FROM `db`.`patient_details` ORDER BY P_ID DESC LIMIT 1")
+    #         p1 = cursor.fetchone()
+    #         y = str(int(p1[0]) + 1)
+    #         x = 'P_'
+    #         P_ID = x + y
+    #         sql = "INSERT INTO `db`.`patient_details` (P_ID,P_Name,P_Age,P_PNo,P_Add,P_Email) VALUES('%s','%s',%s,%s,'%s','%s')"
+    #         val = (P_ID, name, age, phoneno, adress, email)
+    #         cursor.execute(sql % val)
+    #         db.commit()
+    #         print(" ___________________________________ ")
+    #         print("| PATIENT REGISTRATION COMPLETED:...|")
+    #         print("| USER ID:... ", P_ID)
+    #         print("| PLEASE PROCEED WITH LOGIN WINDOW..")
+    #         sql = "INSERT INTO `db`.`admin` (ID,Password,Email) VALUES('%s','%s','%s')"
+    #         val = (P_ID, password1, email)
+    #         cursor.execute(sql % val)
+    #         db.commit()
+
     def registerpatient(self):
-        name = input("| NAME:.. ")
-        email = input("| EMAIL ID:.. ")
-        phoneno = int(input("| PHONE NUMBER:....."))
-        age = int(input("| AGE:....."))
-        adress = input("| ADDRESS:")
-        #               gender = input("enter the gender:.....")
-        #               pateint_type = input("OPD or Location:..............")
-        password1 = input("| PASSWORD:..... ")
+        do = 1
+        while do:
+            try:
+                name = input("| NAME:.. ")
+                if name == '':
+                    raise Exception
+                else:
+                    break
+            except:
+                print(".....THIS FIELD CANNOT BE LEFT EMPTY.....")
+        d = 1
+        while do:
+            try:
+                email = input("| EMAIL ID:.. ")
+                if email == '':
+                    raise Exception
+                else:
+                    break
+            except:
+                print(".....THIS FIELD CANNOT BE LEFT EMPTY.....")
+        d = 1
+        while do:
+            try:
+                phoneno = int(input("| PHONE NUMBER:....."))
+                if phoneno == '':
+                    raise Exception
+                else:
+                    break
+            except:
+                exceptValueError: print("Please enter a valid format of age")
+            age = int(input("| AGE:....."))
+            adress = input("| ADDRESS:")
+            do = 1
+        d = 1
+        while do:
+            try:
+                password1 = input("| PASSWORD:..... ")
+                if password1 == '':
+                    raise Exception
+                else:
+                    break
+            except:
+                print("Please enter a valid password")
         password2 = input("| RE-TYPE PASSWORD:......")  ##### also rechecks the password
         if password1 == password2:
             ######### need to be changed according to table
-            cursor.execute("SELECT SUBSTRING(P_ID,3,5) FROM `db`.`patient_details` ORDER BY P_ID DESC LIMIT 1")
+            cursor.execute("SELECT SUBSTRING(P_ID,3,5) FROM `mydb`.`patient_details` ORDER BY P_ID DESC LIMIT 1")
             p1 = cursor.fetchone()
             y = str(int(p1[0]) + 1)
             x = 'P_'
             P_ID = x + y
-            sql = "INSERT INTO `db`.`patient_details` (P_ID,P_Name,P_Age,P_PNo,P_Add,P_Email) VALUES('%s','%s',%s,%s,'%s','%s')"
+            sql = "INSERT INTO `mydb`.`patient_details` (P_ID,P_Name,P_Age,P_PNo,P_Add,P_Email) VALUES('%s','%s',%s,%s,'%s','%s')"
             val = (P_ID, name, age, phoneno, adress, email)
             cursor.execute(sql % val)
             db.commit()
@@ -490,10 +555,60 @@ class patient:
             print("| PATIENT REGISTRATION COMPLETED:...|")
             print("| USER ID:... ", P_ID)
             print("| PLEASE PROCEED WITH LOGIN WINDOW..")
-            sql = "INSERT INTO `db`.`admin` (ID,Password,Email) VALUES('%s','%s','%s')"
+            sql = "INSERT INTO `mydb`.`admin` (ID,Password,Email) VALUES('%s','%s','%s')"
             val = (P_ID, password1, email)
             cursor.execute(sql % val)
             db.commit()
+        else:
+            print("WRONG PASSWORD")
+
+
+        # do = 1
+        # while do:
+        #     try:
+        #         age = int(input("| AGE:....."))
+        #         if age <= 5:
+        #             raise Exception
+        #         else:
+        #             do = 0
+        #     except ValueError:
+        #         print("Please enter a valid format of age")
+        #     except:
+        #         print("INVALID AGE")
+        # adress = input("| ADDRESS:")
+        # #               gender = input("enter the gender:.....")
+        # #               pateint_type = input("OPD or Location:..............")
+        #
+        # do = 1
+        # while do:
+        #     try:
+        #         password1 = input("| PASSWORD:..... ")
+        #         if password1 == '':
+        #             raise Exception
+        #         else:
+        #             do = 0
+        #     except:
+        #         print("Please enter a valid password")
+        # password2 = input("| RE-TYPE PASSWORD:......")  ##### also rechecks the password
+        # if password1 == password2:
+        #     ######### need to be changed according to table
+        #     cursor.execute("SELECT SUBSTRING(P_ID,3,5) FROM `db`.`patient_details` ORDER BY P_ID DESC LIMIT 1")
+        #     p1 = cursor.fetchone()
+        #     y = str(int(p1[0]) + 1)
+        #     x = 'P_'
+        #     P_ID = x + y
+        #     sql = "INSERT INTO `db`.`patient_details` (P_ID,P_Name,P_Age,P_PNo,P_Add,P_Email) VALUES('%s','%s',%s,%s,'%s','%s')"
+        #     val = (P_ID, name, age, phoneno, adress, email)
+        #     cursor.execute(sql % val)
+        #     db.commit()
+        #     print(" ___________________________________ ")
+        #     print("| PATIENT REGISTRATION COMPLETED:...|")
+        #     print("| USER ID:... ", P_ID)
+        #     print("| PLEASE PROCEED WITH LOGIN WINDOW..")
+        #     sql = "INSERT INTO `db`.`admin` (ID,Password,Email) VALUES('%s','%s','%s')"
+        #     val = (P_ID, password1, email)
+        #     cursor.execute(sql % val)
+        #     db.commit()
 
     #################################################################################################################################################################
     def pateintlogin(self, u_id, password):
@@ -638,35 +753,35 @@ class patient:
             return False
 
 
-    def registerpatient(self):
-        name = input("| NAME:.. ")
-        email = input("| EMAIL ID:.. ")
-        phoneno = int(input("| PHONE NUMBER:....."))
-        age = int(input("| AGE:....."))
-        adress = input("| ADDRESS:")
-        #               gender = input("enter the gender:.....")
-        #               pateint_type = input("OPD or Location:..............")
-        password1 = input("| PASSWORD:..... ")
-        password2 = input("| RE-TYPE PASSWORD:......")  ##### also rechecks the password
-        if password1 == password2:
-            ######### need to be changed according to table
-            cursor.execute("SELECT SUBSTRING(P_ID,3,5) FROM `db`.`patient_details` ORDER BY P_ID DESC LIMIT 1")
-            p1 = cursor.fetchone()
-            y = str(int(p1[0]) + 1)
-            x = 'P_'
-            P_ID = x + y
-            sql = "INSERT INTO `db`.`patient_details` (P_ID,P_Name,P_Age,P_PNo,P_Add,P_Email) VALUES('%s','%s',%s,%s,'%s','%s')"
-            val = (P_ID, name, age, phoneno, adress, email)
-            cursor.execute(sql % val)
-            db.commit()
-            print(" ___________________________________ ")
-            print("| PATIENT REGISTRATION COMPLETED:...|")
-            print("| USER ID:... ", P_ID)
-            print("| PLEASE PROCEED WITH LOGIN WINDOW..")
-            sql = "INSERT INTO `db`.`admin` (ID,Password,Email) VALUES('%s','%s','%s')"
-            val = (P_ID, password1, email)
-            cursor.execute(sql % val)
-            db.commit()
+    # def registerpatient(self):
+    #     name = input("| NAME:.. ")
+    #     email = input("| EMAIL ID:.. ")
+    #     phoneno = int(input("| PHONE NUMBER:....."))
+    #     age = int(input("| AGE:....."))
+    #     adress = input("| ADDRESS:")
+    #     #               gender = input("enter the gender:.....")
+    #     #               pateint_type = input("OPD or Location:..............")
+    #     password1 = input("| PASSWORD:..... ")
+    #     password2 = input("| RE-TYPE PASSWORD:......")  ##### also rechecks the password
+    #     if password1 == password2:
+    #         ######### need to be changed according to table
+    #         cursor.execute("SELECT SUBSTRING(P_ID,3,5) FROM `db`.`patient_details` ORDER BY P_ID DESC LIMIT 1")
+    #         p1 = cursor.fetchone()
+    #         y = str(int(p1[0]) + 1)
+    #         x = 'P_'
+    #         P_ID = x + y
+    #         sql = "INSERT INTO `db`.`patient_details` (P_ID,P_Name,P_Age,P_PNo,P_Add,P_Email) VALUES('%s','%s',%s,%s,'%s','%s')"
+    #         val = (P_ID, name, age, phoneno, adress, email)
+    #         cursor.execute(sql % val)
+    #         db.commit()
+    #         print(" ___________________________________ ")
+    #         print("| PATIENT REGISTRATION COMPLETED:...|")
+    #         print("| USER ID:... ", P_ID)
+    #         print("| PLEASE PROCEED WITH LOGIN WINDOW..")
+    #         sql = "INSERT INTO `db`.`admin` (ID,Password,Email) VALUES('%s','%s','%s')"
+    #         val = (P_ID, password1, email)
+    #         cursor.execute(sql % val)
+    #         db.commit()
 
     def appointment(self,u_id,h1):
         print(" __________________________________________________________________________ ")
