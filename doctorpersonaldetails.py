@@ -11,45 +11,66 @@ cursor = db.cursor()
 
 
 class doctorpersonaldetails:
-    def __init__(self):
-        pass
+    def __init__(self,name = '',age = '',pno = '',did = '',email = '',addr = ''):
+        self.name = name
+        self.age = age
+        self.did = did
+        self.email = email
+        self.pno = pno
+        self.addr = addr
+        
 
     def setdoctorname(self, name, did):
-        cursor.execute("UPDATE `db`.`doctor_details` SET D_Name = '" + name + "' WHERE D_ID = '" + did + "';")
+        self.name = name
+        self.did = did
+        cursor.execute("UPDATE `db`.`doctor_details` SET D_Name = '" + self.name + "' WHERE D_ID = '" + self.did + "';")
         db.commit()
 
     def setdoctorage(self, ageee, did):
-        cursor.execute("UPDATE `db`.`doctor_details` SET D_Age = '" + ageee + "' WHERE D_ID = '" + did + "';")
+        self.age = ageee
+        self.did = did
+        cursor.execute("UPDATE `db`.`doctor_details` SET D_Age = '" + self.age + "' WHERE D_ID = '" + self.did + "';")
         db.commit()
 
     def setdoctorpno(self, pno, did):
-        cursor.execute("UPDATE `db`.`doctor_details` SET D_PNo = '" + pno + "' WHERE D_ID = '" + did + "';")
+        self.did = did
+        self.pno = pno
+        cursor.execute("UPDATE `db`.`doctor_details` SET D_PNo = '" + self.pno + "' WHERE D_ID = '" + self.did + "';")
         db.commit()
 
     def setdoctoremail(self, emaii, did):
-        cursor.execute("UPDATE `db`.`doctor_details` SET D_Email = '" + emaii + "' WHERE D_ID = '" + did + "';")
+        self.did = did
+        self.email = emaii
+        cursor.execute("UPDATE `db`.`doctor_details` SET D_Email = '" + self.email + "' WHERE D_ID = '" + self.did + "';")
         db.commit()
 
     def setdoctoraddr(self, addr, did):
-        cursor.execute("UPDATE `db`.`doctor_details` SET D_Add = '" + addr + "' WHERE D_ID = '" + did + "';")
+        self.addr = addr
+        self.did = did
+        cursor.execute("UPDATE `db`.`doctor_details` SET D_Add = '" + self.addr + "' WHERE D_ID = '" + self.did + "';")
         db.commit()
 
     def getdocdetail(self, did):
-        cursor.execute("SELECT * FROM `db`.`doctor_details` WHERE D_ID='" + did + "';")
+        self.did =did
+        cursor.execute("SELECT * FROM `db`.`doctor_details` WHERE D_ID='" + self.did + "';")
         print(cursor.fetchall())
 
     def getdocname(self, did):
-        cursor.execute("SELECT D_Name FROM `db`.`doctor_details` WHERE D_ID='" + did + "';")
+        self.did = did
+        cursor.execute("SELECT D_Name FROM `db`.`doctor_details` WHERE D_ID='" + self.did + "';")
         print(cursor.fetchone())
 
     def getdocemail(self, did):
-        cursor.execute("SELECT D_Email FROM `db`.`doctor_details` WHERE D_ID='" + did + "';")
+        self.did = did
+        cursor.execute("SELECT D_Email FROM `db`.`doctor_details` WHERE D_ID='" + self.did + "';")
         print(cursor.fetchall())
 
     def getdocphone(self,did):
-        cursor.execute("SELECT D_PNo FROM `db`.`doctor_details` WHERE D_ID='" + did + "';")
+        self.did = did
+        cursor.execute("SELECT D_PNo FROM `db`.`doctor_details` WHERE D_ID='" + self.did + "';")
         print(cursor.fetchall())
 
     def getdocaddress(self,did):
-        cursor.execute("SELECT D_Add FROM `db`.`doctor_details` WHERE D_ID='" + did + "';")
+        self.did = did
+        cursor.execute("SELECT D_Add FROM `db`.`doctor_details` WHERE D_ID='" + self.did + "';")
         print(cursor.fetchall())
