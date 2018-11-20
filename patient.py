@@ -568,35 +568,36 @@ class patient:
             x = int(input("| PLEASE MAKE A SELECTION:... "))
             if x == 1:
                 y = input("| ENTER THE DOCTOR'S ID FOR APPOINTMENT:... ")
-                print("Are you want a specific department or general appointment")
-                print("1. Enter Department")
-                print("2. general patient")
-                ch = input("enter your choice:..........")
-                if ch == 1:
-                    h1.getdepartments()
-                    dep = input("enter the department from the given department:")
-                    print(h1.getappointmentid(y, u_id))
-                    print("please wait when  appointment  finalised")
-                    i = 1000000
-                    while (i >= 0):
-                        i = i - 1
-                    print("your appoinmnet has been fixed ")
-                    print("your id and details are:")
-
-
-                elif ch == 2:
-                    dep = 'General'
-                    h1.getappointment(dep, u_id)
-                    print("please wait when  appointmnet  finalised")
-                    i = 1000000
-                    while (i >= 0):
-                        i = i - 1
-                    print("your appoinmnet has been fixed ")
-                    print("your id and details are:")
-                else:
-                    print("wrong choice")
-                    #continue
-                pass
+                print(h1.getappointmentid(y, u_id))
+                # print("Are you want a specific department or general appointment")
+                # print("1. Enter Department")
+                # print("2. general patient")
+                # ch = input("enter your choice:..........")
+                # if ch == 1:
+                #     h1.getdepartments()
+                #     dep = input("enter the department from the given department:")
+                #     print(h1.getappointmentid(y, u_id))
+                #     print("please wait when  appointment  finalised")
+                #     i = 1000000
+                #     while (i >= 0):
+                #         i = i - 1
+                #     print("your appoinmnet has been fixed ")
+                #     print("your id and details are:")
+                #
+                #
+                # elif ch == 2:
+                #     dep = 'General'
+                #     h1.getappointment(dep, u_id)
+                #     print("please wait when  appointmnet  finalised")
+                #     i = 1000000
+                #     while (i >= 0):
+                #         i = i - 1
+                #     print("your appoinmnet has been fixed ")
+                #     print("your id and details are:")
+                # else:
+                #     print("wrong choice")
+                #     #continue
+                # pass
             else:
                 pass
         elif x == 2:
