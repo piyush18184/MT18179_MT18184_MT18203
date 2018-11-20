@@ -13,8 +13,14 @@ cursor = db.cursor()
 # print(cursor)
 
 class admin:
-    def __init__(self):
-        pass
+    def __init__(self,name='',email='',phoneno='',age='',adress='',password1='',password2=''):
+        self.name=name
+        self.email=email
+        self.phoneno=phoneno
+        self.age=age
+        self.adress=adress
+        self.password1=password1
+        self.password2=password2
 
     def getdoctors(self):
         cursor.execute("select * from db.doctor_details")
@@ -27,16 +33,16 @@ class admin:
             print(x)
 
     def adddoctor(self):
-        name = input("| NAME:.. ")
-        email = input("| EMAIL ID:.. ")
-        phoneno = int(input("| PHONE NUMBER:....."))
-        age = int(input("| AGE:....."))
-        adress = input("| ADDRESS:")
+        self.name = input("| NAME:.. ")
+        self.email = input("| EMAIL ID:.. ")
+        self.phoneno = int(input("| PHONE NUMBER:....."))
+        self.age = int(input("| AGE:....."))
+        self.adress = input("| ADDRESS:")
         #               gender = input("enter the gender:.....")
         #               pateint_type = input("OPD or Location:..............")
-        password1 = input("| PASSWORD:..... ")
-        password2 = input("| RE-TYPE PASSWORD:......")  ##### also rechecks the password
-        if password1 == password2:
+        self.password1 = input("| PASSWORD:..... ")
+        self.password2 = input("| RE-TYPE PASSWORD:......")  ##### also rechecks the password
+        if self.password1 == self.password2:
             ######### need to be changed according to table
             cursor.execute(
                 "SELECT SUBSTRING(D_ID,3,5) FROM `db`.`doctor_details` ORDER BY D_ID DESC LIMIT 1")
@@ -45,7 +51,7 @@ class admin:
             x = 'D_'
             D_ID = x + y
             sql = "INSERT INTO `db`.`doctor_details` (D_ID,D_Name,D_Age,D_PNo,D_Add,D_Email) VALUES('%s','%s',%s,%s,'%s','%s')"
-            val = (D_ID, name, age, phoneno, adress, email)
+            val = (D_ID, self.name, self.age, self.phoneno, self.adress, self.email)
             cursor.execute(sql % val)
             db.commit()
             for i in range(1, 30000000):
@@ -55,7 +61,7 @@ class admin:
             print("| DOCTOR DETAILS ADDED SUCCESSFULLY:...|")
             print("| USER ID:... ", D_ID)
             sql = "INSERT INTO `db`.`admin` (ID,Password,Email) VALUES('%s','%s','%s')"
-            val = (D_ID, password1, email)
+            val = (D_ID, self.password1, self.email)
             cursor.execute(sql % val)
             db.commit()
 

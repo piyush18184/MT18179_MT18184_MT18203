@@ -11,8 +11,11 @@ cursor = db.cursor()
 
 
 class department:
-    def __init__(self):
-        pass
+    doctor_list=[];
+    def __init__(self,name='',id=''):
+        self.name=name
+        self.id=id
+
 
     def setdephod(self, dep_id, hod):
         cursor.execute("UPDATE `db`.`department` SET Dep_HOD = '" + hod + "' WHERE Dep_ID = '" + dep_id + "';")

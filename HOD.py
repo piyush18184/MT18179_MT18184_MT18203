@@ -15,8 +15,9 @@ cursor = db.cursor()
 
 
 class HOD:
-    def __init__(self):
-        pass
+    def __init__(self,hid='',resp=''):
+        self.hid=hid
+        self.resp=resp
 
     def sethod(self):
 

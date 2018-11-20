@@ -13,10 +13,17 @@ print(cursor)
 
 
 class doctor:
-    def __init__(self):
-        pass
+    def __init__(self,name='',address='',phno='',spec='',type='',opdst='',opdet='',dep=''):
+        self.name=name
+        self.address=address
+        self.phno=phno
+        self.spec=spec
+        self.type=type
+        self.opdst=opdst
+        self.opdet=opdet
+        self.dep=dep
 
-    def editdetail(sel, d1, name):
+    def editdetail(self, d1, name):
         print(" __________________________________________________________________________ ")
         print("|-------------------DOCTOR'S PERSONAL DETAILS EDIT WINDOW------------------|")
         print("|                                                                          |")

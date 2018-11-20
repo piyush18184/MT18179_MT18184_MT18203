@@ -11,9 +11,14 @@ cursor = db.cursor()
 
 
 class patient:
-    def __init__(self):
-        pass
-
+    def __init__(self,id='',name='',address='',location='',assdoc='',dov='',tov=''):
+        self.id=id
+        self.name=name
+        self.address=address
+        self.location=location
+        self.assdoc=assdoc
+        self.dov=dov
+        self.tov=tov
     #
     def editpatient(self):
         print(" __________________________________________________________________________ ")
@@ -28,8 +33,8 @@ class patient:
         print("|__________________________________________________________________________|")
         xx = int(input("Enter your choice:....."))
         if xx == 1:
-            pid = input("| PATIENT ID:.. ")
-            self.getpatientall(pid)  ###### getting all details of
+            self.id = input("| PATIENT ID:.. ")
+            self.getpatientall(self.id)  ###### getting all details of
             print(
                 " __________________________________________________________________________ ")
             print(
@@ -59,10 +64,10 @@ class patient:
                     "|__________________________________________________________________________|")
                 xxx = int(input("PLEASE CONFIRM..?"))
                 if xxx == 1:
-                    self.setpateintname(nm, pid)
+                    self.setpateintname(nm, self.id)
                     print(" ___________________________________ ")
                     print("| PATIENT NAME UPDATED SUCCESSFULLY:...|")
-                    self.getpatientall(pid)
+                    self.getpatientall(self.id)
                 elif xxx == 2:
                     print("RETURNING TO PREVIOUS PAGE...PLEASE WAIT..")
                     for i in range(1, 30000000):
@@ -77,8 +82,8 @@ class patient:
                     pass
                 ##continue
         elif xx == 2:
-            pid = input("| PATIENT ID:.. ")
-            self.getpatientall(pid)
+            self.id = input("| PATIENT ID:.. ")
+            self.getpatientall(self.id)
             print(
                 " __________________________________________________________________________ ")
             print(
@@ -108,10 +113,10 @@ class patient:
                     "|__________________________________________________________________________|")
                 xxx = int(input("PLEASE CONFIRM..?"))
                 if xxx == 1:
-                    self.setpateintage(agee, pid)
+                    self.setpateintage(agee, self.id)
                     print(" ___________________________________ ")
                     print("| PATIENT AGE UPDATED SUCCESSFULLY:...|")
-                    self.getpatientall(pid)
+                    self.getpatientall(self.id)
                 elif xxx == 2:
                     print("RETURNING TO PREVIOUS PAGE...PLEASE WAIT..")
                     for i in range(1, 30000000):
@@ -126,8 +131,8 @@ class patient:
                     pass
                 ##continue
         elif xx == 3:
-            pid = input("| PATIENT ID:.. ")
-            self.getpatientall(pid)
+            self.id = input("| PATIENT ID:.. ")
+            self.getpatientall(self.id)
             print(
                 " __________________________________________________________________________ ")
             print(
@@ -157,10 +162,10 @@ class patient:
                     "|__________________________________________________________________________|")
                 xxx = int(input("PLEASE CONFIRM..?"))
                 if xxx == 1:
-                    self.setpatientphone(pid, phno)
+                    self.setpatientphone(self.id, phno)
                     print(" ___________________________________ ")
                     print("| PATIENT PHONE NUMBER UPDATED SUCCESSFULLY:...|")
-                    self.getpatientall(pid)
+                    self.getpatientall(self.id)
                 elif xxx == 2:
                     print("RETURNING TO PREVIOUS PAGE...PLEASE WAIT..")
                     for i in range(1, 30000000):
@@ -175,8 +180,8 @@ class patient:
                     pass
                 ##continue
         elif xx == 4:
-            pid = input("| PATIENT ID:.. ")
-            self.getpatientall(pid)
+            self.id = input("| PATIENT ID:.. ")
+            self.getpatientall(self.id)
             print(
                 " __________________________________________________________________________ ")
             print(
@@ -206,10 +211,10 @@ class patient:
                     "|__________________________________________________________________________|")
                 xxx = int(input("PLEASE CONFIRM..?"))
                 if xxx == 1:
-                    self.setpatientemail(pid, emai)
+                    self.setpatientemail(self.id, emai)
                     print(" ___________________________________ ")
                     print("| PATIENT EMAIL UPDATED SUCCESSFULLY:...|")
-                    self.getpatientall(pid)
+                    self.getpatientall(self.id)
                 elif xxx == 2:
                     print("RETURNING TO PREVIOUS PAGE...PLEASE WAIT..")
                     for i in range(1, 30000000):
@@ -224,8 +229,8 @@ class patient:
                     pass
                 # continue
         elif xx == 5:
-            pid = input("| PATIENT ID:.. ")
-            self.getpatientall(pid)
+            self.id = input("| PATIENT ID:.. ")
+            self.getpatientall(self.id)
             print(
                 " __________________________________________________________________________ ")
             print(
@@ -255,10 +260,10 @@ class patient:
                     "|__________________________________________________________________________|")
                 xxx = int(input("PLEASE CONFIRM..?"))
                 if xxx == 1:
-                    self.setpatientaddress(pid, addr)
+                    self.setpatientaddress(self.id, addr)
                     print(" ___________________________________ ")
                     print("| PATIENT ADDRESS UPDATED SUCCESSFULLY:...|")
-                    self.getpatientall(pid)
+                    self.getpatientall(self.id)
                 elif xxx == 2:
                     print("RETURNING TO PREVIOUS PAGE...PLEASE WAIT..")
                     for i in range(1, 30000000):
@@ -429,27 +434,32 @@ class patient:
 
     #################################################################################################################################################################
     def setpateintname(self, nm, pid):
-        cursor.execute("UPDATE `db`.`patient_details` SET P_Name = '" + nm + "' WHERE P_ID = '" + pid + "';")
+        self.id=pid
+        cursor.execute("UPDATE `db`.`patient_details` SET P_Name = '" + nm + "' WHERE P_ID = '" + self.id + "';")
         db.commit()
 
     #################################################################################################################################################################
     def setpatientemail(self, emai, pid):
-        cursor.execute("UPDATE `db`.`patient_details` SET P_Email = '" + emai + "' WHERE P_ID = '" + pid + "';")
+        self.id=pid
+        cursor.execute("UPDATE `db`.`patient_details` SET P_Email = '" + emai + "' WHERE P_ID = '" + self.id + "';")
         db.commit()
 
     #################################################################################################################################################################
     def setpatientphone(self, phno, pid):
-        cursor.execute("UPDATE `db`.`patient_details` SET P_PNo = '" + phno + "' WHERE P_ID = '" + pid + "';")
+        self.id=pid
+        cursor.execute("UPDATE `db`.`patient_details` SET P_PNo = '" + phno + "' WHERE P_ID = '" + self.id + "';")
         db.commit()
 
     #################################################################################################################################################################
     def setpateintage(self, age, pid):
-        cursor.execute("UPDATE `db`.`patient_details` SET P_Age = '" + age + "' WHERE P_ID = '" + pid + "';")
+        self.id=pid
+        cursor.execute("UPDATE `db`.`patient_details` SET P_Age = '" + age + "' WHERE P_ID = '" + self.id + "';")
         db.commit()
 
     #################################################################################################################################################################
     def setpatientaddress(self, pid, addr):
-        cursor.execute("UPDATE `db`.`patient_details` SET P_Add = '" + addr + "' WHERE P_ID = '" + pid + "';")
+        self.id=pid
+        cursor.execute("UPDATE `db`.`patient_details` SET P_Add = '" + addr + "' WHERE P_ID = '" + self.id + "';")
         db.commit()
 
     #################################################################################################################################################################
@@ -461,7 +471,8 @@ class patient:
     #################################################################################################################################################################
 
     def setpassword(self, age, pid):
-        cursor.execute("UPDATE `db`.`admin` SET Password = '" + age + "' WHERE ID = '" + pid + "';")
+        self.id=pid
+        cursor.execute("UPDATE `db`.`admin` SET Password = '" + age + "' WHERE ID = '" + self.id + "';")
         db.commit()
 
     #################################################################################################################################################################
@@ -630,36 +641,42 @@ class patient:
     # print(self.name)
     #################################################################################################################################################################
     def getpatientall(self, pid):
-        cursor.execute("SELECT * FROM `db`.`patient_details` WHERE P_ID='" + pid + "';")
+        self.id=pid
+        cursor.execute("SELECT * FROM `db`.`patient_details` WHERE P_ID='" + self.id + "';")
         print(cursor.fetchall())
 
     #################################################################################################################################################################
     def getpatientemail(self, pid):
-        cursor.execute("SELECT * FROM `db`.`patient_details` WHERE P_ID='" + pid + "';")
+        self.id=pid
+        cursor.execute("SELECT * FROM `db`.`patient_details` WHERE P_ID='" + self.id + "';")
         print(cursor.fetchall())
 
     #################################################################################################################################################################
     def getpatientpswrd(self, pid):
-        cursor.execute("SELECT Password FROM `db`.`admin` WHERE ID='" + pid + "';")
+        self.id=pid
+        cursor.execute("SELECT Password FROM `db`.`admin` WHERE ID='" + self.id + "';")
         x = cursor.fetchone()
         return x[0]
 
     #################################################################################################################################################################
     def getpatientphone(self, pid):
-        cursor.execute("SELECT P_Pno FROM `db`.`patient_details` WHERE P_ID='" + pid + "';")
+        self.id=pid
+        cursor.execute("SELECT P_Pno FROM `db`.`patient_details` WHERE P_ID='" + self.id + "';")
         print(cursor.fetchall())
 
     #################################################################################################################################################################
     def getpatientaddress(self, pid):
-        cursor.execute("SELECT P_Add FROM `db`.`patient_details` WHERE P_ID='" + pid + "';")
+        self.id=pid
+        cursor.execute("SELECT P_Add FROM `db`.`patient_details` WHERE P_ID='" + self.id + "';")
         print(cursor.fetchall())
 
-    #    def getpatientid(self,pid):
-    #        cursor.execute("SELECT * FROM `db`.`patient_details` WHERE P_ID='" +pid+ "';")
+    #    def getpatientid(self,self.id):
+    #        cursor.execute("SELECT * FROM `db`.`patient_details` WHERE P_ID='" +self.id+ "';")
     #        print(cursor.fetchall())
     #
     def getpatientage(self, pid):
-        cursor.execute("SELECT P_Age FROM `db`.`patient_details` WHERE P_ID='" + pid + "';")
+        self.id=pid
+        cursor.execute("SELECT P_Age FROM `db`.`patient_details` WHERE P_ID='" + self.id + "';")
         print(cursor.fetchall())
     def searchdoctor(self,h1,u_id):
         print(" __________________________________________________________________________ ")
@@ -893,8 +910,8 @@ class patient:
                 pass
         else:
             pass
-# def getpatientgender(self,pid):
-#        cursor.execute("SELECT * FROM `db`.`patient_details` WHERE P_ID='" +pid+ "';")
+# def getpatientgender(self,self.id):
+#        cursor.execute("SELECT * FROM `db`.`patient_details` WHERE P_ID='" +self.id+ "';")
 #        print(cursor.fetchall())
 
 #
