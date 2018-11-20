@@ -1,29 +1,27 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Tue Oct 30 15:15:21 2018"
+
+@author: Jeet"""
+
+from doctorpersonaldetails import doctorpersonaldetails as dpd
+from doctorproffessionaldetails import doctorprofessionaldetails as ddd
+import datetime
 import pymysql
-
 db = pymysql.connect(
-    host='127.0.0.1',
-    user="root",
-    passwd="",
-    db="db"
-)
-print(db)
+                    host='127.0.0.1',
+                    user="root",
+                    passwd="6%w<RPl4",
+                    db="mydb"
+                    )
+#rint(db)
 cursor = db.cursor()
-print(cursor)
 
+class doctor(dpd,ddd):
+    def __init__(self):
+        pass
 
-
-class doctor:
-    def __init__(self,name='',address='',phno='',spec='',type='',opdst='',opdet='',dep=''):
-        self.name=name
-        self.address=address
-        self.phno=phno
-        self.spec=spec
-        self.type=type
-        self.opdst=opdst
-        self.opdet=opdet
-        self.dep=dep
-
-    def editdetail(self, d1, name):
+    def editdetail(self):
         print(" __________________________________________________________________________ ")
         print("|-------------------DOCTOR'S PERSONAL DETAILS EDIT WINDOW------------------|")
         print("|                                                                          |")
@@ -34,32 +32,62 @@ class doctor:
         print("|                        5. EDIT DOCTOR'S ADDRESS                          |")
         print("|                        6. RETURN TO PREVIOUS PAGE                        |")
         print("|__________________________________________________________________________|")
-        xx = int(input("Enter your choice:....."))
+        do = 1
+        while(do):
+            try:
+                xx = int(input("Enter your choice:....."))
+                do = 0
+            except ValueError:print("You Entered a string when a integer is required. PLease try again.....")
         if xx == 1:
-            # did = input("| DOCTOR ID:.. ")
+            did = input("| DOCTOR ID:.. ")
 
-            d1.getdocdetail(name)
-            print(" __________________________________________________________________________ ")
-            print("|------------------------IS THE INFORMATION CORRECT------------------------|")
-            print("|                                                                          |")
-            print("|                                1. YES                                    |")
-            print("|                                2. NO                                     |")
-            print("|__________________________________________________________________________|")
-            xxx = int(input("PLEASE SELECT THE OPTION:..."))
+            super().getdocdetail(did)
+            print(
+                " __________________________________________________________________________ ")
+            print(
+                "|------------------------IS THE INFORMATION CORRECT------------------------|")
+            print(
+                "|                                                                          |")
+            print(
+                "|                                1. YES                                    |")
+            print(
+                "|                                2. NO                                     |")
+            print(
+                "|__________________________________________________________________________|")
+            do = 1
+            while(do):
+                try:
+                    xxx = int(input("PLEASE SELECT THE OPTION:..."))
+                    do = 0
+                except ValueError:print("You Entered a string when a integer is required. PLease try again.....")
+
             if xxx == 1:
                 nme = input("| DOCTOR NAME:.. ")
-                print(" __________________________________________________________________________ ")
-                print("|------------------------------CONFIRM-------------------------------------|")
-                print("|                                                                          |")
-                print("|                               1. YES                                     |")
-                print("|                               2. NO                                      |")
-                print("|__________________________________________________________________________|")
-                xxx = int(input("PLEASE CONFIRM..?"))
+                print(
+                    " __________________________________________________________________________ ")
+                print(
+                    "|------------------------------CONFIRM-------------------------------------|")
+                print(
+                    "|                                                                          |")
+                print(
+                    "|                               1. YES                                     |")
+                print(
+                    "|                               2. NO                                      |")
+                print(
+                    "|__________________________________________________________________________|")
+                do = 1
+                while(do):
+                    try:
+                        xxx = int(input("PLEASE CONFIRM..?"))
+                        do = 0
+                    except ValueError:print("You Entered a string when a integer is required. PLease try again.....")
+
                 if xxx == 1:
-                    d1.setdoctorname(nme,name)
+                    super().setdoctorname(nme, did)
+
                     print(" ___________________________________ ")
                     print("| DOCTOR NAME UPDATED SUCCESSFULLY:...|")
-                    d1.getdocdetail(name)
+                    super().getdocdetail(did)
                 elif xxx == 2:
                     print("RETURNING TO PREVIOUS PAGE...PLEASE WAIT..")
                     for i in range(1, 30000000):
@@ -74,8 +102,8 @@ class doctor:
                     pass
 
         elif xx == 2:
-            # did = input("| DOCTOR ID:.. ")
-            d1.getdocdetail(name)
+            did = input("| DOCTOR ID:.. ")
+            super().getdocdetail(did)
             print(
                 " __________________________________________________________________________ ")
             print(
@@ -88,9 +116,24 @@ class doctor:
                 "|                                2. NO                                     |")
             print(
                 "|__________________________________________________________________________|")
-            xxx = int(input("PLEASE SELECT THE OPTION:..."))
+            do = 1
+            while(do):
+                try:
+                    xxx = int(input("PLEASE SELECT THE OPTION:..."))
+                    do = 0
+                except ValueError:print("You Entered a string when a integer is required. PLease try again.....")
+
             if xxx == 1:
-                ageee = input("| DOCTOR AGE:.. ")
+                do = 1
+                while(do):
+                    try:
+                        ageee = int(input("| DOCTOR AGE:.. "))
+                        if (ageee <= 25):
+                            raise Exception("Only positive values are allowed")
+                        do = 0
+                    except ValueError:print("You Entered a string when a integer is required. PLease try again.....")
+                    except: print("only positive values gretor than 25 are allowed")
+
                 print(
                     " __________________________________________________________________________ ")
                 print(
@@ -103,12 +146,19 @@ class doctor:
                     "|                              2. NO                                       |")
                 print(
                     "|__________________________________________________________________________|")
-                xxx = int(input("PLEASE CONFIRM..?"))
+                while(do):
+                    try:
+                        xxx = int(input("PLEASE CONFIRM..?"))
+                        do = 0
+                    except ValueError:print("You Entered a string when a integer is required. PLease try again.....")
+
+
+
                 if xxx == 1:
-                    d1.setdoctorage(ageee, name)
+                    super().setdoctorage(ageee, did)
                     print(" ___________________________________ ")
                     print("| DOCTOR AGE UPDATED SUCCESSFULLY:...|")
-                    d1.getdocdetail(name)
+                    super().getdocdetail(did)
                 elif xxx == 2:
                     print("RETURNING TO PREVIOUS PAGE...PLEASE WAIT..")
                     for i in range(1, 30000000):
@@ -121,10 +171,10 @@ class doctor:
                 print("RETURNING TO PREVIOUS PAGE...PLEASE WAIT..")
                 for i in range(1, 30000000):
                     pass
-                # continue
+                #continue
         elif xx == 3:
-            # did = input("| DOCTOR ID:.. ")
-            d1.getdocdetail(name)
+            did = input("| DOCTOR ID:.. ")
+            super().getdocdetail(did)
             print(
                 " __________________________________________________________________________ ")
             print(
@@ -139,7 +189,17 @@ class doctor:
                 "|__________________________________________________________________________|")
             xxx = int(input("PLEASE SELECT THE OPTION:..."))
             if xxx == 1:
-                phnu = input("| DOCTOR PHONE NUMBER:.. ")
+                do = 1
+                while(do):
+                    try:
+                        phnu = input("| DOCTOR PHONE NUMBER:.. ")
+                        if (phnu >= 100000):
+                            raise Exception("phone no has to be at least of 6 digits")
+                        do = 0
+                    except ValueError:print("You Entered a string when a integer is required. PLease try again.....")
+                    except: print("only positive values gretor than 25 are allowed")
+
+
                 print(
                     " __________________________________________________________________________ ")
                 print(
@@ -154,10 +214,10 @@ class doctor:
                     "|__________________________________________________________________________|")
                 xxx = int(input("PLEASE CONFIRM..?"))
                 if xxx == 1:
-                    d1.setdoctorpno(phnu, name)
+                    super().setdoctorpno(phnu, did)
                     print(" ___________________________________ ")
                     print("| DOCTOR PHONE NUMBER UPDATED SUCCESSFULLY:...|")
-                    d1.getdocdetail(name)
+                    super().getdocdetail(did)
                 elif xxx == 2:
                     print("RETURNING TO PREVIOUS PAGE...PLEASE WAIT..")
                     for i in range(1, 30000000):
@@ -165,15 +225,15 @@ class doctor:
                     #
                 else:
                     print("WRONG OPTION SELECTED...PLEASE TRY AGAIN")
-                    # continue
+                    #continue
             elif xx == 2:
                 print("RETURNING TO PREVIOUS PAGE...PLEASE WAIT..")
                 for i in range(1, 30000000):
                     pass
-                # continue
+                #continue
         elif xx == 4:
-            # did = input("| DOCTOR ID:.. ")
-            d1.getdocdetail(name)
+            did = input("| DOCTOR ID:.. ")
+            super().getdocdetail(did)
             print(
                 " __________________________________________________________________________ ")
             print(
@@ -203,26 +263,26 @@ class doctor:
                     "|__________________________________________________________________________|")
                 xxx = int(input("PLEASE CONFIRM..?"))
                 if xxx == 1:
-                    d1.setdoctoremail(emaii, name)
+                    super().setdoctoremail(emaii, did)
                     print(" ___________________________________ ")
                     print("| DOCTOR EMAIL UPDATED SUCCESSFULLY:...|")
-                    d1.getdocdetail(name)
+                    super().getdocdetail(did)
                 elif xxx == 2:
                     print("RETURNING TO PREVIOUS PAGE...PLEASE WAIT..")
                     for i in range(1, 30000000):
                         pass
-                    # continue
+                    #continue
                 else:
                     print("WRONG OPTION SELECTED...PLEASE TRY AGAIN")
-                    # continue
+                    #continue
             elif xx == 2:
                 print("RETURNING TO PREVIOUS PAGE...PLEASE WAIT..")
                 for i in range(1, 30000000):
                     pass
-                # continue
+                #continue
         elif xx == 5:
-            # did = input("| DOCTOR ID:.. ")
-            d1.getdocdetail(name)
+            did = input("| DOCTOR ID:.. ")
+            super().getdocdetail(did)
             print(
                 " __________________________________________________________________________ ")
             print(
@@ -252,35 +312,34 @@ class doctor:
                     "|__________________________________________________________________________|")
                 xxx = int(input("PLEASE CONFIRM..?"))
                 if xxx == 1:
-                    d1.setdoctoraddr(addre, name)
+                    super().setdoctoraddr(addre, did)
                     print(" ___________________________________ ")
                     print("| DOCTOR ADDRESS UPDATED SUCCESSFULLY:...|")
-                    d1.getdocdetail(name)
+                    super().getdocdetail(did)
                 elif xxx == 2:
                     print("RETURNING TO PREVIOUS PAGE...PLEASE WAIT..")
                     for i in range(1, 30000000):
                         pass
-                    # continue
+                    #continue
                 else:
                     print("WRONG OPTION SELECTED...PLEASE TRY AGAIN")
-                    # continue
+                    #continue
             elif xx == 2:
                 print("RETURNING TO PREVIOUS PAGE...PLEASE WAIT..")
                 for i in range(1, 30000000):
                     pass
-                # continue
+                #continue
         elif xx == 6:
             print("RETURNING TO PREVIOUS PAGE...PLEASE WAIT..")
             for i in range(1, 30000000):
                 pass
-            # continue
+            #continue
         else:
             print("| WRONG CHOICE ENTERED..PLEASE TRY AGAIN")
-            # continue
-
+            #continue
     ######################################################################################################################################
     ######################################################################################################################################
-    def editdocprofdetail(self, d2):
+    def editdocprofdetail(self):
         print(" __________________________________________________________________________ ")
         print("|-----------------DOCTOR'S PROFESSIONAL DETAILS EDIT WINDOW----------------|")
         print("|                                                                          |")
@@ -296,7 +355,7 @@ class doctor:
         xx = int(input("Enter your choice:....."))
         if xx == 1:
             did = input("| DOCTOR ID:.. ")
-            d2.getdocprofessinalall(did)
+            super().getdocprofessinalall(did)
             print(
                 " __________________________________________________________________________ ")
             print(
@@ -326,10 +385,10 @@ class doctor:
                     "|__________________________________________________________________________|")
                 xxx = int(input("PLEASE CONFIRM..?"))
                 if xxx == 1:
-                    d2.setdoctordepartment(dep, did)
+                    super().setdoctordepartment(dep, did)
                     print(" ___________________________________ ")
                     print("| DOCTOR DEPARTMENT UPDATED SUCCESSFULLY:...|")
-                    d2.getdocprofessinalall(did)
+                    super().getdocprofessinalall(did)
                 elif xxx == 2:
                     print("RETURNING TO PREVIOUS PAGE...PLEASE WAIT..")
                     for i in range(1, 30000000):
@@ -342,7 +401,7 @@ class doctor:
                     pass
         elif xx == 2:
             did = input("| DOCTOR ID:.. ")
-            d2.getdocprofessinalall(did)
+            super().getdocprofessinalall(did)
             print(
                 " __________________________________________________________________________ ")
             print(
@@ -372,10 +431,10 @@ class doctor:
                     "|__________________________________________________________________________|")
                 xxx = int(input("PLEASE CONFIRM..?"))
                 if xxx == 1:
-                    d2.setopdstarttime(opdst, did)
+                    super().setopdstarttime(opdst, did)
                     print(" ___________________________________ ")
                     print("| DOCTOR OPD START TIME UPDATED SUCCESSFULLY:...|")
-                    d2.getdocprofessinalall(did)
+                    super().getdocprofessinalall(did)
                 elif xxx == 2:
                     print("RETURNING TO PREVIOUS PAGE...PLEASE WAIT..")
                     for i in range(1, 30000000):
@@ -388,7 +447,7 @@ class doctor:
                     pass
         elif xx == 3:
             did = input("| DOCTOR ID:.. ")
-            d2.getdocprofessinalall(did)
+            super().getdocprofessinalall(did)
             print(
                 " __________________________________________________________________________ ")
             print(
@@ -418,10 +477,10 @@ class doctor:
                     "|__________________________________________________________________________|")
                 xxx = int(input("PLEASE CONFIRM..?"))
                 if xxx == 1:
-                    d2.setopdendttime(opden, did)
+                    super().setopdendttime(opden, did)
                     print(" ___________________________________ ")
                     print("| DOCTOR OPD END TIME UPDATED SUCCESSFULLY:...|")
-                    d2.getdocprofessinalall(did)
+                    super().getdocprofessinalall(did)
                 elif xxx == 2:
                     print("RETURNING TO PREVIOUS PAGE...PLEASE WAIT..")
                     for i in range(1, 30000000):
@@ -434,7 +493,7 @@ class doctor:
                     pass
         elif xx == 4:
             did = input("| DOCTOR ID:.. ")
-            d2.getdocprofessinalall(did)
+            super().getdocprofessinalall(did)
             print(
                 " __________________________________________________________________________ ")
             print(
@@ -464,26 +523,26 @@ class doctor:
                     "|__________________________________________________________________________|")
                 xxx = int(input("PLEASE CONFIRM..?"))
                 if xxx == 1:
-                    d2.setdoctype(dtyp, did)
+                    super().setdoctype(dtyp, did)
                     print(" ___________________________________ ")
                     print("| DOCTOR TYPE UPDATED SUCCESSFULLY:...|")
-                    d2.getdocprofessinalall(did)
+                    super().getdocprofessinalall(did)
                 elif xxx == 2:
                     print("RETURNING TO PREVIOUS PAGE...PLEASE WAIT..")
                     for i in range(1, 30000000):
                         pass
-                    # continue
+                    #continue
                 else:
                     print("WRONG OPTION SELECTED...PLEASE TRY AGAIN")
-                    # continue
+                    #continue
             elif xx == 2:
                 print("RETURNING TO PREVIOUS PAGE...PLEASE WAIT..")
                 for i in range(1, 30000000):
                     pass
-                # continue
+                #continue
         elif xx == 5:
             did = input("| DOCTOR ID:.. ")
-            d2.getdocprofessinalall(did)
+            super().getdocprofessinalall(did)
             print(
                 " __________________________________________________________________________ ")
             print(
@@ -513,26 +572,26 @@ class doctor:
                     "|__________________________________________________________________________|")
                 xxx = int(input("PLEASE CONFIRM..?"))
                 if xxx == 1:
-                    d2.setdocspecialisation(spec, did)
+                    super().setdocspecialisation(spec, did)
                     print(" ___________________________________ ")
                     print("| DOCTOR SPECIALIZATION UPDATED SUCCESSFULLY:...|")
-                    d2.getdocprofessinalall(did)
+                    super().getdocprofessinalall(did)
                 elif xxx == 2:
                     print("RETURNING TO PREVIOUS PAGE...PLEASE WAIT..")
                     for i in range(1, 30000000):
                         pass
-                    # continue
+                    #continue
                 else:
                     print("WRONG OPTION SELECTED...PLEASE TRY AGAIN")
-                    # continue
+                    #continue
             elif xx == 2:
                 print("RETURNING TO PREVIOUS PAGE...PLEASE WAIT..")
                 for i in range(1, 30000000):
                     pass
-                # continue
+                #continue
         elif xx == 6:
             did = input("| DOCTOR ID:.. ")
-            d2.getdocprofessinalall(did)
+            super().getdocprofessinalall(did)
             print(
                 " __________________________________________________________________________ ")
             print(
@@ -562,26 +621,26 @@ class doctor:
                     "|__________________________________________________________________________|")
                 xxx = int(input("PLEASE CONFIRM..?"))
                 if xxx == 1:
-                    d2.setextensionno(extno, did)
+                    super().setextensionno(extno, did)
                     print(" ___________________________________ ")
                     print("| DOCTOR EXTENSION NUMBER UPDATED SUCCESSFULLY:...|")
-                    d2.getdocprofessinalall(did)
+                    super().getdocprofessinalall(did)
                 elif xxx == 2:
                     print("RETURNING TO PREVIOUS PAGE...PLEASE WAIT..")
                     for i in range(1, 30000000):
                         pass
-                    # continue
+                    #continue
                 else:
                     print("WRONG OPTION SELECTED...PLEASE TRY AGAIN")
-                    # continue
+                    #continue
             elif xx == 2:
                 print("RETURNING TO PREVIOUS PAGE...PLEASE WAIT..")
                 for i in range(1, 30000000):
                     pass
-                # continue
+                #continue
         elif xx == 7:
             did = input("| DOCTOR ID:.. ")
-            d2.getdocprofessinalall(did)
+            super().getdocprofessinalall(did)
             print(
                 " __________________________________________________________________________ ")
             print(
@@ -611,54 +670,51 @@ class doctor:
                     "|__________________________________________________________________________|")
                 xxx = int(input("PLEASE CONFIRM..?"))
                 if xxx == 1:
-                    d2.setroomno(rmno, did)
+                    super().setroomno(rmno, did)
                     print(" ___________________________________ ")
                     print("| DOCTOR ROOM NUMBER UPDATED SUCCESSFULLY:...|")
-                    d2.getdocprofessinalall(did)
+                    super().getdocprofessinalall(did)
                 elif xxx == 2:
                     print("RETURNING TO PREVIOUS PAGE...PLEASE WAIT..")
                     for i in range(1, 30000000):
                         pass
-                    # continue
+                    #continue
                 else:
                     print("WRONG OPTION SELECTED...PLEASE TRY AGAIN")
-                    # continue
+                    #continue
             elif xx == 2:
                 print("RETURNING TO PREVIOUS PAGE...PLEASE WAIT..")
                 for i in range(1, 30000000):
                     pass
-                # continue
+                #continue
         elif xx == 8:
             print("RETURNING TO PREVIOUS PAGE...PLEASE WAIT..")
             for i in range(1, 30000000):
                 pass
-            # continue
         else:
             print("| WRONG CHOICE ENTERED..PLEASE TRY AGAIN")
-            # continue
-
-    def enterhod(self):
-        pass
-
-    def patientviewed(self, did):
-        x = input(" ENTER THE PATIENT ID VIEWED")
-        cursor.execute("DELETE FROM `db`.`doctor_assignment` WHERE PAT_ID = '" + x + "';")
+    def patientviewed(self,did):
+        x =  input(" ENTER THE PATEINT ID VIEWED")
+        cursor.execute("DELETE FROM `mydb`.`doctor_assignment` WHERE PAT_ID = '"+x+"';")
         db.commit()
-        cursor.execute(
-            "SELECT Ref_ID FROM `db`.`patient_medical_history` WHERE PAT_ID = '" + x + "' ORDER BY Ref_ID DESC LIMIT 1")
-        aa = cursor.fetchone()
-        rid = aa[0]
-        cursor.execute("SELECT D_Department FROM `db`.`doctor_professional_details` WHERE D_DID = '" + did + "';")
-        aa = cursor.fetchone()
+        cursor.execute("SELECT Ref_ID FROM `mydb`.`patient_medical_history` WHERE PAT_ID = '"+x+"' ORDER BY Ref_ID DESC LIMIT 1")
+        aa=cursor.fetchone()
+        rid=aa[0]
+        cursor.execute("SELECT D_Department FROM `mydb`.`doctor_professional_details` WHERE D_DID = '"+did+"';" )
+        aa=cursor.fetchone()
         dep = aa[0]
-        pres = input("ENTER THE PRESCRIPTION")
-        dis = input("ENTER THE DISEASE")
-        dov = input("ENTER THE DAY OF VISIT")
-        dod = input("ENTER THE DAY OF DISCHARGE")
-        tov = input("ENTER THE TIME OF VISIT")
-        tod = input("ENTER THE TIME OF DISCHARGE")
-        test = input("ENTER  test")
-        sql = "INSERT INTO `db`.`patient_medical_history`(`Ref_ID`,`Pat_ID`,`Prescription`,`Past_Reports`,`dayofvisit`,`timeofvisit`,`dayofdischarge`,`dischargetime`,`department`,`d_id`,`disease`,`test`) VALUES ('%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s')"
-        val = (rid, x, pres, '', dov, tov, dod, tod, dep, did, dis, test)
+        pres=input("ENTER THE PRESCRIPTION")
+        dis=input("ENTER THE DISEASE")
+        dov=input("ENTER THE DAY OF VISIT")
+        dod=input("ENTER THE DAY OF DISCHARGE")
+        tov=input("ENTER THE TIME OF VISIT")
+        tod=input("ENTER THE TIME OF DISCHARGE")
+        test=input("ENTER  test")
+        sql="INSERT INTO `mydb`.`patient_medical_history`(`Ref_ID`,`Pat_ID`,`Prescription`,`Past_Reports`,`dayofvisit`,`timeofvisit`,`dayofdischarge`,`dischargetime`,`department`,`d_id`,`disease`,`test`) VALUES ('%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s')"
+        val = (rid,x,pres,'',dov,tov,dod,tod,dep,did,dis,test)
         cursor.execute(sql % val)
         db.commit()
+    #
+    #
+# d1 = doctor()
+# d1.editdetail()
